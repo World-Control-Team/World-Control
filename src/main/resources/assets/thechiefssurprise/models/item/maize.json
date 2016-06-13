@@ -1,6 +1,0 @@
-{
-	"parent": "thechiefssurprise:item/base",
-	"textures": {
-		"layer0": "thechiefssurprise:items/maize"
-	}
-}

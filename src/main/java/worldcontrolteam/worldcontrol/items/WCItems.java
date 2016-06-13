@@ -1,13 +1,13 @@
-package xbony2.thechiefssurprise.items;
+package worldcontrolteam.worldcontrol.items;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CSItems {
-	public static Item maize;
+public class WCItems {
+	public static Item kit;
 	
 	public static void registerItems(){
-		maize = new CSFood("maize", 2);
+		kit = new WCBaseItem("kit");
 	}
 }

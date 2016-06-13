@@ -1,4 +1,4 @@
-package xbony2.thechiefssurprise;
+package worldcontrolteam.worldcontrol;
 
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
@@ -7,32 +7,32 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import xbony2.thechiefssurprise.items.CSItems;
+import worldcontrolteam.worldcontrol.items.WCItems;
 
-@Mod(modid = TheChiefsSurprise.MODID, version = "@VERSION@")
-public class TheChiefsSurprise{
+@Mod(modid = WorldControl.MODID, version = "@VERSION@")
+public class WorldControl{
 	
-	public static final String MODID = "thechiefssurprise";
+	public static final String MODID = "worldcontrol";
 	
-	public static CSCreativeTab tab = new CSCreativeTab();
+	public static WCCreativeTab tab = new WCCreativeTab();
 	
-	public static Side side;
+	public static Side side; //As in client vs server
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		CSUtility.info("We are in pre-init!");
+		WCUtility.info("We are in pre-init!");
 		side = event.getSide();
 		
-		CSItems.registerItems();
+		WCItems.registerItems();
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-		CSUtility.info("We are in init!");
+		WCUtility.info("We are in init!");
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event){
-		CSUtility.info("We are in post-init!");
+		WCUtility.info("We are in post-init!");
 	}
 }

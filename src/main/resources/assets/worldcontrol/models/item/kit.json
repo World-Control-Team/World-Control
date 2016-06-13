@@ -1,0 +1,6 @@
+{
+	"parent": "worldcontrol:item/base",
+	"textures": {
+		"layer0": "worldcontrol:items/kit"
+	}
+}

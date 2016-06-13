@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.0a" //newTheChiefsSurpriseVersion
-group = "xbony2.thechiefssurprise"
-archivesBaseName = "thechiefssurprise"
+version = "1.0.0a" //newWorldControlVersion
+group = "worldcontrolteam.worldcontrol"
+archivesBaseName = "worldcontrol"
 
 repositories {
 	maven {
