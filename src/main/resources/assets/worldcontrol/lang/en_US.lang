@@ -1,3 +1,7 @@
-wcmsg.creativetab=World Control
+msg.worldcontrol.creativetab=World Control
 
 item.worldcontrol.kit.name=Kit
+item.worldcontrol.card.name=Card
+
+msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
+msg.worldcontrol.card.nocords=Missing cords.

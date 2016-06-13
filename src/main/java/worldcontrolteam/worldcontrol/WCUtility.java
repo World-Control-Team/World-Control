@@ -23,10 +23,18 @@ public class WCUtility {
 	}
 	
 	public static String translate(String key){
-		key = "wcmsg." + key;
+		key = "msg.worldcontrol." + key;
 		if(I18n.canTranslate(key))//TODO: used undepreciated methods
 			return I18n.translateToLocal(key);
 		else
 			return I18n.translateToFallback(key);
+	}
+	
+	public static String translateFormatted(String key, Object... format){
+		key = "msg.worldcontrol." + key;
+		if(I18n.canTranslate(key))//TODO: used undepreciated methods
+			return String.format(I18n.translateToLocal(key), format);//I18n.translateToLocalFormatted(key, format);
+		else
+			return String.format(I18n.translateToFallback(key), format);
 	}
 }
