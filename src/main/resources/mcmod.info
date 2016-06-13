@@ -1,0 +1,16 @@
+[
+{
+    "modid": "TheChiefsSurprise",
+    "name": "The Chief's Surprise",
+    "description": "A mod adding a few simple foods that the Chief would approve of.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["Xbony2"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+}
+]
