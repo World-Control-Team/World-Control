@@ -4,4 +4,4 @@ item.worldcontrol.kit.name=Kit
 item.worldcontrol.card.name=Card
 
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
-msg.worldcontrol.card.nocords=Missing cords.
+msg.worldcontrol.card.nocords=Missing cordinates
