@@ -7,9 +7,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class WCItems {
 	public static Item kit;
 	public static Item card;
+	public static Item thermometer;
 	
 	public static void registerItems(){
 		kit = new ItemKit();
 		card = new ItemCard();
+		thermometer = new ItemThermometer();
 	}
 }

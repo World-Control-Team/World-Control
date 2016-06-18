@@ -9,7 +9,7 @@ import worldcontrolteam.worldcontrol.WorldControl;
 
 public class WCBaseItem extends Item {
 	public WCBaseItem(String name){
-		this.setCreativeTab(WorldControl.tab);
+		this.setCreativeTab(WorldControl.TAB);
 		this.setRegistryName("worldcontrol." + name);
 		this.setUnlocalizedName("worldcontrol." + name);
 		

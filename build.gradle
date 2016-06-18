@@ -39,6 +39,7 @@ minecraft {
 dependencies {
 	//deobfCompile "mezz.jei:jei_1.9:${jeiVersion}"
 	deobfCompile "mezz.jei:jei_1.9.4:3.6.3.212"
+	compile files("libs/industrialcraft-2-2.5.6-ex19.jar")
 }
 
 processResources {
