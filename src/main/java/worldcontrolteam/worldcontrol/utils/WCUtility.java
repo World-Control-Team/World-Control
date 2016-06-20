@@ -1,9 +1,10 @@
-package worldcontrolteam.worldcontrol;
+package worldcontrolteam.worldcontrol.utils;
 
 import org.apache.logging.log4j.Level;
 
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.FMLLog;
+import worldcontrolteam.worldcontrol.WorldControl;
 
 public class WCUtility {
 	public static void log(Level logLevel, Object object){

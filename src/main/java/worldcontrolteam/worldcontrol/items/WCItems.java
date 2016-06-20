@@ -8,10 +8,14 @@ public class WCItems {
 	public static Item kit;
 	public static Item card;
 	public static Item thermometer;
+	public static Item cardTime;
+	public static Item remotePanel;
 	
 	public static void registerItems(){
 		kit = new ItemKit();
 		card = new ItemCard();
 		thermometer = new ItemThermometer();
+		cardTime = new ItemCardTime();
+		remotePanel = new ItemRemotePanel();
 	}
 }
