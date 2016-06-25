@@ -7,13 +7,12 @@ import worldcontrolteam.worldcontrol.network.messages.PacketClientRemotePanel;
 import worldcontrolteam.worldcontrol.network.messages.PacketServerRemotePanel;
 
 public class ChannelHandler {
-    public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");
+	public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");
 
-    public static void init() {
-        network.registerMessage(PacketServerRemotePanel.Handler.class, PacketServerRemotePanel.class, 0, Side.SERVER);
-        network.registerMessage(PacketClientRemotePanel.Handler.class, PacketClientRemotePanel.class, 1, Side.CLIENT);
+	public static void init() {
+		network.registerMessage(PacketServerRemotePanel.Handler.class, PacketServerRemotePanel.class, 0, Side.SERVER);
+		network.registerMessage(PacketClientRemotePanel.Handler.class, PacketClientRemotePanel.class, 1, Side.CLIENT);
 
-    }
-
+	}
 
 }

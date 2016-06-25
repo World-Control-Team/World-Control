@@ -24,51 +24,50 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 import java.util.ArrayList;
 
 @Mod(modid = WorldControl.MODID, version = "@VERSION@")
-public class WorldControl{
+public class WorldControl {
 
 	@Mod.Instance(value = "worldcontrol")
 	public static WorldControl instance;
 
-
 	public static final String MODID = "worldcontrol";
-	
+
 	public static WCCreativeTab TAB = new WCCreativeTab();
-	
-	public static Side side; //As in client vs server
+
+	public static Side side; // As in client vs server
 
 	protected static ArrayList<IHeatSeeker> heatTypez = new ArrayList<IHeatSeeker>();
 
 	private Modules modules = new Modules();
-	
+
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
+	public void preInit(FMLPreInitializationEvent event) {
 		WCUtility.info("We are in pre-init!");
 		side = event.getSide();
 		WorldControlAPI.init(new WCapiImpl());
-		
+
 		WCItems.registerItems();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		ChannelHandler.init();
 		modules.preInit();
 	}
-	
+
 	@EventHandler
-	public void init(FMLInitializationEvent event){
+	public void init(FMLInitializationEvent event) {
 		WCUtility.info("We are in init!");
 
 		modules.init();
 
-		((ItemThermometer)WCItems.thermometer).addInHeatTypes(heatTypez);
+		((ItemThermometer) WCItems.thermometer).addInHeatTypes(heatTypez);
 
 		if(event.getSide() == Side.CLIENT){
-			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor(){
 				@Override
 				public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-					if(tintIndex == 1) {
+					if(tintIndex == 1){
 						InventoryItem inv = new InventoryItem(stack);
-						if (inv.getStackInSlot(0) != null) {
-							if (inv.getStackInSlot(0).getItem() instanceof IProviderCard) {
+						if(inv.getStackInSlot(0) != null){
+							if(inv.getStackInSlot(0).getItem() instanceof IProviderCard){
 								return ((IProviderCard) inv.getStackInSlot(0).getItem()).getCardColor();
 							}
 						}
@@ -78,9 +77,9 @@ public class WorldControl{
 			}, WCItems.remotePanel);
 		}
 	}
-	
+
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event){
+	public void postInit(FMLPostInitializationEvent event) {
 		WCUtility.info("We are in post-init!");
 
 		modules.postInit();

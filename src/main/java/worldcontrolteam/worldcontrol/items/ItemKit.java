@@ -13,19 +13,19 @@ import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
 public class ItemKit extends WCBaseItem {
 
-	public ItemKit(){
+	public ItemKit() {
 		super("kit");
 	}
-	
+
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack card = new ItemStack(WCItems.card);
 		NBTTagCompound nbt = new NBTTagCompound();
 
 		NBTUtils.writeBlockPos(nbt, pos);
 
 		card.setTagCompound(nbt);
-		
+
 		player.inventory.mainInventory[player.inventory.currentItem] = card;
 		return EnumActionResult.SUCCESS;
 	}

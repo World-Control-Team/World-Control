@@ -6,7 +6,9 @@ import net.minecraft.world.World;
 
 public interface IHeatSeeker {
 
-    int getHeat(World world, BlockPos pos, TileEntity entity);
-    boolean canUse(World world, BlockPos pos, TileEntity tile);
-    String getUnloalizedName();
+	int getHeat(World world, BlockPos pos, TileEntity entity);
+
+	boolean canUse(World world, BlockPos pos, TileEntity tile);
+
+	String getUnloalizedName();
 }

@@ -5,9 +5,8 @@ import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 
 public class WCapiImpl implements WorldControlAPI.IWorldControlAPI {
 
-
-    @Override
-    public void addThermometerModule(IHeatSeeker m) {
-        WorldControl.heatTypez.add(m);
-    }
+	@Override
+	public void addThermometerModule(IHeatSeeker m) {
+		WorldControl.heatTypez.add(m);
+	}
 }

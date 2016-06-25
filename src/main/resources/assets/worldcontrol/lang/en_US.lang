@@ -2,14 +2,17 @@ msg.worldcontrol.creativetab=World Control
 
 item.worldcontrol.kit.name=Kit
 item.worldcontrol.card.name=Card
-item.worldcontrol.thermo_base.name=Unset Thermometer
+item.worldcontrol.thermometer.name=Thermometer
 
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates
 
-#Thermo Types
-item.thermo.tooltip=Contains %s module(s)
-item.thermo.chatInfo=Hull Heat: %s
-item.thermo.IC2=IC2 Thermometer
 
 msg.panelDisplay.Time=Time: %s
+
+msg.worldcontrol.thermometer.chatInfo=Heat: %s
+
+msg.worldcontrol.thermometer.mode=Mode: %s
+msg.worldcontrol.thermometer.unset=Unset
+
+msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2

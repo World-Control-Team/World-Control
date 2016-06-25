@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface IProviderCard {
 
-    CardState update(World world, ItemStack card);
+	CardState update(World world, ItemStack card);
 
-    List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels);
+	List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels);
 
-    List<String> getGuiData();
+	List<String> getGuiData();
 
-    @SideOnly(Side.CLIENT)
-    int getCardColor();
+	@SideOnly(Side.CLIENT)
+	int getCardColor();
 }

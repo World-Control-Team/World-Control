@@ -23,33 +23,33 @@ import javax.annotation.Nullable;
 
 public class ItemRemotePanel extends WCBaseItem {
 
+	public ItemRemotePanel() {
+		super("remotePanel");
 
-    public ItemRemotePanel(){
-       super("remotePanel");
+		this.addPropertyOverride(new ResourceLocation("noCard"), new IItemPropertyGetter(){
+			@Override
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				InventoryItem inv = new InventoryItem(stack);
+				if(inv.getStackInSlot(0) == null){
+					return 1;
+				}
+				return 0;
+			}
+		});
+	}
 
-        this.addPropertyOverride(new ResourceLocation("noCard"), new IItemPropertyGetter() {
-            @Override
-            public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-                InventoryItem inv = new InventoryItem(stack);
-                if (inv.getStackInSlot(0) == null) {
-                        return 1;
-                }
-                return 0;
-            }
-        });
-    }
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(!player.isSneaking()){
+			player.openGui(WorldControl.instance, GuiLib.REMOTE_PANEL, world, 0, 0, 0);
+			return new ActionResult(EnumActionResult.SUCCESS, stack);
+		}
+		return new ActionResult(EnumActionResult.SUCCESS, stack);
+	}
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand)
-    {
-        if(!player.isSneaking()) {
-           player.openGui(WorldControl.instance, GuiLib.REMOTE_PANEL, world, 0, 0, 0);
-            return new ActionResult(EnumActionResult.SUCCESS, stack);
-        }
-        return new ActionResult(EnumActionResult.SUCCESS, stack);
-    }
-    @Override
-    public int getMaxItemUseDuration(ItemStack stack) {return 1;
-    }
+	@Override
+	public int getMaxItemUseDuration(ItemStack stack) {
+		return 1;
+	}
 
 }
