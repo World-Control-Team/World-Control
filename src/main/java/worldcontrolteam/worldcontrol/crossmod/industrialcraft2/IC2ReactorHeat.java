@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.crossmod.IndustrialCraft;
+package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
 import ic2.api.reactor.IReactor;
 import net.minecraft.tileentity.TileEntity;

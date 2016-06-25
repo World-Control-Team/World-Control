@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.crossmod.IndustrialCraft;
+package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.crossmod.ModuleBase;

@@ -1,7 +1,7 @@
 package worldcontrolteam.worldcontrol.crossmod;
 
 import net.minecraftforge.fml.common.Loader;
-import worldcontrolteam.worldcontrol.crossmod.IndustrialCraft.IC2Module;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.IC2Module;
 
 import java.util.ArrayList;
 
