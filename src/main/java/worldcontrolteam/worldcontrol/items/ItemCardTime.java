@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.List;
 
@@ -23,13 +24,13 @@ public class ItemCardTime extends ItemBaseCard {
 		String suffix = "";
 
 		// if ((displaySettings & MODE_24H) == 0) {
-		suffix = hours < 12 ? "AM" : "PM";
+		suffix = hours < 12 ? "AM" : "PM"; //TODO: localize?
 		hours %= 12;
 		if(hours == 0)
 			hours += 12;
 		// }
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString("time", String.format("%02d:%02d%s", hours, minutes, suffix));
+		tag.setString("time", String.format("%02d:%02d %s", hours, minutes, suffix));
 		card.setTagCompound(tag);
 		return CardState.OK;
 	}
@@ -37,7 +38,7 @@ public class ItemCardTime extends ItemBaseCard {
 	@Override
 	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels) {
 		StringWrapper text = new StringWrapper();
-		text.textLeft = I18n.format("msg.panelDisplay.Time", card.getTagCompound().getString("time"));
+		text.textLeft = WCUtility.translateFormatted("timecard.time", card.getTagCompound().getString("time"));
 		list.add(text);
 		return list;
 	}

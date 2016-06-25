@@ -3,12 +3,11 @@ msg.worldcontrol.creativetab=World Control
 item.worldcontrol.kit.name=Kit
 item.worldcontrol.card.name=Card
 item.worldcontrol.thermometer.name=Thermometer
+item.worldcontrol.timecard.name=Time Card
+item.worldcontrol.remotePanel.name=Portable Information Panel
 
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates
-
-
-msg.panelDisplay.Time=Time: %s
 
 msg.worldcontrol.thermometer.chatInfo=Heat: %s
 
@@ -16,3 +15,5 @@ msg.worldcontrol.thermometer.mode=Mode: %s
 msg.worldcontrol.thermometer.unset=Unset
 
 msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
+
+msg.worldcontrol.timecard.time=Time: %s
