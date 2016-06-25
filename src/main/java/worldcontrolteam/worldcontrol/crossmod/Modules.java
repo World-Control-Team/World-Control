@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class Modules {
 
-    private static final ArrayList<ModuleBase> modules = new ArrayList<>();
-
+    private static final ArrayList<ModuleBase> modules = new ArrayList<ModuleBase>();
 
     public Modules(){
         modules.add(new IC2Module());
