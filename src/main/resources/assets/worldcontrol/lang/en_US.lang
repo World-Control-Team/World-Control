@@ -9,11 +9,18 @@ item.worldcontrol.remotePanel.name=Portable Information Panel
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates
 
+#Thermometer
 msg.worldcontrol.thermometer.chatInfo=Heat: %s
-
 msg.worldcontrol.thermometer.mode=Mode: %s
 msg.worldcontrol.thermometer.unset=Unset
-
 msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
 
+#Card Strings
 msg.worldcontrol.timecard.time=Time: %s
+msg.worldcontrol.InfoPanelOn=On
+msg.worldcontrol.InfoPanelOff=Off
+msg.worldcontrol.InfoPanelHeat=T: %s
+msg.worldcontrol.InfoPanelMaxHeat=MaxHeat: %s
+msg.worldcontrol.InfoPanelMelting=Melting: %s
+msg.worldcontrol.InfoPanelOutput=Output: %s EU/t
+msg.worldcontrol.InfoPanelTimeRemaining=Remaining: %s

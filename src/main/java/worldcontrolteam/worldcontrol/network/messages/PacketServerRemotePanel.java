@@ -62,9 +62,11 @@ public class PacketServerRemotePanel implements IMessage {
 					if(stack.hasTagCompound()){
 						// NCLog.fatal(helper.getUpdateSet().entrySet());
 						ItemStack stackz = itemInv.getStackInSlot(0).copy();
-						stackz.setTagCompound(stack.getTagCompound());
-						itemInv.setInventorySlotContents(0, stackz);
-						return new PacketClientRemotePanel(stack);
+						if(stackz.getItem().equals(stack.getItem())) {
+							stackz.setTagCompound(stack.getTagCompound());
+							itemInv.setInventorySlotContents(0, stackz);
+							return new PacketClientRemotePanel(stack);
+						}
 					}
 				}
 			}

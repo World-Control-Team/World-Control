@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.crossmod;
+package worldcontrolteam.worldcontrol.api.core;
 
 public abstract class ModuleBase {
 

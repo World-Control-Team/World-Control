@@ -54,7 +54,7 @@ public class GuiRemotePanel extends GuiContainer {
 		boolean anyCardFound = true;
 		InventoryItem itemInv = new InventoryItem(e.getHeldItemMainhand());
 
-		if(inv.getStackInSlot(0) != null && itemInv.getStackInSlot(0) != null && inv.getStackInSlot(0).getItem() instanceof IProviderCard){
+		if(inv.getStackInSlot(0) != null && itemInv.getStackInSlot(0) != null && itemInv.getStackInSlot(0).getItem() instanceof IProviderCard){
 			IProviderCard card = (IProviderCard) inv.getStackInSlot(0).getItem();
 			// CardWrapperImpl helper = new
 			// CardWrapperImpl(itemInv.getStackInSlot(0), 0);
@@ -62,7 +62,7 @@ public class GuiRemotePanel extends GuiContainer {
 			ChannelHandler.network.sendToServer(new PacketServerRemotePanel(inv.getStackInSlot(0)));
 
 			if(true){
-				if(inv.getStackInSlot(0).hasTagCompound()){
+				if(itemInv.getStackInSlot(0).hasTagCompound()){
 					joinedData = card.getStringData(new LinkedList<StringWrapper>(), 0, itemInv.getStackInSlot(0), true);
 				}else{
 					joinedData = getRemoteCustomMSG();

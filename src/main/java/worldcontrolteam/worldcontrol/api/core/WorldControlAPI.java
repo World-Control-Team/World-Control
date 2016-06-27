@@ -13,6 +13,8 @@ public class WorldControlAPI {
 		 */
 		public void addThermometerModule(IHeatSeeker m);
 
+		public void removeModule(Class<? extends ModuleBase> mod);
+
 	}
 
 	public static IWorldControlAPI instance;
