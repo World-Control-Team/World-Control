@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Modules {
 
-	private static  ArrayList<Class<? extends ModuleBase>> modules = new ArrayList<>();
+	private static  ArrayList<Class<? extends ModuleBase>> modules = new ArrayList<Class<? extends ModuleBase>>();
 
 	public Modules() {
 		modules.add(IC2Module.class);
@@ -25,7 +25,9 @@ public class Modules {
 				if(Loader.isModLoaded(moz.modID())){
 					moz.preInit();
 				}
-			} catch (InstantiationException | IllegalAccessException e) {
+			}catch (InstantiationException e){
+				e.printStackTrace();
+			}catch(IllegalAccessException e){
 				e.printStackTrace();
 			}
 		}
@@ -38,8 +40,10 @@ public class Modules {
 				if(Loader.isModLoaded(moz.modID())){
 					moz.init();
 				}
-			} catch (InstantiationException | IllegalAccessException e) {
+			}catch (InstantiationException e){
 				e.printStackTrace();
+			}catch(IllegalAccessException e){
+				
 			}
 		}
 	}
@@ -51,7 +55,9 @@ public class Modules {
 				if (Loader.isModLoaded(moz.modID())) {
 					moz.postInit();
 				}
-			} catch (InstantiationException | IllegalAccessException e) {
+			}catch (InstantiationException e){
+				e.printStackTrace();
+			}catch(IllegalAccessException e){
 				e.printStackTrace();
 			}
 		}
