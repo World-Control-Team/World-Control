@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.client;
+package worldcontrolteam.worldcontrol.utils;
 
 public class GuiLib {
 

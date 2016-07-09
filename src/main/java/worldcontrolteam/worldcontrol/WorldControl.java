@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
-import worldcontrolteam.worldcontrol.client.GuiHandler;
+import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.crossmod.Modules;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.items.ItemThermometer;
@@ -37,7 +37,7 @@ public class WorldControl {
 
 	protected static ArrayList<IHeatSeeker> heatTypez = new ArrayList<IHeatSeeker>();
 
-	private Modules modules = new Modules();
+	public static Modules modules = new Modules();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {

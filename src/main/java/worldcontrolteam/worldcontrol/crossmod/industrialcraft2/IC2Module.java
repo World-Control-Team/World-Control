@@ -1,6 +1,8 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
@@ -31,5 +33,15 @@ public class IC2Module extends ModuleBase {
 	@Override
 	public String modID() {
 		return "IC2";
+	}
+
+	@Override
+	public Object handleServerGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return null;
+	}
+
+	@Override
+	public Object handleClientGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return null;
 	}
 }

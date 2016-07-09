@@ -1,10 +1,12 @@
-package worldcontrolteam.worldcontrol.client;
+package worldcontrolteam.worldcontrol.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
-import worldcontrolteam.worldcontrol.client.GuiLib;
+import worldcontrolteam.worldcontrol.WorldControl;
+import worldcontrolteam.worldcontrol.crossmod.Modules;
+import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.client.gui.GuiRemotePanel;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
@@ -16,7 +18,8 @@ public class GuiHandler implements IGuiHandler {
 		if(ID == GuiLib.REMOTE_PANEL){
 			return new ContainerRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()));
 		}
-		return null;
+		//ALWAY KEEP THIS AS LAST CALL
+		return WorldControl.modules.guiHandlerServer(ID, player, world, x, y, z);
 	}
 
 	@Override
@@ -24,6 +27,7 @@ public class GuiHandler implements IGuiHandler {
 		if(ID == GuiLib.REMOTE_PANEL){
 			return new GuiRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()), player);
 		}
-		return null;
+		//ALWAY KEEP THIS AS LAST CALL
+		return WorldControl.modules.guiHandlerClient(ID, player, world, x, y, z);
 	}
 }
