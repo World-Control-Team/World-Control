@@ -31,7 +31,7 @@ public class GuiRemotePanel extends GuiContainer {
 	}
 
 	@Override
-	public void initGui() {
+	public void initGui(){
 		super.initGui();
 		this.xSize += 50;
 		this.mc.thePlayer.openContainer = this.inventorySlots;
@@ -40,7 +40,7 @@ public class GuiRemotePanel extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+	protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3){
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		this.mc.renderEngine.bindTexture(new ResourceLocation("worldcontrol", "textures/gui/GUIRemotePanel.png"));
 		int x = (width - xSize) / 2;
@@ -49,7 +49,7 @@ public class GuiRemotePanel extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
+	protected void drawGuiContainerForegroundLayer(int par1, int par2){
 		List<StringWrapper> joinedData = new LinkedList<StringWrapper>();
 		boolean anyCardFound = true;
 		InventoryItem itemInv = new InventoryItem(e.getHeldItemMainhand());
@@ -73,7 +73,7 @@ public class GuiRemotePanel extends GuiContainer {
 		}
 	}
 
-	private List<StringWrapper> getRemoteCustomMSG() {
+	private List<StringWrapper> getRemoteCustomMSG(){
 		StringWrapper line = new StringWrapper();
 		List<StringWrapper> result = new LinkedList<StringWrapper>();
 		line.textCenter = I18n.format("nc.msg.notValid");
@@ -90,7 +90,7 @@ public class GuiRemotePanel extends GuiContainer {
 		return result;
 	}
 
-	private void drawCardStuff(Boolean anyCardFound, List<StringWrapper> joinedData) {
+	private void drawCardStuff(Boolean anyCardFound, List<StringWrapper> joinedData){
 		if(!anyCardFound){
 			WCUtility.error("This should never happen. If you see this report immediately to NC2 repo. Include GuiRemoteMonitorError-123 in the report!");
 			return;
@@ -111,7 +111,7 @@ public class GuiRemotePanel extends GuiContainer {
 		}
 	}
 
-	public void updateScreen() {
+	public void updateScreen(){
 		super.updateScreen();
 
 		if(this.e.getHeldItemMainhand() == null)

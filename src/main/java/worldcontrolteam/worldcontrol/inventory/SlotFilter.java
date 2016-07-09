@@ -14,7 +14,7 @@ public class SlotFilter extends Slot {
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemStack) {
+	public boolean isItemValid(ItemStack itemStack){
 		if(inventory instanceof ISlotItemFilter)
 			return ((ISlotItemFilter) inventory).isItemValid(slotIndex, itemStack);
 		return super.isItemValid(itemStack);

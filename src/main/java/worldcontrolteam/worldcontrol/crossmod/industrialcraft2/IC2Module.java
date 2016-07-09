@@ -12,24 +12,24 @@ public class IC2Module extends ModuleBase {
 	public static Item reactorCard;
 
 	@Override
-	public void preInit() {
+	public void preInit(){
 		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
 		reactorKit = new IC2ReactorKit();
 		reactorCard = new IC2ReactorCard();
 	}
 
 	@Override
-	public void init() {
+	public void init(){
 
 	}
 
 	@Override
-	public void postInit() {
+	public void postInit(){
 
 	}
 
 	@Override
-	public String modID() {
+	public String modID(){
 		return "IC2";
 	}
 }

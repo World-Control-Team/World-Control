@@ -5,6 +5,8 @@ item.worldcontrol.card.name=Card
 item.worldcontrol.thermometer.name=Thermometer
 item.worldcontrol.timecard.name=Time Card
 item.worldcontrol.remotePanel.name=Portable Information Panel
+item.worldcontrol.IC2ReactorCard.name=Reactor Card
+item.worldcontrol.IC2ReactorKit.name=Reactor Kit
 
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates

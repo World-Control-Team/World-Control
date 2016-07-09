@@ -17,14 +17,14 @@ public class ItemCardTime extends ItemBaseCard {
 	}
 
 	@Override
-	public CardState update(World world, ItemStack card) {
+	public CardState update(World world, ItemStack card){
 		int time = (int) ((world.getWorldTime() + 6000) % 24000);
 		int hours = time / 1000;
 		int minutes = (time % 1000) * 6 / 100;
 		String suffix = "";
 
 		// if ((displaySettings & MODE_24H) == 0) {
-		suffix = hours < 12 ? "AM" : "PM"; //TODO: localize?
+		suffix = hours < 12 ? "AM" : "PM"; // TODO: localize?
 		hours %= 12;
 		if(hours == 0)
 			hours += 12;
@@ -36,7 +36,7 @@ public class ItemCardTime extends ItemBaseCard {
 	}
 
 	@Override
-	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels) {
+	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels){
 		StringWrapper text = new StringWrapper();
 		text.textLeft = WCUtility.translateFormatted("timecard.time", card.getTagCompound().getString("time"));
 		list.add(text);
@@ -44,12 +44,12 @@ public class ItemCardTime extends ItemBaseCard {
 	}
 
 	@Override
-	public List<String> getGuiData() {
+	public List<String> getGuiData(){
 		return null;
 	}
 
 	@Override
-	public int getCardColor() {
+	public int getCardColor(){
 		return 14602026;
 	}
 

@@ -40,7 +40,7 @@ public class WorldControl {
 	private Modules modules = new Modules();
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event){
 		WCUtility.info("We are in pre-init!");
 		side = event.getSide();
 		WorldControlAPI.init(new WCapiImpl());
@@ -53,7 +53,7 @@ public class WorldControl {
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event){
 		WCUtility.info("We are in init!");
 
 		modules.init();
@@ -63,7 +63,7 @@ public class WorldControl {
 		if(event.getSide() == Side.CLIENT){
 			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor(){
 				@Override
-				public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				public int getColorFromItemstack(ItemStack stack, int tintIndex){
 					if(tintIndex == 1){
 						InventoryItem inv = new InventoryItem(stack);
 						if(inv.getStackInSlot(0) != null){
@@ -79,7 +79,7 @@ public class WorldControl {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
+	public void postInit(FMLPostInitializationEvent event){
 		WCUtility.info("We are in post-init!");
 
 		modules.postInit();

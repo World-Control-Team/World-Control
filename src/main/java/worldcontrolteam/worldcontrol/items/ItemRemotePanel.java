@@ -28,7 +28,7 @@ public class ItemRemotePanel extends WCBaseItem {
 
 		this.addPropertyOverride(new ResourceLocation("noCard"), new IItemPropertyGetter(){
 			@Override
-			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn){
 				InventoryItem inv = new InventoryItem(stack);
 				if(inv.getStackInSlot(0) == null){
 					return 1;
@@ -39,7 +39,7 @@ public class ItemRemotePanel extends WCBaseItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
 		if(!player.isSneaking()){
 			player.openGui(WorldControl.instance, GuiLib.REMOTE_PANEL, world, 0, 0, 0);
 			return new ActionResult(EnumActionResult.SUCCESS, stack);
@@ -48,7 +48,7 @@ public class ItemRemotePanel extends WCBaseItem {
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack stack) {
+	public int getMaxItemUseDuration(ItemStack stack){
 		return 1;
 	}
 

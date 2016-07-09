@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Modules {
 
-	private static  ArrayList<Class<? extends ModuleBase>> modules = new ArrayList<Class<? extends ModuleBase>>();
+	private static ArrayList<Class<? extends ModuleBase>> modules = new ArrayList<Class<? extends ModuleBase>>();
 
 	public Modules() {
 		modules.add(IC2Module.class);
@@ -18,7 +18,7 @@ public class Modules {
 		modules.remove(moduleBase);
 	}
 
-	public void preInit() {
+	public void preInit(){
 		for(Class<? extends ModuleBase> mod : modules){
 			try{
 				ModuleBase moz = mod.newInstance();
@@ -27,13 +27,13 @@ public class Modules {
 				}
 			}catch (InstantiationException e){
 				e.printStackTrace();
-			}catch(IllegalAccessException e){
+			}catch (IllegalAccessException e){
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public void init() {
+	public void init(){
 		for(Class<? extends ModuleBase> mod : modules){
 			try{
 				ModuleBase moz = mod.newInstance();
@@ -42,22 +42,22 @@ public class Modules {
 				}
 			}catch (InstantiationException e){
 				e.printStackTrace();
-			}catch(IllegalAccessException e){
-				
+			}catch (IllegalAccessException e){
+
 			}
 		}
 	}
 
-	public void postInit() {
-		for (Class<? extends ModuleBase> mod : modules) {
-			try {
+	public void postInit(){
+		for(Class<? extends ModuleBase> mod : modules){
+			try{
 				ModuleBase moz = mod.newInstance();
-				if (Loader.isModLoaded(moz.modID())) {
+				if(Loader.isModLoaded(moz.modID())){
 					moz.postInit();
 				}
 			}catch (InstantiationException e){
 				e.printStackTrace();
-			}catch(IllegalAccessException e){
+			}catch (IllegalAccessException e){
 				e.printStackTrace();
 			}
 		}

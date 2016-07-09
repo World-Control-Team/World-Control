@@ -24,7 +24,7 @@ public class ContainerRemotePanel extends Container {
 		bindPlayerInventory(inv);
 	}
 
-	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
+	protected void bindPlayerInventory(InventoryPlayer inventoryPlayer){
 		/*
 		 * for (int i = 0; i < 3; i++) { for (int j = 0; j < 9; j++) {
 		 * addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j *
@@ -37,12 +37,12 @@ public class ContainerRemotePanel extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer p_75145_1_) {
+	public boolean canInteractWith(EntityPlayer p_75145_1_){
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
+	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
 		ItemStack stack = null;
 		Slot slots = (Slot) this.inventorySlots.get(slot);
 
@@ -83,7 +83,7 @@ public class ContainerRemotePanel extends Container {
 	}
 
 	@Override
-	public ItemStack slotClick(int slot, int dragType, ClickType click, EntityPlayer player) {
+	public ItemStack slotClick(int slot, int dragType, ClickType click, EntityPlayer player){
 		if(slot >= 0 && getSlot(slot) != null && getSlot(slot).getStack() == player.getHeldItemMainhand()){
 			return null;
 		}

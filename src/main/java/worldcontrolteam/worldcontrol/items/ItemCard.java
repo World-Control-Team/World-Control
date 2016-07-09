@@ -19,7 +19,7 @@ public class ItemCard extends WCBaseItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
 		try{
 			NBTTagCompound nbt = stack.getTagCompound();
 			BlockPos pos = NBTUtils.getBlockPos(nbt);

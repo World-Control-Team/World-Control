@@ -19,11 +19,11 @@ public class WorldControlAPI {
 
 	public static IWorldControlAPI instance;
 
-	public static IWorldControlAPI getInstance() {
+	public static IWorldControlAPI getInstance(){
 		return instance;
 	}
 
-	public static void init(IWorldControlAPI inst) {
+	public static void init(IWorldControlAPI inst){
 		if(instance == null){
 			instance = inst;
 		}
