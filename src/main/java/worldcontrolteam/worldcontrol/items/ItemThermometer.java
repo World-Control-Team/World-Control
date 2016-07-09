@@ -27,12 +27,12 @@ public class ItemThermometer extends WCBaseItem {
 		this.setMaxDamage(102);
 	}
 
-	public static void addInHeatTypes(List<IHeatSeeker> types) {
+	public static void addInHeatTypes(List<IHeatSeeker> types){
 		heatTypes = types;
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
 		if(!heatTypes.isEmpty()){
 			if(!stack.hasTagCompound()){
 				NBTTagCompound tagCompound = new NBTTagCompound();
@@ -54,7 +54,7 @@ public class ItemThermometer extends WCBaseItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand){
 		if(!heatTypes.isEmpty()){
 			if(itemStack.hasTagCompound()){
 				NBTTagCompound tag = itemStack.getTagCompound();
@@ -74,7 +74,7 @@ public class ItemThermometer extends WCBaseItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
 		try{
 			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.mode." + heatTypes.get(stack.getTagCompound().getInteger("TYPE")).getUnloalizedName())));
 		}catch (NullPointerException e){

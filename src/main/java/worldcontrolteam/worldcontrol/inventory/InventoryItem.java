@@ -30,17 +30,17 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
-	public int getSizeInventory() {
+	public int getSizeInventory(){
 		return inventory.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int slot) {
+	public ItemStack getStackInSlot(int slot){
 		return inventory[slot];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int slot, int amount) {
+	public ItemStack decrStackSize(int slot, int amount){
 		ItemStack stack = getStackInSlot(slot);
 		if(stack != null){
 			if(stack.stackSize > amount){
@@ -54,7 +54,7 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int slot) {
+	public ItemStack removeStackFromSlot(int slot){
 		ItemStack stack = getStackInSlot(slot);
 		if(stack != null){
 			setInventorySlotContents(slot, null);
@@ -63,7 +63,7 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack itemstack) {
+	public void setInventorySlotContents(int slot, ItemStack itemstack){
 		this.inventory[slot] = itemstack;
 
 		if(itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()){
@@ -73,27 +73,27 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 
 	@Override
-	public boolean hasCustomName() {
+	public boolean hasCustomName(){
 		return name.length() > 0;
 	}
 
 	@Override
-	public ITextComponent getDisplayName() {
+	public ITextComponent getDisplayName(){
 		return new TextComponentString(name);
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
+	public int getInventoryStackLimit(){
 		return 1;
 	}
 
 	@Override
-	public void markDirty() {
+	public void markDirty(){
 		for(int i = 0; i < getSizeInventory(); ++i){
 			if(getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0)
 				inventory[i] = null;
@@ -104,50 +104,50 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
+	public boolean isUseableByPlayer(EntityPlayer player){
 		return player.getHeldItem(player.getActiveHand()) == invItem;
 	}
 
 	@Override
-	public void openInventory(EntityPlayer player) {
+	public void openInventory(EntityPlayer player){
 	}
 
 	@Override
-	public void closeInventory(EntityPlayer player) {
+	public void closeInventory(EntityPlayer player){
 		markDirty();
 	}
 
 	@Override
-	public boolean isItemValid(int slotIndex, ItemStack itemStack) {
+	public boolean isItemValid(int slotIndex, ItemStack itemStack){
 		return !(itemStack.getItem() instanceof ItemRemotePanel) && (itemStack.getItem() instanceof ItemBaseCard);
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int slot, ItemStack itemstack){
 		return !(itemstack.getItem() instanceof ItemRemotePanel) && (itemstack.getItem() instanceof ItemBaseCard);
 	}
 
 	@Override
-	public int getField(int id) {
+	public int getField(int id){
 		return 0;
 	}
 
 	@Override
-	public void setField(int id, int value) {
+	public void setField(int id, int value){
 
 	}
 
 	@Override
-	public int getFieldCount() {
+	public int getFieldCount(){
 		return 0;
 	}
 
 	@Override
-	public void clear() {
+	public void clear(){
 
 	}
 
-	public void readFromNBT(NBTTagCompound compound) {
+	public void readFromNBT(NBTTagCompound compound){
 		NBTTagList items = compound.getTagList("ItemInventory", compound.getId());
 		for(int i = 0; i < items.tagCount(); ++i){
 			NBTTagCompound item = items.getCompoundTagAt(i);
@@ -158,7 +158,7 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 		}
 	}
 
-	public void writeToNBT(NBTTagCompound tagcompound) {
+	public void writeToNBT(NBTTagCompound tagcompound){
 		NBTTagList items = new NBTTagList();
 
 		for(int i = 0; i < getSizeInventory(); ++i){

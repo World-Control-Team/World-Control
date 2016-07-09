@@ -32,12 +32,12 @@ public class PacketClientRemotePanel implements IMessage {
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf) {
+	public void fromBytes(ByteBuf buf){
 		this.stack = ByteBufUtils.readItemStack(buf);
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
+	public void toBytes(ByteBuf buf){
 		ByteBufUtils.writeItemStack(buf, stack);
 	}
 
@@ -45,7 +45,7 @@ public class PacketClientRemotePanel implements IMessage {
 
 		@Override
 		@SideOnly(Side.CLIENT)
-		public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx) {
+		public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx){
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			if(player.getHeldItemMainhand() != null){
 				if(player.getHeldItemMainhand().getItem() == WCItems.remotePanel){

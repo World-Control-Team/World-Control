@@ -11,7 +11,7 @@ public class WCItems {
 	public static Item cardTime;
 	public static Item remotePanel;
 
-	public static void registerItems() {
+	public static void registerItems(){
 		kit = new ItemKit();
 		card = new ItemCard();
 		thermometer = new ItemThermometer();

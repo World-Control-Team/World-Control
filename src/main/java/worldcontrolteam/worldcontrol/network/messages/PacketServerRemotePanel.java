@@ -29,12 +29,12 @@ public class PacketServerRemotePanel implements IMessage {
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buf) {
+	public void fromBytes(ByteBuf buf){
 		itemstack = ByteBufUtils.readItemStack(buf);
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
+	public void toBytes(ByteBuf buf){
 		ByteBufUtils.writeItemStack(buf, itemstack);
 
 	}
@@ -42,7 +42,7 @@ public class PacketServerRemotePanel implements IMessage {
 	public static class Handler implements IMessageHandler<PacketServerRemotePanel, IMessage> {
 
 		@Override
-		public IMessage onMessage(PacketServerRemotePanel message, MessageContext ctx) {
+		public IMessage onMessage(PacketServerRemotePanel message, MessageContext ctx){
 			ItemStack stack = message.itemstack;
 			// NCLog.error(stack);
 
@@ -62,7 +62,7 @@ public class PacketServerRemotePanel implements IMessage {
 					if(stack.hasTagCompound()){
 						// NCLog.fatal(helper.getUpdateSet().entrySet());
 						ItemStack stackz = itemInv.getStackInSlot(0).copy();
-						if(stackz.getItem().equals(stack.getItem())) {
+						if(stackz.getItem().equals(stack.getItem())){
 							stackz.setTagCompound(stack.getTagCompound());
 							itemInv.setInventorySlotContents(0, stackz);
 							return new PacketClientRemotePanel(stack);

@@ -12,12 +12,12 @@ public class WCCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public Item getTabIconItem() {
+	public Item getTabIconItem(){
 		return WCItems.kit;
 	}
 
 	@Override
-	public String getTranslatedTabLabel() {
+	public String getTranslatedTabLabel(){
 		return WCUtility.translate("creativetab");
 	}
 }
