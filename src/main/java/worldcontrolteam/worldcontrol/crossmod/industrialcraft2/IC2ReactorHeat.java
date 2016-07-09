@@ -2,7 +2,6 @@ package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,7 +23,7 @@ public class IC2ReactorHeat implements IHeatSeeker {
 
 	@Override
 	public boolean canUse(World world, BlockPos pos, TileEntity tile){
-		return (tile instanceof IReactor || tile instanceof TileEntityReactorChamberElectric);
+		return (tile instanceof IReactor || tile instanceof IReactorChamber);
 	}
 
 	@Override
