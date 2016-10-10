@@ -1,10 +1,14 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
-import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
+import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageKit;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorKit;
@@ -23,6 +27,14 @@ public class IC2Module extends ModuleBase {
 		reactorCard = new IC2ReactorCard();
 		energyCard = new IC2EnergyStorageCard();
 		energyKit = new IC2EnergyStorageKit();
+
+
+		//temp.
+		GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{
+				" c ", "cgc", " c ",
+					'g', "ingotGold",
+					'c', "circuitBasic"}));
+
 	}
 
 	@Override
