@@ -24,25 +24,20 @@ public class WCItems {
 		REMOTE_PANEL = new ItemRemotePanel();
 		FLUID_CARD = new ItemFluidCard();
 		FLUID_KIT = new ItemFluidKit();
-		kit = new ItemKit();
-		card = new ItemCard();
-		thermometer = new ItemThermometer();
-		cardTime = new ItemCardTime();
-		remotePanel = new ItemRemotePanel();
 
 		//temp.
-		GameRegistry.addRecipe(new ShapedOreRecipe(thermometer, new Object[]{
+		GameRegistry.addRecipe(new ShapedOreRecipe(THERMOMETER, new Object[]{
 				"ig ", "gbg", " gg",
 					'i', "ingotIron",
 					'g', "blockGlass",
 					'b', Items.WATER_BUCKET}));
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(cardTime, new Object[]{
+		GameRegistry.addRecipe(new ShapedOreRecipe(TIME_CARD, new Object[]{
 				" c ", "cgc", " c ",
 					'g', "ingotGold",
 					'c', Items.CLOCK}));
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(remotePanel, new Object[]{
+		GameRegistry.addRecipe(new ShapedOreRecipe(REMOTE_PANEL, new Object[]{
 				"ppp", "gdg", "ppp",
 					'p', Items.PAPER,
 					'd', "gemDiamond",
