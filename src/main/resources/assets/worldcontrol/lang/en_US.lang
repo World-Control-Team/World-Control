@@ -5,8 +5,10 @@ item.worldcontrol.card.name=Card
 item.worldcontrol.thermometer.name=Thermometer
 item.worldcontrol.timecard.name=Time Card
 item.worldcontrol.remotePanel.name=Portable Information Panel
-item.worldcontrol.IC2ReactorCard.name=Reactor Card
-item.worldcontrol.IC2ReactorKit.name=Reactor Kit
+item.worldcontrol.IC2ReactorCard.name=EU Reactor Card
+item.worldcontrol.IC2ReactorKit.name=EU Reactor Kit
+item.worldcontrol.IC2EnergyStorageKit.name=EU Energy Kit
+item.worldcontrol.IC2EnergyStorageCard.name=EU Energy Card
 
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates
@@ -17,8 +19,13 @@ msg.worldcontrol.thermometer.mode=Mode: %s
 msg.worldcontrol.thermometer.unset=Unset
 msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
 
+###################
 #Card Strings
+###################
 msg.worldcontrol.timecard.time=Time: %s
+msg.worldcontrol.None=None
+
+#IC2 Reactor
 msg.worldcontrol.InfoPanelOn=On
 msg.worldcontrol.InfoPanelOff=Off
 msg.worldcontrol.InfoPanelHeat=T: %s
@@ -26,3 +33,18 @@ msg.worldcontrol.InfoPanelMaxHeat=MaxHeat: %s
 msg.worldcontrol.InfoPanelMelting=Melting: %s
 msg.worldcontrol.InfoPanelOutput=Output: %s EU/t
 msg.worldcontrol.InfoPanelTimeRemaining=Remaining: %s
+
+#IC2 Energy Storage
+msg.worldcontrol.EUEnergy=Energy: %s EU
+msg.worldcontrol.EUFree=Free: %s EU
+msg.worldcontrol.EUStored=Storage: %s EU
+msg.worldcontrol.FillRatio=Fill: %s%%
+
+#Fluids
+msg.worldcontrol.LiquidName=Name: %s
+msg.worldcontrol.LiquidAmount=Amount: %s
+msg.worldcontrol.LiquidCapacity=Capacity: %s
+msg.worldcontrol.LiquidFree=Free: %s
+msg.worldcontrol.LiquidPercentage=Fill: %s%%
+
+

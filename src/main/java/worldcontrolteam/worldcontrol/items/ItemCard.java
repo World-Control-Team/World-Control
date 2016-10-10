@@ -18,7 +18,7 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 public class ItemCard extends WCBaseItem {
 
 	public ItemCard() {
-		super("card");
+		super("CARD");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -30,9 +30,9 @@ public class ItemCard extends WCBaseItem {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			tooltip.add(WCUtility.translateFormatted("card.cords", x, y, z));
+			tooltip.add(WCUtility.translateFormatted("CARD.cords", x, y, z));
 		}catch (NullPointerException e){
-			tooltip.add(WCUtility.translate("card.nocords"));
+			tooltip.add(WCUtility.translate("CARD.nocords"));
 		}
 	}
 

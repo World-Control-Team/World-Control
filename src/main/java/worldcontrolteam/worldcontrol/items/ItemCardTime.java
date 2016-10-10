@@ -50,7 +50,7 @@ public class ItemCardTime extends ItemBaseCard {
 
 	@Override
 	public int getCardColor(){
-		return 14602026;
+		return WCUtility.YELLOW;
 	}
 
 }

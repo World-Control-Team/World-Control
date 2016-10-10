@@ -13,7 +13,7 @@ public class WCCreativeTab extends CreativeTabs {
 
 	@Override
 	public Item getTabIconItem(){
-		return WCItems.kit;
+		return WCItems.KIT;
 	}
 
 	@Override

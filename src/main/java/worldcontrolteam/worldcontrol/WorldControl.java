@@ -58,7 +58,7 @@ public class WorldControl {
 
 		modules.init();
 
-		((ItemThermometer) WCItems.thermometer).addInHeatTypes(heatTypez);
+		((ItemThermometer) WCItems.THERMOMETER).addInHeatTypes(heatTypez);
 
 		if(event.getSide() == Side.CLIENT){
 			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor(){
@@ -74,7 +74,7 @@ public class WorldControl {
 					}
 					return -1;
 				}
-			}, WCItems.remotePanel);
+			}, WCItems.REMOTE_PANEL);
 		}
 	}
 

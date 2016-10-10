@@ -5,19 +5,24 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageKit;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorKit;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageCard;
 
 public class IC2Module extends ModuleBase {
 
 	protected static Item reactorKit;
 	public static Item reactorCard;
+	public static Item energyCard, energyKit;
 
 	@Override
 	public void preInit(){
 		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
 		reactorKit = new IC2ReactorKit();
 		reactorCard = new IC2ReactorCard();
+		energyCard = new IC2EnergyStorageCard();
+		energyKit = new IC2EnergyStorageKit();
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class IC2ReactorCard extends ItemBaseCard {
 				card.getTagCompound().setInteger("output", (int) Math.round(reactor.getReactorEUEnergyOutput()));
 				// TODO: REIMPLEMENT STEAM REACTORS?
 				boolean isSteam = false;
-				// card.setBoolean("isSteam", isSteam);
+				// CARD.setBoolean("isSteam", isSteam);
 				IInventory inventory = (IInventory) reactor;
 				int slotCount = inventory.getSizeInventory();
 				int timeLeft = 0;
@@ -115,6 +115,6 @@ public class IC2ReactorCard extends ItemBaseCard {
 
 	@Override
 	public int getCardColor(){
-		return 4408131;
+		return WCUtility.WHITE;
 	}
 }

@@ -25,7 +25,7 @@ public class PacketServerRemotePanel implements IMessage {
 
 	public PacketServerRemotePanel(ItemStack card) {
 		this.itemstack = card;
-		// NCLog.error(card);
+		// NCLog.error(CARD);
 	}
 
 	@Override
@@ -74,12 +74,12 @@ public class PacketServerRemotePanel implements IMessage {
 		}
 
 		/*
-		 * private ItemStack processCard(ItemStack card, int upgradeCountRange,
-		 * int slot) { if (card == null) { return null; } Item item =
-		 * card.getItem(); if (item instanceof IProviderCard) { boolean
+		 * private ItemStack processCard(ItemStack CARD, int upgradeCountRange,
+		 * int slot) { if (CARD == null) { return null; } Item item =
+		 * CARD.getItem(); if (item instanceof IProviderCard) { boolean
 		 * needUpdate = true; if (upgradeCountRange > 7) { upgradeCountRange =
 		 * 7; } int range = 100 * (int) Math.pow(2, upgradeCountRange);
-		 * CardWrapperImpl cardHelper = new CardWrapperImpl(card, slot);
+		 * CardWrapperImpl cardHelper = new CardWrapperImpl(CARD, slot);
 		 * 
 		 * if (item instanceof IRemoteSensor) { ChunkCoordinates target =
 		 * cardHelper.getTarget(); if (target == null) { needUpdate = false;
@@ -87,7 +87,7 @@ public class PacketServerRemotePanel implements IMessage {
 		 * cardHelper.setState(CardState.OUT_OF_RANGE); } } if (needUpdate) {
 		 * CardState state = null; state = ((IProviderCard)
 		 * item).update(FMLServerHandler.instance().getServer().worldServers[0],
-		 * card);
+		 * CARD);
 		 * 
 		 * } return cardHelper; } return null; }
 		 */
