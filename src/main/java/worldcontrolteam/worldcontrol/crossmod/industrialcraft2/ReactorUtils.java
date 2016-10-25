@@ -2,10 +2,8 @@ package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
 import ic2.api.item.ICustomDamageItem;
 import ic2.api.reactor.IReactor;
-import ic2.core.block.reactor.tileentity.TileEntityReactorChamberElectric;
-import ic2.core.item.reactor.ItemReactorLithiumCell;
-import ic2.core.item.reactor.ItemReactorMOX;
-import ic2.core.item.reactor.ItemReactorUranium;
+import ic2.api.reactor.IReactorChamber;
+import ic2.core.item.reactor.AbstractDamageableReactorComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -21,8 +19,8 @@ public class ReactorUtils {
         TileEntity entity = world.getTileEntity(pos);
         if (entity instanceof IReactor)
             return (IReactor) entity;
-        if(entity instanceof TileEntityReactorChamberElectric)
-            return ((TileEntityReactorChamberElectric)entity).getReactorInstance();
+        if(entity instanceof IReactorChamber)
+            return ((IReactorChamber)entity).getReactorInstance();
         return null;
     }
 
@@ -34,7 +32,7 @@ public class ReactorUtils {
 		if(rStack == null){
 			return 0;
 		}
-		if(rStack.getItem() instanceof ItemReactorUranium || rStack.getItem() instanceof ItemReactorLithiumCell || rStack.getItem() instanceof ItemReactorMOX){
+		if(rStack.getItem() instanceof AbstractDamageableReactorComponent){
 			if(rStack.getItem() instanceof ICustomDamageItem){
 				return ((ICustomDamageItem) rStack.getItem()).getMaxCustomDamage(rStack) - ((ICustomDamageItem) rStack.getItem()).getCustomDamage(rStack);
 			}
