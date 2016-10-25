@@ -20,7 +20,7 @@ public class ReactorUtils {
         if (entity instanceof IReactor)
             return (IReactor) entity;
         if(entity instanceof IReactorChamber)
-            return ((IReactorChamber)entity).getReactorInstance();
+            return ((IReactorChamber)entity).getReactor();
         return null;
     }
 

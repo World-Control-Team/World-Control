@@ -16,7 +16,7 @@ public class IC2ReactorHeat implements IHeatSeeker {
 			reactor = (IReactor) entity;
 		}
 		if(reactor == null){
-			reactor = ((IReactorChamber) entity).getReactorInstance();
+			reactor = ((IReactorChamber) entity).getReactor();
 		}
 		return reactor.getHeat();
 	}
