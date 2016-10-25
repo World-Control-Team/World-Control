@@ -22,7 +22,7 @@ public class ItemThermometer extends WCBaseItem {
 	private static List<IHeatSeeker> heatTypes;
 
 	public ItemThermometer() {
-		super("thermometer");
+		super("THERMOMETER");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(102);
 	}
@@ -44,7 +44,7 @@ public class ItemThermometer extends WCBaseItem {
 				IHeatSeeker user = heatTypes.get(toUse);
 				if(user.canUse(world, pos, world.getTileEntity(pos))){
 					if(!world.isRemote)
-						player.addChatComponentMessage(new TextComponentString(WCUtility.translateFormatted("thermometer.chatInfo", user.getHeat(world, pos, world.getTileEntity(pos)))));
+						player.addChatComponentMessage(new TextComponentString(WCUtility.translateFormatted("THERMOMETER.chatInfo", user.getHeat(world, pos, world.getTileEntity(pos)))));
 					stack.damageItem(10, player);
 					return EnumActionResult.SUCCESS;
 				}
@@ -76,9 +76,9 @@ public class ItemThermometer extends WCBaseItem {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
 		try{
-			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.mode." + heatTypes.get(stack.getTagCompound().getInteger("TYPE")).getUnloalizedName())));
+			tooltip.add(WCUtility.translateFormatted("THERMOMETER.mode", WCUtility.translate("THERMOMETER.mode." + heatTypes.get(stack.getTagCompound().getInteger("TYPE")).getUnloalizedName())));
 		}catch (NullPointerException e){
-			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.unset")));
+			tooltip.add(WCUtility.translateFormatted("THERMOMETER.mode", WCUtility.translate("THERMOMETER.unset")));
 		}
 	}
 }

@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -13,12 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
-import worldcontrolteam.worldcontrol.items.ItemCardTime;
 import worldcontrolteam.worldcontrol.items.WCItems;
-import worldcontrolteam.worldcontrol.utils.NBTUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class PacketClientRemotePanel implements IMessage {
 
@@ -48,7 +42,7 @@ public class PacketClientRemotePanel implements IMessage {
 		public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx){
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			if(player.getHeldItemMainhand() != null){
-				if(player.getHeldItemMainhand().getItem() == WCItems.remotePanel){
+				if(player.getHeldItemMainhand().getItem() == WCItems.REMOTE_PANEL){
 					// ItemRemoteMonitor remote = (ItemRemoteMonitor)
 					// player.getHeldItem().getItem();
 					InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());
