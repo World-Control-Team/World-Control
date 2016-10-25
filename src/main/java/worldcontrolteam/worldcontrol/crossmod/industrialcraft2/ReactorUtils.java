@@ -9,20 +9,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-
 public class ReactorUtils {
 
-
-    public static IReactor getReactorAt(World world, BlockPos pos) {
-        if (world == null)
-            return null;
-        TileEntity entity = world.getTileEntity(pos);
-        if (entity instanceof IReactor)
-            return (IReactor) entity;
-        if(entity instanceof IReactorChamber)
-            return ((IReactorChamber)entity).getReactor();
-        return null;
-    }
+	public static IReactor getReactorAt(World world, BlockPos pos){
+		if(world == null)
+			return null;
+		TileEntity entity = world.getTileEntity(pos);
+		if(entity instanceof IReactor)
+			return (IReactor) entity;
+		if(entity instanceof IReactorChamber)
+			return ((IReactorChamber) entity).getReactor();
+		return null;
+	}
 
 	public static boolean isProducing(World world, BlockPos pos){
 		return world.isBlockIndirectlyGettingPowered(pos) > 0;
