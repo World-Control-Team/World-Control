@@ -18,7 +18,7 @@ public class ReactorUtils {
 		if(entity instanceof IReactor)
 			return (IReactor) entity;
 		if(entity instanceof IReactorChamber)
-			return ((IReactorChamber) entity).getReactor();
+			return ((IReactorChamber) entity).getReactorInstance();
 		return null;
 	}
 

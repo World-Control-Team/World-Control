@@ -1,10 +1,9 @@
 package worldcontrolteam.worldcontrol;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -28,6 +27,9 @@ public class WorldControl {
 
 	@Mod.Instance(value = "worldcontrol")
 	public static WorldControl instance;
+
+	@SidedProxy(clientSide = "worldcontrolteam.worldcontrol.client.ClientProxy", serverSide = "worldcontrolteam.worldcontrol.CommonProxy")
+	public static CommonProxy proxy;
 
 	public static final String MODID = "worldcontrol";
 
@@ -60,22 +62,8 @@ public class WorldControl {
 
 		((ItemThermometer) WCItems.THERMOMETER).addInHeatTypes(heatTypez);
 
-		if(event.getSide() == Side.CLIENT){
-			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor(){
-				@Override
-				public int getColorFromItemstack(ItemStack stack, int tintIndex){
-					if(tintIndex == 1){
-						InventoryItem inv = new InventoryItem(stack);
-						if(inv.getStackInSlot(0) != null){
-							if(inv.getStackInSlot(0).getItem() instanceof IProviderCard){
-								return ((IProviderCard) inv.getStackInSlot(0).getItem()).getCardColor();
-							}
-						}
-					}
-					return -1;
-				}
-			}, WCItems.REMOTE_PANEL);
-		}
+		proxy.init();
+
 	}
 
 	@EventHandler

@@ -20,6 +20,8 @@ public class ItemFluidKit extends ItemBaseKit{
 
     @Override
     public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
-        return world.getTileEntity(pos) instanceof IFluidHandler;
+        return world.getTileEntity(pos) instanceof IFluidHandler ||
+                //TODO: Remove this when forge removes the support for non-Capability types
+                world.getTileEntity(pos) instanceof net.minecraftforge.fluids.IFluidHandler;
     }
 }
