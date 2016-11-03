@@ -29,14 +29,19 @@ public class ItemFluidCard extends ItemBaseCard{
             IFluidTankProperties[] properties;
             if(world.getTileEntity(pos) instanceof IFluidHandler){
                 properties = ((IFluidHandler) world.getTileEntity(pos)).getTankProperties();
-            }else{
+            }else if(world.getTileEntity(pos) instanceof net.minecraftforge.fluids.IFluidHandler){
                 properties = new FluidHandlerWrapper(((net.minecraftforge.fluids.IFluidHandler)world.getTileEntity(pos)), EnumFacing.DOWN).getTankProperties();
+            }else{
+                return CardState.NO_TARGET;
             }
             if(properties != null) {
                 card.getTagCompound().setInteger("capacity", properties[0].getCapacity());
                 if (properties[0].getContents() != null) {
                     card.getTagCompound().setInteger("amount", properties[0].getContents().amount);
                     card.getTagCompound().setString("fluid", properties[0].getContents().getFluid().getName());
+                }else{
+                    card.getTagCompound().removeTag("amount");
+                    card.getTagCompound().removeTag("fluid");
                 }
                 return CardState.OK;
             }
@@ -57,7 +62,7 @@ public class ItemFluidCard extends ItemBaseCard{
             if(fluid != null){
                 list.add(new StringWrapper(WCUtility.translateFormatted("LiquidName", fluid)));
             }else{
-                list.add(new StringWrapper(WCUtility.translateFormatted("LiquidName", WCUtility.translate("msg.worldcontrol.None"))));
+                list.add(new StringWrapper(WCUtility.translateFormatted("LiquidName", WCUtility.translate("None"))));
             }
             list.add(new StringWrapper(WCUtility.translateFormatted("LiquidAmount", amount)));
             list.add(new StringWrapper(WCUtility.translateFormatted("LiquidFree", capacity - amount)));
@@ -74,6 +79,6 @@ public class ItemFluidCard extends ItemBaseCard{
 
     @Override
     public int getCardColor() {
-        return 0;
+        return WCUtility.LIGHT_BLUE;
     }
 }

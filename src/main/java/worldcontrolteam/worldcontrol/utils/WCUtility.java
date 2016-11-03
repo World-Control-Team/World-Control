@@ -2,7 +2,7 @@ package worldcontrolteam.worldcontrol.utils;
 
 import org.apache.logging.log4j.Level;
 
-import net.minecraft.util.text.translation.I18n;
+
 import net.minecraftforge.fml.common.FMLLog;
 import worldcontrolteam.worldcontrol.WorldControl;
 
@@ -43,17 +43,17 @@ public class WCUtility {
 
 	public static String translate(String key){
 		key = "msg.worldcontrol." + key;
-		if(I18n.canTranslate(key))// TODO: used undepreciated methods
-			return I18n.translateToLocal(key);
-		else return I18n.translateToFallback(key);
+		if(net.minecraft.client.resources.I18n.hasKey(key))// TODO: used undepreciated methods
+			return net.minecraft.client.resources.I18n.format(key);
+		else return net.minecraft.client.resources.I18n.format(key);
 	}
 
 	public static String translateFormatted(String key, Object... format){
 		key = "msg.worldcontrol." + key;
-		if(I18n.canTranslate(key))// TODO: used undepreciated methods
-			return String.format(I18n.translateToLocal(key), format);// I18n.translateToLocalFormatted(key,
+		if(net.minecraft.client.resources.I18n.hasKey(key))// TODO: used undepreciated methods
+			return net.minecraft.client.resources.I18n.format(key, format);// I18n.translateToLocalFormatted(key,
 																		// format);
-		else return String.format(I18n.translateToFallback(key), format);
+		else return net.minecraft.client.resources.I18n.format(key, format);
 	}
 
 	public static int RGBToInt(final int r, final int g, final int b) {
