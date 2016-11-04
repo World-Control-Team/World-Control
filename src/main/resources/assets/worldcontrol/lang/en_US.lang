@@ -47,4 +47,13 @@ msg.worldcontrol.LiquidCapacity=Capacity: %s
 msg.worldcontrol.LiquidFree=Free: %s
 msg.worldcontrol.LiquidPercentage=Fill: %s%%
 
+#Tesla Energy System
+msg.worldcontrol.TeslaEnergy=Energy: %s T
+msg.worldcontrol.TeslaFree=Free: %s T
+msg.worldcontrol.TeslaStored=Storage: %s T
+
+#Forge Energy System
+msg.worldcontrol.ForgeEnergy=Energy: %s FE
+msg.worldcontrol.ForgeFree=Free: %s FE
+msg.worldcontrol.ForgeStored=Storage: %s FE
 

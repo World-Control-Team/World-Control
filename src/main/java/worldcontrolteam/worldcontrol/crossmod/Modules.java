@@ -5,6 +5,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.IC2Module;
+import worldcontrolteam.worldcontrol.crossmod.tesla.TeslaModule;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Modules {
 
 	public Modules() {
 		modules.add(IC2Module.class);
+		modules.add(TeslaModule.class);
 	}
 
 	public static void removeModule(Class<? extends ModuleBase> moduleBase){

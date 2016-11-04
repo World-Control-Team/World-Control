@@ -32,8 +32,8 @@ public class IC2EnergyStorageCard extends ItemBaseCard{
                 card.getTagCompound().setInteger("capacity", energySource.getStored());
                 card.getTagCompound().setInteger("output", energySource.getOutput());
                 state = CardState.OK;
-            }
-        }
+            }else{state = CardState.INVALID_CARD;}
+        }else{state = CardState.INVALID_CARD;}
         return state;
     }
 

@@ -26,6 +26,10 @@ repositories {
 		name = "jei"
 		url = "http://dvs1.progwml6.com/files/maven"
 	}
+	maven {
+		name = "tesla"
+		url 'http://maven.epoxide.xyz'
+	}
 }
 
 minecraft {
@@ -39,6 +43,7 @@ minecraft {
 dependencies {
 	//deobfCompile "mezz.jei:jei_1.9:${jeiVersion}"
 	deobfCompile "mezz.jei:jei_1.10.2:3.7.3.221"
+	compile "net.darkhax.tesla:Tesla:1.10.2-1.2.1.49"
 	compile files("libs/industrialcraft-2-2.6.85-ex110-dev.jar")
 }
 

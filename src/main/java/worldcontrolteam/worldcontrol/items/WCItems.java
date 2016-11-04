@@ -15,6 +15,8 @@ public class WCItems {
 	public static Item THERMOMETER;
 	public static Item TIME_CARD;
 	public static Item REMOTE_PANEL;
+	public static Item FORGE_ENERGY_CARD;
+	public static Item FORGE_ENERGY_KIT;
 
 	public static void registerItems(){
 		KIT = new ItemKit();
@@ -24,6 +26,8 @@ public class WCItems {
 		REMOTE_PANEL = new ItemRemotePanel();
 		FLUID_CARD = new ItemFluidCard();
 		FLUID_KIT = new ItemFluidKit();
+		FORGE_ENERGY_CARD = new ItemForgeEnergyCard();
+		FORGE_ENERGY_KIT = new ItemForgeEnergyKit();
 
 		//temp.
 		GameRegistry.addRecipe(new ShapedOreRecipe(THERMOMETER, new Object[]{
