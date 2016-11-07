@@ -43,7 +43,7 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
         countAverage();
     }
 
-    abstract void countAverage();
+    public abstract void countAverage();
 
-    abstract void getInfo();
+    public abstract String getInfo();
 }
