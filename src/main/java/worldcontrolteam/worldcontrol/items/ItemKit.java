@@ -13,7 +13,7 @@ import worldcontrolteam.worldcontrol.utils.NBTUtils;
 public class ItemKit extends WCBaseItem {
 
 	public ItemKit() {
-		super("KIT");
+		super("kit");
 	}
 
 	@Override

@@ -4,13 +4,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.items.IItemHandler;
+import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
 
-public abstract class TileEntityBaseAverageCounter extends TileEntity implements IItemHandler, ITickable{
+public abstract class TileEntityBaseAverageCounter extends TileEntity implements IItemHandler, ITickable, ISlotItemFilter{
 
     ItemStack stack;
+    public short period;
 
     public TileEntityBaseAverageCounter(){
-
+        this.period = 1;
     }
 
     @Override
@@ -27,7 +29,7 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
     public ItemStack insertItem(int slot, ItemStack stackl, boolean simulate) {
         if (stackl != null) {
             if(this.stack.stackSize < 5){
-
+                //TODO: Finish this code...
             }
         }
         return null;
@@ -45,5 +47,11 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
 
     public abstract void countAverage();
 
-    public abstract String getInfo();
+    public abstract int getAverage();
+
+    public abstract String getPowerTranslateKey();
+
+    public void setPeriod(short newPeriod){
+        period = newPeriod;
+    }
 }

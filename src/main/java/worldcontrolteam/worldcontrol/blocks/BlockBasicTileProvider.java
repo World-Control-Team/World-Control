@@ -26,10 +26,10 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
         return getTile(world, meta);
     }
 
-    abstract TileEntity getTile(World world, int meta);
+    public abstract TileEntity getTile(World world, int meta);
 
-    abstract boolean hasGUI();
-    abstract int guiID();
+    public abstract boolean hasGUI();
+    public abstract int guiID();
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {

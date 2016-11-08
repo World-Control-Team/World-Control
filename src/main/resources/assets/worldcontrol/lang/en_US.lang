@@ -10,6 +10,8 @@ item.worldcontrol.IC2ReactorKit.name=EU Reactor Kit
 item.worldcontrol.IC2EnergyStorageKit.name=EU Energy Kit
 item.worldcontrol.IC2EnergyStorageCard.name=EU Energy Card
 
+tile.TeslaAverageCounter.name=TESLA Average Counter
+
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.nocords=Missing cordinates
 
@@ -24,6 +26,7 @@ msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
 ###################
 msg.worldcontrol.timecard.time=Time: %s
 msg.worldcontrol.None=None
+msg.worldcontrol.AverageCounterPeriod=Period: %s sec
 
 #IC2 Reactor
 msg.worldcontrol.InfoPanelOn=On
@@ -51,6 +54,7 @@ msg.worldcontrol.LiquidPercentage=Fill: %s%%
 msg.worldcontrol.TeslaEnergy=Energy: %s T
 msg.worldcontrol.TeslaFree=Free: %s T
 msg.worldcontrol.TeslaStored=Storage: %s T
+msg.worldcontrol.tesla.average=Average: %s T
 
 #Forge Energy System
 msg.worldcontrol.ForgeEnergy=Energy: %s FE

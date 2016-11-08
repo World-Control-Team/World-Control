@@ -18,7 +18,7 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 public class ItemCard extends WCBaseItem {
 
 	public ItemCard() {
-		super("CARD");
+		super("card");
 	}
 
 	@SideOnly(Side.CLIENT)

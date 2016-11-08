@@ -22,7 +22,7 @@ public class ItemThermometer extends WCBaseItem {
 	private static List<IHeatSeeker> heatTypes;
 
 	public ItemThermometer() {
-		super("THERMOMETER");
+		super("thermometer");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(102);
 	}
