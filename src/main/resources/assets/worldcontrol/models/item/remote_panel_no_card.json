@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "worldcontrol:items/kitEnergy"
+    "layer0": "worldcontrol:items/remote_panel"
   }
 }

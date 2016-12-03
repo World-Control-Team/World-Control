@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "worldcontrol:items/cardLiquid"
+    "layer0": "worldcontrol:items/card_time"
   }
 }

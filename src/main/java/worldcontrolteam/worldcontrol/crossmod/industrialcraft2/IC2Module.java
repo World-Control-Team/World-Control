@@ -1,18 +1,16 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
-import ic2.api.item.IC2Items;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageKit;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorKit;
-import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageCard;
 
 public class IC2Module extends ModuleBase {
 
@@ -28,12 +26,8 @@ public class IC2Module extends ModuleBase {
 		energyCard = new IC2EnergyStorageCard();
 		energyKit = new IC2EnergyStorageKit();
 
-
 		//temp.
-		GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{
-				" c ", "cgc", " c ",
-					'g', "ingotGold",
-					'c', "circuitBasic"}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{" c ", "cgc", " c ", 'g', "ingotGold", 'c', "circuitBasic"}));
 
 	}
 
@@ -48,17 +42,17 @@ public class IC2Module extends ModuleBase {
 	}
 
 	@Override
-	public String modID(){
+	public String modID(){ //TODO: change in 1.11
 		return "IC2";
 	}
 
 	@Override
-	public Object handleServerGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object handleServerGUI(int ID, EntityPlayer player, World world, int x, int y, int z){
 		return null;
 	}
 
 	@Override
-	public Object handleClientGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object handleClientGUI(int ID, EntityPlayer player, World world, int x, int y, int z){
 		return null;
 	}
 }

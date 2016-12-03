@@ -36,15 +36,15 @@ public class ItemThermometer extends WCBaseItem {
 		if(!heatTypes.isEmpty()){
 			if(!stack.hasTagCompound()){
 				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setInteger("TYPE", 0);
+				tagCompound.setInteger("type", 0);
 				stack.setTagCompound(tagCompound);
 			}
 			if(stack.getTagCompound() != null){
-				int toUse = stack.getTagCompound().getInteger("TYPE");
+				int toUse = stack.getTagCompound().getInteger("type");
 				IHeatSeeker user = heatTypes.get(toUse);
 				if(user.canUse(world, pos, world.getTileEntity(pos))){
 					if(!world.isRemote)
-						player.addChatComponentMessage(new TextComponentString(WCUtility.translateFormatted("THERMOMETER.chatInfo", user.getHeat(world, pos, world.getTileEntity(pos)))));
+						player.addChatComponentMessage(new TextComponentString(WCUtility.translateFormatted("thermometer.chat_info", user.getHeat(world, pos, world.getTileEntity(pos)))));
 					stack.damageItem(10, player);
 					return EnumActionResult.SUCCESS;
 				}
@@ -58,13 +58,13 @@ public class ItemThermometer extends WCBaseItem {
 		if(!heatTypes.isEmpty()){
 			if(itemStack.hasTagCompound()){
 				NBTTagCompound tag = itemStack.getTagCompound();
-				int currentType = tag.getInteger("TYPE");
+				int currentType = tag.getInteger("type");
 				if(currentType + 1 < heatTypes.size())
-					tag.setInteger("TYPE", currentType++);
-				else tag.setInteger("TYPE", 0);
+					tag.setInteger("type", currentType++);
+				else tag.setInteger("type", 0);
 			}else{
 				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setInteger("TYPE", 0);
+				tagCompound.setInteger("type", 0);
 				itemStack.setTagCompound(tagCompound);
 			}
 			return new ActionResult(EnumActionResult.SUCCESS, itemStack);
@@ -76,9 +76,9 @@ public class ItemThermometer extends WCBaseItem {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
 		try{
-			tooltip.add(WCUtility.translateFormatted("THERMOMETER.mode", WCUtility.translate("THERMOMETER.mode." + heatTypes.get(stack.getTagCompound().getInteger("TYPE")).getUnloalizedName())));
+			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.mode." + heatTypes.get(stack.getTagCompound().getInteger("type")).getUnloalizedName())));
 		}catch (NullPointerException e){
-			tooltip.add(WCUtility.translateFormatted("THERMOMETER.mode", WCUtility.translate("THERMOMETER.unset")));
+			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.unset")));
 		}
 	}
 }

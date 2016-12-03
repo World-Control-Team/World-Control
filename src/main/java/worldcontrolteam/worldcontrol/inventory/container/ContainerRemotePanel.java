@@ -31,9 +31,8 @@ public class ContainerRemotePanel extends Container {
 		 * 18, 84 + i * 18)); } }
 		 */
 
-		for(int i = 0; i < 9; i++){
+		for(int i = 0; i < 9; i++)
 			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 142));
-		}
 	}
 
 	@Override
@@ -44,13 +43,11 @@ public class ContainerRemotePanel extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot){
 		ItemStack stack = null;
-		Slot slots = (Slot) this.inventorySlots.get(slot);
+		Slot slots = this.inventorySlots.get(slot);
 
-		if(slots.getStack() != null){
-			if(slots.getStack().getItem() == WCItems.REMOTE_PANEL){
+		if(slots.getStack() != null)
+			if(slots.getStack().getItem() == WCItems.REMOTE_PANEL)
 				return null;
-			}
-		}
 
 		if(slots != null && slots.getHasStack()){
 			ItemStack itemstackR = slots.getStack();
@@ -59,34 +56,30 @@ public class ContainerRemotePanel extends Container {
 			if(slot == 0){
 				boolean fixed = false;
 				for(int h = 1; h < 10; h++){
-					Slot know = (Slot) this.inventorySlots.get(h);
+					Slot know = this.inventorySlots.get(h);
 					if(!know.getHasStack()){
 						know.putStack(slots.getStack());
 						slots.decrStackSize(1);
 						fixed = true;
 					}
 				}
-				if(!fixed){
+				if(!fixed)
 					return null;
-				}
 				slots.onSlotChange(itemstackR, stack);
-			}else if(slots.getStack().getItem() instanceof IProviderCard && !((Slot) this.inventorySlots.get(0)).getHasStack()){
-				((Slot) this.inventorySlots.get(0)).putStack(itemstackR);
+			}else if(slots.getStack().getItem() instanceof IProviderCard && !this.inventorySlots.get(0).getHasStack()){
+				this.inventorySlots.get(0).putStack(itemstackR);
 				slots.decrStackSize(1);
 				slots.onSlotChange(itemstackR, stack);
-				((Slot) this.inventorySlots.get(0)).onSlotChanged();
-			}else{
-				return null;
-			}
+				this.inventorySlots.get(0).onSlotChanged();
+			}else return null;
 		}
 		return stack;
 	}
 
 	@Override
 	public ItemStack slotClick(int slot, int dragType, ClickType click, EntityPlayer player){
-		if(slot >= 0 && getSlot(slot) != null && getSlot(slot).getStack() == player.getHeldItemMainhand()){
+		if(slot >= 0 && getSlot(slot) != null && getSlot(slot).getStack() == player.getHeldItemMainhand())
 			return null;
-		}
 		return super.slotClick(slot, dragType, click, player);
 	}
 }

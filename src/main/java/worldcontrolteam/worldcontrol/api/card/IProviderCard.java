@@ -1,11 +1,11 @@
 package worldcontrolteam.worldcontrol.api.card;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 public interface IProviderCard {
 

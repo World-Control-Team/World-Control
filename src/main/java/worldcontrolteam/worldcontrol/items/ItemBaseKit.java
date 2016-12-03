@@ -19,7 +19,7 @@ public abstract class ItemBaseKit extends WCBaseItem {
 
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
-		if(canReturnCard(stack, world, pos)) {
+		if(canReturnCard(stack, world, pos)){
 			ItemStack card = new ItemStack(getCardType());
 			NBTTagCompound nbt = new NBTTagCompound();
 

@@ -1,13 +1,16 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
@@ -15,9 +18,6 @@ import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.messages.PacketServerRemotePanel;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class GuiRemotePanel extends GuiContainer {
 
@@ -61,13 +61,10 @@ public class GuiRemotePanel extends GuiContainer {
 			joinedData.clear();
 			ChannelHandler.network.sendToServer(new PacketServerRemotePanel(inv.getStackInSlot(0)));
 
-			if(true){
-				if(itemInv.getStackInSlot(0).hasTagCompound()){
+			if(true)
+				if(itemInv.getStackInSlot(0).hasTagCompound())
 					joinedData = card.getStringData(new LinkedList<StringWrapper>(), 0, itemInv.getStackInSlot(0), true);
-				}else{
-					joinedData = getRemoteCustomMSG();
-				}
-			}
+				else joinedData = getRemoteCustomMSG();
 
 			drawCardStuff(anyCardFound, joinedData);
 		}
@@ -99,18 +96,19 @@ public class GuiRemotePanel extends GuiContainer {
 		int row = 0;
 		for(StringWrapper panelString : joinedData){
 			if(panelString.textLeft != null)
-				fontRendererObj.drawString(panelString.textLeft, 9, (row * 10) + 20, 0x06aee4);
+				fontRendererObj.drawString(panelString.textLeft, 9, row * 10 + 20, 0x06aee4);
 
 			if(panelString.textCenter != null)
-				fontRendererObj.drawString(panelString.textCenter, (168 - fontRendererObj.getStringWidth(panelString.textCenter)) / 2, (row * 10) + 20, 0x06aee4);
+				fontRendererObj.drawString(panelString.textCenter, (168 - fontRendererObj.getStringWidth(panelString.textCenter)) / 2, row * 10 + 20, 0x06aee4);
 
 			if(panelString.textRight != null)
-				this.fontRendererObj.drawString(panelString.textRight, 168 - fontRendererObj.getStringWidth(panelString.textRight), ((row - 1) * 10) + 20, 0x06aee4);
+				this.fontRendererObj.drawString(panelString.textRight, 168 - fontRendererObj.getStringWidth(panelString.textRight), (row - 1) * 10 + 20, 0x06aee4);
 
 			row++;
 		}
 	}
 
+	@Override
 	public void updateScreen(){
 		super.updateScreen();
 

@@ -22,9 +22,8 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	public InventoryItem(ItemStack stack) {
 		this.invItem = stack;
 		if(stack != null){
-			if(!stack.hasTagCompound()){
+			if(!stack.hasTagCompound())
 				stack.setTagCompound(new NBTTagCompound());
-			}
 			readFromNBT(stack.getTagCompound());
 		}
 	}
@@ -42,23 +41,19 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	@Override
 	public ItemStack decrStackSize(int slot, int amount){
 		ItemStack stack = getStackInSlot(slot);
-		if(stack != null){
+		if(stack != null)
 			if(stack.stackSize > amount){
 				stack = stack.splitStack(amount);
 				markDirty();
-			}else{
-				setInventorySlotContents(slot, null);
-			}
-		}
+			}else setInventorySlotContents(slot, null);
 		return stack;
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int slot){
 		ItemStack stack = getStackInSlot(slot);
-		if(stack != null){
+		if(stack != null)
 			setInventorySlotContents(slot, null);
-		}
 		return stack;
 	}
 
@@ -66,9 +61,8 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	public void setInventorySlotContents(int slot, ItemStack itemstack){
 		this.inventory[slot] = itemstack;
 
-		if(itemstack != null && itemstack.stackSize > this.getInventoryStackLimit()){
+		if(itemstack != null && itemstack.stackSize > this.getInventoryStackLimit())
 			itemstack.stackSize = this.getInventoryStackLimit();
-		}
 		markDirty();
 	}
 
@@ -94,10 +88,9 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 
 	@Override
 	public void markDirty(){
-		for(int i = 0; i < getSizeInventory(); ++i){
+		for(int i = 0; i < getSizeInventory(); ++i)
 			if(getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0)
 				inventory[i] = null;
-		}
 		if(!invItem.hasTagCompound())
 			invItem.setTagCompound(new NBTTagCompound());
 		writeToNBT(invItem.getTagCompound());
@@ -119,12 +112,12 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 
 	@Override
 	public boolean isItemValid(int slotIndex, ItemStack itemStack){
-		return !(itemStack.getItem() instanceof ItemRemotePanel) && (itemStack.getItem() instanceof ItemBaseCard);
+		return !(itemStack.getItem() instanceof ItemRemotePanel) && itemStack.getItem() instanceof ItemBaseCard;
 	}
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemstack){
-		return !(itemstack.getItem() instanceof ItemRemotePanel) && (itemstack.getItem() instanceof ItemBaseCard);
+		return !(itemstack.getItem() instanceof ItemRemotePanel) && itemstack.getItem() instanceof ItemBaseCard;
 	}
 
 	@Override
@@ -148,28 +141,26 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	public void readFromNBT(NBTTagCompound compound){
-		NBTTagList items = compound.getTagList("ItemInventory", compound.getId());
+		NBTTagList items = compound.getTagList("item_inventory", compound.getId());
 		for(int i = 0; i < items.tagCount(); ++i){
 			NBTTagCompound item = items.getCompoundTagAt(i);
-			byte slot = item.getByte("Slot");
-			if(slot >= 0 && slot < getSizeInventory()){
+			byte slot = item.getByte("slot");
+			if(slot >= 0 && slot < getSizeInventory())
 				inventory[slot] = ItemStack.loadItemStackFromNBT(item);
-			}
 		}
 	}
 
 	public void writeToNBT(NBTTagCompound tagcompound){
 		NBTTagList items = new NBTTagList();
 
-		for(int i = 0; i < getSizeInventory(); ++i){
+		for(int i = 0; i < getSizeInventory(); ++i)
 			if(getStackInSlot(i) != null){
 				NBTTagCompound item = new NBTTagCompound();
-				item.setInteger("Slot", i);
+				item.setInteger("slot", i);
 				getStackInSlot(i).writeToNBT(item);
 				items.appendTag(item);
 			}
-		}
-		tagcompound.setTag("ItemInventory", items);
+		tagcompound.setTag("item_inventory", items);
 	}
 
 }

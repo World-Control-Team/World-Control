@@ -2,7 +2,6 @@ package worldcontrolteam.worldcontrol.utils;
 
 import org.apache.logging.log4j.Level;
 
-
 import net.minecraftforge.fml.common.FMLLog;
 import worldcontrolteam.worldcontrol.WorldControl;
 
@@ -56,7 +55,7 @@ public class WCUtility {
 		else return net.minecraft.client.resources.I18n.format(key, format);
 	}
 
-	public static int RGBToInt(final int r, final int g, final int b) {
+	public static int RGBToInt(final int r, final int g, final int b){
 		int color = 0;
 		color = color | b;
 		color = color | g << 8;

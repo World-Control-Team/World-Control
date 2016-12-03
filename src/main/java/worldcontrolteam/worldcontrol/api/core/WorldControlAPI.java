@@ -24,8 +24,7 @@ public class WorldControlAPI {
 	}
 
 	public static void init(IWorldControlAPI inst){
-		if(instance == null){
+		if(instance == null)
 			instance = inst;
-		}
 	}
 }

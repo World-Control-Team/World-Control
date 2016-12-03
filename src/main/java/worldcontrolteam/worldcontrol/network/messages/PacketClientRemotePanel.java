@@ -41,15 +41,14 @@ public class PacketClientRemotePanel implements IMessage {
 		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx){
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-			if(player.getHeldItemMainhand() != null){
+			if(player.getHeldItemMainhand() != null)
 				if(player.getHeldItemMainhand().getItem() == WCItems.REMOTE_PANEL){
 					// ItemRemoteMonitor remote = (ItemRemoteMonitor)
 					// player.getHeldItem().getItem();
 					InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());
 					// NCLog.fatal(itemInv.getStackInSlot(0));
-					if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard)){
+					if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard))
 						return null;
-					}
 					if(message.stack.hasTagCompound()){
 						ItemStack stackz = itemInv.getStackInSlot(0).copy();
 						stackz.setTagCompound(message.stack.getTagCompound());
@@ -59,7 +58,6 @@ public class PacketClientRemotePanel implements IMessage {
 					// NCLog.fatal("CLIENT RECIEVE: " +
 					// ItemStackUtils.getTagCompound(itemInv.getStackInSlot(0)).getInteger("energyL"));
 				}
-			}
 			return null;
 		}
 	}

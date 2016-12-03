@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.crossmod.tesla;
 
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -13,45 +12,43 @@ import worldcontrolteam.worldcontrol.inventory.container.ContainerAverageCounter
 
 public class TeslaModule extends ModuleBase {
 
-    public static final Item TESLA_KIT = new TeslaPowerKit();
-    public static final Item TESLA_CARD = new TeslaPowerCard();
-    public static final Block TESLA_AVERAGE_COUNTER = new BlockTeslaAverageCounter();
+	public static final Item TESLA_KIT = new TeslaPowerKit();
+	public static final Item TESLA_CARD = new TeslaPowerCard();
+	public static final Block TESLA_AVERAGE_COUNTER = new BlockTeslaAverageCounter();
 
-    @Override
-    public void preInit() {
-        GameRegistry.registerTileEntity(TileEntityTeslaAverageCounter.class, "telsaAverageCounter");
-    }
+	@Override
+	public void preInit(){
+		GameRegistry.registerTileEntity(TileEntityTeslaAverageCounter.class, "telsa_average_counter");
+	}
 
-    @Override
-    public void init() {
+	@Override
+	public void init(){
 
-    }
+	}
 
-    @Override
-    public void postInit() {
+	@Override
+	public void postInit(){
 
-    }
+	}
 
-    @Override
-    public String modID() {
-        return "tesla";
-    }
+	@Override
+	public String modID(){
+		return "tesla";
+	}
 
-    @Override
-    public Object handleServerGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        BlockPos pos = new BlockPos(x, y, z);
-        if(world.getTileEntity(pos) instanceof TileEntityTeslaAverageCounter){
-            return new ContainerAverageCounter(player, (TileEntityTeslaAverageCounter) world.getTileEntity(pos));
-        }
-        return null;
-    }
+	@Override
+	public Object handleServerGUI(int ID, EntityPlayer player, World world, int x, int y, int z){
+		BlockPos pos = new BlockPos(x, y, z);
+		if(world.getTileEntity(pos) instanceof TileEntityTeslaAverageCounter)
+			return new ContainerAverageCounter(player, (TileEntityTeslaAverageCounter) world.getTileEntity(pos));
+		return null;
+	}
 
-    @Override
-    public Object handleClientGUI(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        BlockPos pos = new BlockPos(x, y, z);
-        if(world.getTileEntity(pos) instanceof TileEntityTeslaAverageCounter){
-            return new GuiAverageCounter(new ContainerAverageCounter(player, (TileEntityTeslaAverageCounter) world.getTileEntity(pos)));
-        }
-        return null;
-    }
+	@Override
+	public Object handleClientGUI(int ID, EntityPlayer player, World world, int x, int y, int z){
+		BlockPos pos = new BlockPos(x, y, z);
+		if(world.getTileEntity(pos) instanceof TileEntityTeslaAverageCounter)
+			return new GuiAverageCounter(new ContainerAverageCounter(player, (TileEntityTeslaAverageCounter) world.getTileEntity(pos)));
+		return null;
+	}
 }

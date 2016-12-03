@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "worldcontrol:items/cardTime"
+    "layer0": "worldcontrol:items/kit_forge_energy"
   }
 }

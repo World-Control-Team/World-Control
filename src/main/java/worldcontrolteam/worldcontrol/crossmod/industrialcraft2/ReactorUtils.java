@@ -27,13 +27,11 @@ public class ReactorUtils {
 	}
 
 	public static int getNuclearCellTimeLeft(ItemStack rStack){
-		if(rStack == null){
+		if(rStack == null)
 			return 0;
-		}
 		if(rStack.getItem() instanceof AbstractDamageableReactorComponent){
-			if(rStack.getItem() instanceof ICustomDamageItem){
+			if(rStack.getItem() instanceof ICustomDamageItem)
 				return ((ICustomDamageItem) rStack.getItem()).getMaxCustomDamage(rStack) - ((ICustomDamageItem) rStack.getItem()).getCustomDamage(rStack);
-			}
 			return rStack.getMaxDamage() - rStack.getItemDamage();
 		}
 

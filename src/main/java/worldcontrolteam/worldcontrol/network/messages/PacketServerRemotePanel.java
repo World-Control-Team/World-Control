@@ -1,14 +1,12 @@
 package worldcontrolteam.worldcontrol.network.messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.server.FMLServerHandler;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
@@ -56,9 +54,8 @@ public class PacketServerRemotePanel implements IMessage {
 					EntityPlayer player = ctx.getServerHandler().playerEntity;
 					InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());
 					// NCLog.fatal(itemInv.getStackInSlot(0));
-					if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard)){
+					if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard))
 						return null;
-					}
 					if(stack.hasTagCompound()){
 						// NCLog.fatal(helper.getUpdateSet().entrySet());
 						ItemStack stackz = itemInv.getStackInSlot(0).copy();
@@ -80,7 +77,7 @@ public class PacketServerRemotePanel implements IMessage {
 		 * needUpdate = true; if (upgradeCountRange > 7) { upgradeCountRange =
 		 * 7; } int range = 100 * (int) Math.pow(2, upgradeCountRange);
 		 * CardWrapperImpl cardHelper = new CardWrapperImpl(CARD, slot);
-		 * 
+		 *
 		 * if (item instanceof IRemoteSensor) { ChunkCoordinates target =
 		 * cardHelper.getTarget(); if (target == null) { needUpdate = false;
 		 * cardHelper.setState(CardState.INVALID_CARD); } else {
@@ -88,7 +85,7 @@ public class PacketServerRemotePanel implements IMessage {
 		 * CardState state = null; state = ((IProviderCard)
 		 * item).update(FMLServerHandler.instance().getServer().worldServers[0],
 		 * CARD);
-		 * 
+		 *
 		 * } return cardHelper; } return null; }
 		 */
 	}

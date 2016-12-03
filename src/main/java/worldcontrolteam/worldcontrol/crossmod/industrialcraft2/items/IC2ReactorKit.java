@@ -10,7 +10,7 @@ import worldcontrolteam.worldcontrol.items.ItemBaseKit;
 
 public class IC2ReactorKit extends ItemBaseKit {
 	public IC2ReactorKit() {
-		super("IC2ReactorKit");
+		super("ic2_reactor_kit");
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class IC2ReactorKit extends ItemBaseKit {
 	}
 
 	@Override
-	public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
+	public boolean canReturnCard(ItemStack stack, World world, BlockPos pos){
 		return ReactorUtils.getReactorAt(world, pos) != null;
 	}
 

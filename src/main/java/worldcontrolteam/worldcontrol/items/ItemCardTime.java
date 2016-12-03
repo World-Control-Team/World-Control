@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol.items;
 
-import net.minecraft.client.resources.I18n;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -8,19 +9,17 @@ import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-import java.util.List;
-
 public class ItemCardTime extends ItemBaseCard {
 
 	public ItemCardTime() {
-		super("timecard");
+		super("time_card");
 	}
 
 	@Override
 	public CardState update(World world, ItemStack card){
 		int time = (int) ((world.getWorldTime() + 6000) % 24000);
 		int hours = time / 1000;
-		int minutes = (time % 1000) * 6 / 100;
+		int minutes = time % 1000 * 6 / 100;
 		String suffix = "";
 
 		// if ((displaySettings & MODE_24H) == 0) {
@@ -38,7 +37,7 @@ public class ItemCardTime extends ItemBaseCard {
 	@Override
 	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels){
 		StringWrapper text = new StringWrapper();
-		text.textLeft = WCUtility.translateFormatted("timecard.time", card.getTagCompound().getString("time"));
+		text.textLeft = WCUtility.translateFormatted("time_card.time", card.getTagCompound().getString("time"));
 		list.add(text);
 		return list;
 	}

@@ -30,14 +30,14 @@ public class ItemCard extends WCBaseItem {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			tooltip.add(WCUtility.translateFormatted("CARD.cords", x, y, z));
+			tooltip.add(WCUtility.translateFormatted("card.cords", x, y, z));
 		}catch (NullPointerException e){
-			tooltip.add(WCUtility.translate("CARD.nocords"));
+			tooltip.add(WCUtility.translate("card.no_cords"));
 		}
 	}
 
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
+	@Override
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
 		WCUtility.error(world.getTileEntity(pos));
 		return EnumActionResult.PASS;
 	}

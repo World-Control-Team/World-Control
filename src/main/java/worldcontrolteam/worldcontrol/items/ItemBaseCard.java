@@ -1,5 +1,7 @@
 package worldcontrolteam.worldcontrol.items;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -7,8 +9,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
-
-import java.util.List;
 
 public abstract class ItemBaseCard extends WCBaseItem implements IProviderCard {
 

@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol;
 
-import net.minecraft.item.ItemStack;
+import java.util.ArrayList;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -9,18 +10,14 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
-import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.crossmod.Modules;
-import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.items.ItemThermometer;
 import worldcontrolteam.worldcontrol.items.WCItems;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
+import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
-
-import java.util.ArrayList;
 
 @Mod(modid = WorldControl.MODID, version = "@VERSION@")
 public class WorldControl {
@@ -60,7 +57,7 @@ public class WorldControl {
 
 		modules.init();
 
-		((ItemThermometer) WCItems.THERMOMETER).addInHeatTypes(heatTypez);
+		ItemThermometer.addInHeatTypes(heatTypez);
 
 		proxy.init();
 

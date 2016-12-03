@@ -1,0 +1,13 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "worldcontrol:items/remote_panel",
+    "layer1": "worldcontrol:items/remote_panel_card"
+  },
+  "overrides": [{
+      "predicate": {
+        "noCard": 1
+      },
+      "model": "worldcontrol:item/remote_panel_no_card"
+    }]
+}

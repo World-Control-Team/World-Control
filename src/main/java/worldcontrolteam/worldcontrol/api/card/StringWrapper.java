@@ -2,11 +2,12 @@ package worldcontrolteam.worldcontrol.api.card;
 
 public class StringWrapper {
 
-	public StringWrapper(String text){
+	public StringWrapper(String text) {
 		textLeft = text;
 	}
 
-	public StringWrapper(){}
+	public StringWrapper() {
+	}
 
 	/**
 	 * Text of the left aligned part of the line.

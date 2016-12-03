@@ -1,5 +1,7 @@
 package worldcontrolteam.worldcontrol.items;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
@@ -10,23 +12,20 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
-import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
-
-import javax.annotation.Nullable;
+import worldcontrolteam.worldcontrol.utils.GuiLib;
 
 public class ItemRemotePanel extends WCBaseItem {
 
 	public ItemRemotePanel() {
-		super("remotePanel");
+		super("remote_panel");
 
-		this.addPropertyOverride(new ResourceLocation("noCard"), new IItemPropertyGetter(){
+		this.addPropertyOverride(new ResourceLocation("no_card"), new IItemPropertyGetter(){
 			@Override
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn){
 				InventoryItem inv = new InventoryItem(stack);
-				if(inv.getStackInSlot(0) == null){
+				if(inv.getStackInSlot(0) == null)
 					return 1;
-				}
 				return 0;
 			}
 		});
