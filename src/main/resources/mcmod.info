@@ -1,14 +1,14 @@
 [
 {
-    "modid": "TheChiefsSurprise",
-    "name": "The Chief's Surprise",
-    "description": "A mod adding a few simple foods that the Chief would approve of.",
+    "modid": "worldcontrol",
+    "name": "World Control",
+    "description": "The spiritual successor to Nuclear Control 2.",
     "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
-    "authorList": ["Xbony2"],
-    "credits": "",
+    "authorList": ["Xbony2","DMF444"],
+    "credits": "Original Nuclear Control authors included Shedar, Nargon, Noosius. Later maintained versions by Xbony2, Zuxelus and DMF444.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
