@@ -1,0 +1,11 @@
+{
+  "parent": "block/orientable_vertical",
+  "textures": {
+    "up": "worldcontrol:blocks/averageCounter/output",
+    "down": "worldcontrol:blocks/averageCounter/output",
+    "south": "worldcontrol:blocks/averageCounter/output",
+    "east": "worldcontrol:blocks/averageCounter/output",
+    "west": "worldcontrol:blocks/averageCounter/output",
+    "north": "worldcontrol:blocks/averageCounter/input"
+  }
+}

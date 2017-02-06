@@ -14,7 +14,7 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SideOnly(Side.CLIENT)
 public class GuiAverageCounter extends GuiContainer {
-	private static final String TEXTURE_FILE = "worldcontrol:textures/gui/GUIEnergyCounter.png";
+	private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_energy_counter.png";
 	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
 	private String name;
