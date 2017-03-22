@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
-import worldcontrolteam.worldcontrol.items.WCItems;
+import worldcontrolteam.worldcontrol.init.WCItems;
 
 public class PacketClientRemotePanel implements IMessage {
 

@@ -13,8 +13,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 import worldcontrolteam.worldcontrol.crossmod.Modules;
+import worldcontrolteam.worldcontrol.init.WCBlocks;
 import worldcontrolteam.worldcontrol.items.ItemThermometer;
-import worldcontrolteam.worldcontrol.items.WCItems;
+import worldcontrolteam.worldcontrol.init.WCItems;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -45,6 +46,7 @@ public class WorldControl {
 		WorldControlAPI.init(new WCapiImpl());
 
 		WCItems.registerItems();
+		WCBlocks.registerBlocks();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		ChannelHandler.init();

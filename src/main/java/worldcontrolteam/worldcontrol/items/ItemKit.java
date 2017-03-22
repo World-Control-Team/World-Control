@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import worldcontrolteam.worldcontrol.init.WCItems;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
 public class ItemKit extends WCBaseItem {

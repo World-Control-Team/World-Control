@@ -75,11 +75,6 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 		return relativeDirection.getTrueDirection(facingIn);
 	}
 
-	//Make sure you set this as your TileEntity class relevant for the block!
-	@Override
-	public TileEntity createNewTileEntity(World world, int i){
-		return null;
-	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack){

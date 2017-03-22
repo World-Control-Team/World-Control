@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;
-import worldcontrolteam.worldcontrol.items.WCItems;
+import worldcontrolteam.worldcontrol.init.WCItems;
 
 public class ContainerRemotePanel extends Container {
 

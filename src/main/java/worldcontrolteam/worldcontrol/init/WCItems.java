@@ -1,9 +1,10 @@
-package worldcontrolteam.worldcontrol.items;
+package worldcontrolteam.worldcontrol.init;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import worldcontrolteam.worldcontrol.items.*;
 
 public class WCItems {
 	public static Item FLUID_CARD;

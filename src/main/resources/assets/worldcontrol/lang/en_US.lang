@@ -17,9 +17,8 @@ item.worldcontrol.fluid_kit.name=Fluid Kit
 item.worldcontrol.fluid_card.name=Fluid Card
 
 tile.tesla_average_counter.name=Tesla Average Counter
+tile.blockIndustrialAlarm.name=Industrial Alarm
 
-msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
-msg.worldcontrol.card.no_cords=Missing cordinates
 
 #Thermometer
 msg.worldcontrol.thermometer.chat_info=Heat: %s
@@ -30,6 +29,9 @@ msg.worldcontrol.thermometer.mode.ic2=IndustrialCraft 2
 ###################
 #Card Strings
 ###################
+msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
+msg.worldcontrol.card.no_cords=Missing cordinates
+
 msg.worldcontrol.timecard.time=Time: %s
 msg.worldcontrol.none=None
 msg.worldcontrol.average_counter_period=Period: %s sec
@@ -67,3 +69,8 @@ msg.worldcontrol.forge_energy=Energy: %s FE
 msg.worldcontrol.forge_free=Free: %s FE
 msg.worldcontrol.forge_stored=Storage: %s FE
 
+
+###################
+#Block Messages
+###################
+msg.worldcontrol.HowlerAlarmSoundRange=Sound range: %s

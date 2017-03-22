@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.IEnergyStorage;
+import worldcontrolteam.worldcontrol.init.WCItems;
 
 public class ItemForgeEnergyKit extends ItemBaseKit {
 

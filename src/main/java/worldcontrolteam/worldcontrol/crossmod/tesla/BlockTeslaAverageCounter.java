@@ -14,6 +14,7 @@ public class BlockTeslaAverageCounter extends BlockBasicTileProvider {
 	public BlockTeslaAverageCounter() {
 		super(Material.ANVIL);
 		this.setRegistryName("tesla_average_counter");
+		this.setUnlocalizedName("tesla_average_counter");
 		this.setCreativeTab(WorldControl.TAB);
 
 		GameRegistry.register(this);
