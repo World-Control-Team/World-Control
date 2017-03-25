@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "normal": { "model": "worldcontrol:IndustrialAlarm" },
+    "facing=north": { "model": "worldcontrol:IndustrialAlarm", "x": 90},
+    "facing=south": { "model": "worldcontrol:IndustrialAlarm", "x": -90},
+    "facing=west":  { "model": "worldcontrol:IndustrialAlarm", "x": -90, "y": 90},
+    "facing=east":  { "model": "worldcontrol:IndustrialAlarm", "x": 90, "y": 90},
+    "facing=down":  { "model": "worldcontrol:IndustrialAlarm", "x": 180 },
+    "facing=up":    { "model": "worldcontrol:IndustrialAlarm"}
+  }
+}

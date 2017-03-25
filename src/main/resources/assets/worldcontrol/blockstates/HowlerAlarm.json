@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "normal": { "model": "worldcontrol:HowlerAlarm" },
+    "facing=north": { "model": "worldcontrol:HowlerAlarm", "x": 90},
+    "facing=south": { "model": "worldcontrol:HowlerAlarm", "x": -90},
+    "facing=west":  { "model": "worldcontrol:HowlerAlarm", "x": -90, "y": 90},
+    "facing=east":  { "model": "worldcontrol:HowlerAlarm", "x": 90, "y": 90},
+    "facing=down":  { "model": "worldcontrol:HowlerAlarm", "x": 180 },
+    "facing=up":    { "model": "worldcontrol:HowlerAlarm"}
+  }
+}

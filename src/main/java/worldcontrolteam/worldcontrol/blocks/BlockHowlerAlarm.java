@@ -1,6 +1,6 @@
 package worldcontrolteam.worldcontrol.blocks;
 
-import net.minecraft.block.material.Material;
+
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -9,17 +9,10 @@ import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
+public class BlockHowlerAlarm extends BlockIndustrialAlarm{
 
-public class BlockHowlerAlarm extends BlockBasicRotate{
-
-    public BlockHowlerAlarm() {
-        super(Material.IRON);
-        setHardness(0.5F);
-        setRegistryName("HowlerAlarm");
-        setUnlocalizedName("HowlerAlarm");
-        setCreativeTab(WorldControl.TAB);
-        GameRegistry.register(this);
-        GameRegistry.register(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+    public BlockHowlerAlarm(){
+        super("HowlerAlarm");
     }
 
     @Override
@@ -34,6 +27,6 @@ public class BlockHowlerAlarm extends BlockBasicRotate{
 
     @Override
     public int guiID() {
-        return GuiLib.INDUSTRIAL_ALARM;
+        return GuiLib.HOWLER_ALARM;
     }
 }

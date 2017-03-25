@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +19,7 @@ import worldcontrolteam.worldcontrol.items.ItemThermometer;
 import worldcontrolteam.worldcontrol.init.WCItems;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.GuiHandler;
+import worldcontrolteam.worldcontrol.utils.WCConfig;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @Mod(modid = WorldControl.MODID, version = "@VERSION@")
@@ -43,10 +45,13 @@ public class WorldControl {
 	public void preInit(FMLPreInitializationEvent event){
 		WCUtility.info("We are in pre-init!");
 		side = event.getSide();
+		WCConfig.init(new File(event.getModConfigurationDirectory(), MODID + ".cfg"));
 		WorldControlAPI.init(new WCapiImpl());
 
 		WCItems.registerItems();
 		WCBlocks.registerBlocks();
+
+		proxy.registerItemTextures();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		ChannelHandler.init();

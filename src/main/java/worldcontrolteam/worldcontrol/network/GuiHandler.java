@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import worldcontrolteam.worldcontrol.WorldControl;
+import worldcontrolteam.worldcontrol.client.gui.GuiHowlerAlarm;
 import worldcontrolteam.worldcontrol.client.gui.GuiIndustrialAlarm;
 import worldcontrolteam.worldcontrol.client.gui.GuiRemotePanel;
 import worldcontrolteam.worldcontrol.container.ContainerEmpty;
@@ -23,6 +24,8 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()));
 		}else if(ID == GuiLib.INDUSTRIAL_ALARM){
 			return new ContainerEmpty(tile);
+		}else if(ID == GuiLib.HOWLER_ALARM){
+			return new ContainerEmpty(tile);
 		}
 		//ALWAY KEEP THIS AS LAST CALL
 		return WorldControl.modules.guiHandlerServer(ID, player, world, x, y, z);
@@ -35,6 +38,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()), player);
 		}else if(ID == GuiLib.INDUSTRIAL_ALARM){
 			return new GuiIndustrialAlarm((TileEntityHowlerAlarm) tile);
+		}else if(ID == GuiLib.HOWLER_ALARM){
+			return new GuiHowlerAlarm((TileEntityHowlerAlarm) tile);
 		}
 		//ALWAY KEEP THIS AS LAST CALL
 		return WorldControl.modules.guiHandlerClient(ID, player, world, x, y, z);
