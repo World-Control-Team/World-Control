@@ -47,6 +47,7 @@ public class WorldControl {
 		side = event.getSide();
 		WCConfig.init(new File(event.getModConfigurationDirectory(), MODID + ".cfg"));
 		WorldControlAPI.init(new WCapiImpl());
+		proxy.preinit(event);
 
 		WCItems.registerItems();
 		WCBlocks.registerBlocks();

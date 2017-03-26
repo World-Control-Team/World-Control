@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.messages.PacketUpdateHowlerAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
+import worldcontrolteam.worldcontrol.utils.WCConfig;
 
 
 @SideOnly(Side.CLIENT)
@@ -33,7 +34,7 @@ public class HowlerAlarmSlider extends GuiButton {
         dragging = false;
         this.label = label;
         if (alarm.getWorld().isRemote)
-            maxValue = 64; //TODO: Make this into a config
+            maxValue = WCConfig.maxAlarmRange;
         int currentRange = alarm.getRange();
         if (alarm.getWorld().isRemote && currentRange > maxValue)
             currentRange = maxValue;

@@ -17,6 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
+import worldcontrolteam.worldcontrol.utils.WCConfig;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 
@@ -43,7 +44,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
         tickRate = 2;
         updateTicker = 0;
         soundName = DEFAULT_SOUND_NAME;
-        range = 64; //TODO: Make this into a config
+        range = WCConfig.alarmRange;
         color = WCUtility.WHITE;
         if(WorldControl.side == Side.CLIENT){
             sound = new TileEntitySound(BASE_SOUND_RANGE);
@@ -71,6 +72,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     @Override
     public void update() {
+       // WCUtility.error(color);
         if (!init) {
             if(!getWorld().isRemote)
                 RedstoneHelper.checkPowered(getWorld(), this);
@@ -95,7 +97,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     private float getNormalizedRange() {
         if (worldObj.isRemote) {
-            return Math.min(range, 256) / BASE_SOUND_RANGE; //TODO: Return 256 back to a config
+            return Math.min(range, WCConfig.SMPmaxAlarmRange) / BASE_SOUND_RANGE;
         }
         return range / BASE_SOUND_RANGE;
     }
@@ -119,7 +121,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
     @Override
     public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt)
     {
-        color = pkt.getNbtCompound().getInteger("Color");
+        color = pkt.getNbtCompound().getInteger("color");
         range = pkt.getNbtCompound().getInteger("range");
         soundName = pkt.getNbtCompound().getString("soundName");
         powered = pkt.getNbtCompound().getBoolean("powered");
@@ -161,6 +163,10 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     public int getColor() {
         return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
 

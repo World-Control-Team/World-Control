@@ -31,7 +31,7 @@ public class GuiHowlerAlarm extends GuiContainer {
         this.alarm = alarm;
         xSize = 131;
         ySize = 136;
-        name = I18n.format("tile.blockHowlerAlarm.name");
+        name = I18n.format("tile.HowlerAlarm.name");
     }
 
     @SuppressWarnings("unchecked")
@@ -59,7 +59,7 @@ public class GuiHowlerAlarm extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRendererObj.drawString(name, (xSize - fontRendererObj.getStringWidth(name)) / 2, 6, 0x404040);
-        fontRendererObj.drawString(I18n.format("msg.nc.HowlerAlarmSound"), 12, 53, 0x404040);
+        fontRendererObj.drawString(I18n.format("msg.worldcontrol.HowlerAlarmSound"), 12, 53, 0x404040);
     }
 
     @Override

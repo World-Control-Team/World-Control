@@ -6,12 +6,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 import worldcontrolteam.worldcontrol.CommonProxy;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.init.WCBlocks;
@@ -22,6 +25,12 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import java.lang.reflect.Field;
 
 public class ClientProxy extends CommonProxy {
+
+	@Override
+	public void preinit(FMLPreInitializationEvent event){
+		AlarmAudioLoader.checkAndCreateFolders(event.getModConfigurationDirectory());
+		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new AlarmAudioLoader.TextureSetting());
+	}
 
 	@Override
 	public void init(){
@@ -41,9 +50,11 @@ public class ClientProxy extends CommonProxy {
 		{
 			public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex)
 			{
-				TileEntity tile = world.getTileEntity(pos);
-				if(tile instanceof TileEntityHowlerAlarm){
-					return ((TileEntityHowlerAlarm)tile).getColor();
+				if(world != null && pos != null) {
+					TileEntity tile = world.getTileEntity(pos);
+					if (tile instanceof TileEntityHowlerAlarm) {
+						return ((TileEntityHowlerAlarm) tile).getColor();
+					}
 				}
 				return 16777215;
 			}

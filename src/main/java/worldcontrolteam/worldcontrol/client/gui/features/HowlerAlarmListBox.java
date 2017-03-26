@@ -114,6 +114,7 @@ public class HowlerAlarmListBox extends GuiButton {
         }
 
         int rowTop = BASIC_Y_OFFSET;
+        GL11.glPushMatrix();
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         Minecraft mc = FMLClientHandler.instance().getClient();
         ScaledResolution scaler = new ScaledResolution(mc);
@@ -138,7 +139,7 @@ public class HowlerAlarmListBox extends GuiButton {
                 + ((height - 2 * SCROLL_BUTTON_HEIGHT - sliderHeight) * scrollTop)
                 / (lineHeight * items.size() + BASIC_Y_OFFSET - height);
 
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, minecraft.renderEngine.getTexture(TEXTURE_LOCATION).getGlTextureId());
+        minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -153,6 +154,7 @@ public class HowlerAlarmListBox extends GuiButton {
         tessellator.draw();
 
         drawTexturedModalRect(sliderX, sliderY + sliderHeight - 1, 131, 19, SCROLL_WIDTH - 1, 1);
+        GL11.glPopMatrix();
     }
 
     private static void draw(Tessellator tess, double x, double y, double z, float U, float V){

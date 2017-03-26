@@ -17,7 +17,8 @@ item.worldcontrol.fluid_kit.name=Fluid Kit
 item.worldcontrol.fluid_card.name=Fluid Card
 
 tile.tesla_average_counter.name=Tesla Average Counter
-tile.blockIndustrialAlarm.name=Industrial Alarm
+tile.IndustrialAlarm.name=Industrial Alarm
+tile.HowlerAlarm.name=Howler Alarm
 
 
 #Thermometer
@@ -74,3 +75,4 @@ msg.worldcontrol.forge_stored=Storage: %s FE
 #Block Messages
 ###################
 msg.worldcontrol.HowlerAlarmSoundRange=Sound range: %s
+msg.worldcontrol.HowlerAlarmSound=Sound
