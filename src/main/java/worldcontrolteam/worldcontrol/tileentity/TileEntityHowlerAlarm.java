@@ -156,7 +156,11 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
     }
 
     public void setSound(String sound) {
-        this.soundName = sound;
+        if(WCConfig.howlerAlarmSounds.contains(sound)) {
+            this.soundName = sound;
+        }else{
+            this.soundName = DEFAULT_SOUND_NAME;
+        }
     }
 
     public String getSound(){return soundName;}

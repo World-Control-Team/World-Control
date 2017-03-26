@@ -9,6 +9,8 @@ import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import worldcontrolteam.worldcontrol.utils.WCConfig;
+
 
 import java.io.File;
 import java.io.FileWriter;
@@ -19,9 +21,8 @@ public class AlarmAudioLoader {
     protected static File WCalarms;
     public static void checkAndCreateFolders(File file){
         String soundsFolder = file.getParent();
-        if(soundsFolder != null){
+        if(soundsFolder != null && WCConfig.useCustomSounds){
             WCalarms = new File(soundsFolder, "WCalarms");
-            File jsonLoc = new File(WCalarms, "assets"+ File.separator +"worldcontrol" + File.separator + "sounds.json");
             File audioLoc = new File(WCalarms, "assets"+ File.separator +"worldcontrol" + File.separator + "sounds");
 
             if(!WCalarms.exists()){
@@ -39,7 +40,7 @@ public class AlarmAudioLoader {
     private static void buildJSON() throws IOException {
         JsonWriter parse = new JsonWriter(new FileWriter(WCalarms.getAbsolutePath() + File.separator + "assets"+ File.separator +"worldcontrol"+ File.separator + "sounds.json"));
         parse.beginObject();
-        parse.name("_comment").value("EXAMPLE FORM: 'alarm-default': {'category': 'master','sounds': [{'name': 'worldcontrol:alarm-default','stream': true}]}");
+        parse.name("_comment-ERASE ME").value("EXAMPLE FORM: 'file-name': {'category': 'master','sounds': [{'name': 'worldcontrol:file-name','stream': true}]}");
         parse.endObject();
         parse.close();
     }
