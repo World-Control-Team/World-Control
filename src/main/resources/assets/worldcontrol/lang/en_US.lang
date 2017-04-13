@@ -1,7 +1,5 @@
 msg.worldcontrol.creativetab=World Control
 
-item.worldcontrol.kit.name=Kit
-item.worldcontrol.card.name=Card
 item.worldcontrol.thermometer.name=Thermometer
 item.worldcontrol.time_card.name=Time Card
 item.worldcontrol.remote_panel.name=Portable Information Panel
@@ -20,6 +18,7 @@ tile.tesla_average_counter.name=Tesla Average Counter
 tile.IndustrialAlarm.name=Industrial Alarm
 tile.HowlerAlarm.name=Howler Alarm
 
+fluid.mercury=Mercury
 
 #Thermometer
 msg.worldcontrol.thermometer.chat_info=Heat: %s
