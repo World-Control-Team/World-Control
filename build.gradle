@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.0a" //newWorldControlVersion
+version = "1.0.1a" //newWorldControlVersion
 group = "worldcontrolteam.worldcontrol"
 archivesBaseName = "worldcontrol"
 
