@@ -19,7 +19,7 @@ import java.util.List;
 @SideOnly(Side.CLIENT)
 public class GuiIndustrialAlarm extends GuiContainer {
 
-    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/GUIIndustrialAlarm.png";
+    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_industrial_alarm.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
     private TileEntityHowlerAlarm alarm;

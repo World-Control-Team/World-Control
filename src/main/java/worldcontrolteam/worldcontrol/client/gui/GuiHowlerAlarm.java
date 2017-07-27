@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
 
+import java.util.List;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -13,12 +14,9 @@ import worldcontrolteam.worldcontrol.container.ContainerEmpty;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.WCConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SideOnly(Side.CLIENT)
 public class GuiHowlerAlarm extends GuiContainer {
-    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/GUIHowlerAlarm.png";
+    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_howler_alarm.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
     private TileEntityHowlerAlarm alarm;

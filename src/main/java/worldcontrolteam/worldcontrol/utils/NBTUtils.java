@@ -26,7 +26,7 @@ public class NBTUtils {
 	public static NBTTagCompound writeItemStack(NBTTagCompound tagCompound, ItemStack stack){
 		tagCompound.setString(ITEM_NAME, stack.getItem().getRegistryName().toString());
 		tagCompound.setInteger(METADATA, stack.getMetadata());
-		tagCompound.setInteger(STACKSIZE, stack.stackSize);
+		tagCompound.setInteger(STACKSIZE, stack.getCount());
 		tagCompound.setString(NBTTAG, stack.getTagCompound().toString());
 		return tagCompound;
 	}

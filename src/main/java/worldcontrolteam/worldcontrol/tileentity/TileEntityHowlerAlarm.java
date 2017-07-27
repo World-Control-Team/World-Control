@@ -96,7 +96,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
     }
 
     private float getNormalizedRange() {
-        if (worldObj.isRemote) {
+        if (getWorld().isRemote) {
             return Math.min(range, WCConfig.SMPmaxAlarmRange) / BASE_SOUND_RANGE;
         }
         return range / BASE_SOUND_RANGE;
@@ -119,6 +119,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt)
     {
         color = pkt.getNbtCompound().getInteger("color");

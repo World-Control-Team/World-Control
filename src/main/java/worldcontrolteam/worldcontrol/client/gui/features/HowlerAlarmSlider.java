@@ -17,7 +17,7 @@ import worldcontrolteam.worldcontrol.utils.WCConfig;
 
 @SideOnly(Side.CLIENT)
 public class HowlerAlarmSlider extends GuiButton {
-    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/GUIHowlerAlarm.png";
+    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_howler_alarm.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
     public float sliderValue;

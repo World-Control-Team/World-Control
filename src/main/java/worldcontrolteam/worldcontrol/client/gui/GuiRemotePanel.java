@@ -34,7 +34,7 @@ public class GuiRemotePanel extends GuiContainer {
 	public void initGui(){
 		super.initGui();
 		this.xSize += 50;
-		this.mc.thePlayer.openContainer = this.inventorySlots;
+		this.mc.player.openContainer = this.inventorySlots;
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
 	}
@@ -113,6 +113,6 @@ public class GuiRemotePanel extends GuiContainer {
 		super.updateScreen();
 
 		if(this.e.getHeldItemMainhand() == null)
-			this.mc.thePlayer.closeScreen();
+			this.mc.player.closeScreen();
 	}
 }

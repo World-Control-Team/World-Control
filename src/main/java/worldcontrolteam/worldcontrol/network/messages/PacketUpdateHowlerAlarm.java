@@ -2,7 +2,6 @@ package worldcontrolteam.worldcontrol.network.messages;
 
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,7 +10,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
-import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
 
 public class PacketUpdateHowlerAlarm implements IMessage{
@@ -48,7 +46,7 @@ public class PacketUpdateHowlerAlarm implements IMessage{
 
         @Override
         public IMessage onMessage(PacketUpdateHowlerAlarm message, MessageContext ctx) {
-            World world = ctx.getServerHandler().playerEntity.worldObj;
+            World world = ctx.getServerHandler().playerEntity.getEntityWorld();
             TileEntity tile = world.getTileEntity(message.pos);
             if(tile instanceof TileEntityHowlerAlarm){
                 TileEntityHowlerAlarm alarm = (TileEntityHowlerAlarm) tile;

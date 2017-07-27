@@ -21,6 +21,9 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
 	}
 
 	@Override
+	public int getSlotLimit(int slot){return 64;}
+
+	@Override
 	public ItemStack getStackInSlot(int slot){
 		return stack;
 	}
@@ -28,7 +31,7 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stackl, boolean simulate){
 		if(stackl != null)
-			if(this.stack.stackSize < 5){
+			if(this.stack.getCount() < 5){
 				//TODO: Finish this code...
 			}
 		return null;

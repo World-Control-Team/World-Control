@@ -1,9 +1,7 @@
 package worldcontrolteam.worldcontrol.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -11,6 +9,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -19,7 +18,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
-import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 
 public class BlockIndustrialAlarm extends BlockBasicRotate{
@@ -94,7 +92,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate{
         }
     }
 
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block){
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos){
         if(!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite()))){
             this.dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
             world.setBlockToAir(pos);
@@ -102,7 +100,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate{
     }
 
     @Override
-    public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
         if (world.isSideSolid(pos.offset(facing.getOpposite()),facing.getOpposite())){
             return this.getDefaultState().withProperty(FACING, facing);
         }else{

@@ -1,14 +1,13 @@
 package worldcontrolteam.worldcontrol.items;
 
 import java.util.List;
-
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import net.minecraftforge.fluids.capability.wrappers.FluidHandlerWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
@@ -27,8 +26,6 @@ public class ItemFluidCard extends ItemBaseCard {
 			IFluidTankProperties[] properties;
 			if(world.getTileEntity(pos) instanceof IFluidHandler)
 				properties = ((IFluidHandler) world.getTileEntity(pos)).getTankProperties();
-			else if(world.getTileEntity(pos) instanceof net.minecraftforge.fluids.IFluidHandler)
-				properties = new FluidHandlerWrapper((net.minecraftforge.fluids.IFluidHandler) world.getTileEntity(pos), EnumFacing.DOWN).getTankProperties();
 			else return CardState.NO_TARGET;
 			if(properties != null){
 				card.getTagCompound().setInteger("capacity", properties[0].getCapacity());
@@ -46,6 +43,7 @@ public class ItemFluidCard extends ItemBaseCard {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels){
 		if(card.hasTagCompound()){
 			String fluid = null;

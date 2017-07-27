@@ -8,6 +8,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseAverageCounter;
 
 public class TileEntityTeslaAverageCounter extends TileEntityBaseAverageCounter {
@@ -101,6 +103,7 @@ public class TileEntityTeslaAverageCounter extends TileEntityBaseAverageCounter 
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt){
 		period = pkt.getNbtCompound().getShort("period");
 	}

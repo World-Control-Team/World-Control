@@ -34,6 +34,11 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	}
 
 	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
+	@Override
 	public ItemStack getStackInSlot(int slot){
 		return inventory[slot];
 	}
@@ -41,8 +46,8 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	@Override
 	public ItemStack decrStackSize(int slot, int amount){
 		ItemStack stack = getStackInSlot(slot);
-		if(stack != null)
-			if(stack.stackSize > amount){
+		if(stack != ItemStack.EMPTY)
+			if(stack.getCount() > amount){
 				stack = stack.splitStack(amount);
 				markDirty();
 			}else setInventorySlotContents(slot, null);
@@ -52,7 +57,7 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	@Override
 	public ItemStack removeStackFromSlot(int slot){
 		ItemStack stack = getStackInSlot(slot);
-		if(stack != null)
+		if(stack != ItemStack.EMPTY)
 			setInventorySlotContents(slot, null);
 		return stack;
 	}
@@ -61,8 +66,8 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	public void setInventorySlotContents(int slot, ItemStack itemstack){
 		this.inventory[slot] = itemstack;
 
-		if(itemstack != null && itemstack.stackSize > this.getInventoryStackLimit())
-			itemstack.stackSize = this.getInventoryStackLimit();
+		if(itemstack != null && itemstack.getCount() > this.getInventoryStackLimit())
+			itemstack.setCount(this.getInventoryStackLimit());
 		markDirty();
 	}
 
@@ -89,15 +94,15 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 	@Override
 	public void markDirty(){
 		for(int i = 0; i < getSizeInventory(); ++i)
-			if(getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0)
-				inventory[i] = null;
+			if(getStackInSlot(i) != ItemStack.EMPTY && getStackInSlot(i).getCount() == 0)
+				inventory[i] = ItemStack.EMPTY;
 		if(!invItem.hasTagCompound())
 			invItem.setTagCompound(new NBTTagCompound());
 		writeToNBT(invItem.getTagCompound());
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player){
+	public boolean isUsableByPlayer(EntityPlayer player){
 		return player.getHeldItem(player.getActiveHand()) == invItem;
 	}
 
@@ -146,7 +151,7 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 			NBTTagCompound item = items.getCompoundTagAt(i);
 			byte slot = item.getByte("slot");
 			if(slot >= 0 && slot < getSizeInventory())
-				inventory[slot] = ItemStack.loadItemStackFromNBT(item);
+				inventory[slot] = new ItemStack(item);
 		}
 	}
 

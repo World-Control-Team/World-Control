@@ -1,8 +1,6 @@
 package worldcontrolteam.worldcontrol.blocks;
 
 import java.util.Random;
-
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -14,12 +12,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 
@@ -34,7 +28,7 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack){
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
-		world.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, entity)), 2);
+		world.setBlockState(pos, state.withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, entity)), 2);
 	}
 
 	@Override
@@ -54,12 +48,12 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 		for(int i = 0; i < inventory.getSizeInventory(); i++){
 			ItemStack item = inventory.getStackInSlot(i);
 
-			if(item != null && item.stackSize > 0){
+			if(item != ItemStack.EMPTY && item.getCount() > 0){
 				float rx = rand.nextFloat() * 0.8F + 0.1F;
 				float ry = rand.nextFloat() * 0.8F + 0.1F;
 				float rz = rand.nextFloat() * 0.8F + 0.1F;
 
-				EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
+				EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
 
 				if(item.hasTagCompound())
 					entityItem.getEntityItem().setTagCompound(item.getTagCompound().copy());
@@ -68,12 +62,12 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 				entityItem.motionX = rand.nextGaussian() * factor;
 				entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
 				entityItem.motionZ = rand.nextGaussian() * factor;
-				world.spawnEntityInWorld(entityItem);
-				item.stackSize = 0;
+				world.spawnEntity(entityItem);
+				item.setCount(0);
 			}
 		}
 		EntityItem e = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this));
-		world.spawnEntityInWorld(e);
+		world.spawnEntity(e);
 
 	}
 
@@ -93,8 +87,4 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 		return new BlockStateContainer(this, new IProperty[]{FACING});
 	}
 
-	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer));
-	}
 }

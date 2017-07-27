@@ -18,7 +18,8 @@ public abstract class ItemBaseKit extends WCBaseItem {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+		ItemStack stack = player.getHeldItem(hand);
 		if(canReturnCard(stack, world, pos)){
 			ItemStack card = new ItemStack(getCardType());
 			NBTTagCompound nbt = new NBTTagCompound();
@@ -27,7 +28,7 @@ public abstract class ItemBaseKit extends WCBaseItem {
 
 			card.setTagCompound(nbt);
 
-			player.inventory.mainInventory[player.inventory.currentItem] = card;
+			player.inventory.mainInventory.set(player.inventory.currentItem, card);
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;

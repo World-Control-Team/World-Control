@@ -40,7 +40,7 @@ public class PacketClientRemotePanel implements IMessage {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx){
-			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			EntityPlayer player = Minecraft.getMinecraft().player;
 			if(player.getHeldItemMainhand() != null)
 				if(player.getHeldItemMainhand().getItem() == WCItems.REMOTE_PANEL){
 					// ItemRemoteMonitor remote = (ItemRemoteMonitor)

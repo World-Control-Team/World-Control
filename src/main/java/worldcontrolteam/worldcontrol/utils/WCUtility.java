@@ -1,8 +1,10 @@
 package worldcontrolteam.worldcontrol.utils;
 
-import org.apache.logging.log4j.Level;
-
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
 import worldcontrolteam.worldcontrol.WorldControl;
 
 public class WCUtility {
@@ -40,19 +42,20 @@ public class WCUtility {
 		log(Level.INFO, object);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static String translate(String key){
 		key = "msg.worldcontrol." + key;
-		if(net.minecraft.client.resources.I18n.hasKey(key))// TODO: used undepreciated methods
-			return net.minecraft.client.resources.I18n.format(key);
-		else return net.minecraft.client.resources.I18n.format(key);
+		if(I18n.hasKey(key))// TODO: used undepreciated methods
+			return I18n.format(key);
+		else return I18n.format(key);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static String translateFormatted(String key, Object... format){
 		key = "msg.worldcontrol." + key;
-		if(net.minecraft.client.resources.I18n.hasKey(key))// TODO: used undepreciated methods
-			return net.minecraft.client.resources.I18n.format(key, format);// I18n.translateToLocalFormatted(key,
-																		// format);
-		else return net.minecraft.client.resources.I18n.format(key, format);
+		if(I18n.hasKey(key))// TODO: used undepreciated methods
+			return I18n.format(key, format);// I18n.translateToLocalFormatted(key, format);
+		else return I18n.format(key, format);
 	}
 
 	public static int RGBToInt(final int r, final int g, final int b){

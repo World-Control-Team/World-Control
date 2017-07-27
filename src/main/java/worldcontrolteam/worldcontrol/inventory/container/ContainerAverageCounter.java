@@ -42,15 +42,15 @@ public class ContainerAverageCounter extends Container {
 		if(slot != null){
 			ItemStack items = slot.getStack();
 			if(items != null){
-				int initialCount = items.stackSize;
+				int initialCount = items.getCount();
 				if(slotId < averageCounter.getSlots())//moving from counter to inventory
 				{
 					mergeItemStack(items, averageCounter.getSlots(), inventorySlots.size(), false);
-					if(items.stackSize == 0)
+					if(items.getCount() == 0)
 						slot.putStack((ItemStack) null);
 					else{
 						slot.onSlotChanged();
-						if(initialCount != items.stackSize)
+						if(initialCount != items.getCount())
 							return items;
 					}
 				}else for(int i = 0; i < averageCounter.getSlots(); i++){
@@ -64,11 +64,11 @@ public class ContainerAverageCounter extends Container {
 						break;
 					}else if(items.isStackable() && items.isItemEqual(targetStack)){
 						mergeItemStack(items, i, i + 1, false);
-						if(items.stackSize == 0)
+						if(items.getCount() == 0)
 							slot.putStack((ItemStack) null);
 						else{
 							slot.onSlotChanged();
-							if(initialCount != items.stackSize)
+							if(initialCount != items.getCount())
 								return items;
 						}
 						break;

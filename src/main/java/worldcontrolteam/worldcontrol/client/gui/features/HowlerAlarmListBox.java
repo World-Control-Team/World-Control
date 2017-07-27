@@ -17,7 +17,7 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import java.util.List;
 
 public class HowlerAlarmListBox extends GuiButton {
-    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/GUIHowlerAlarm.png";
+    private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_howler_alarm.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
 
     private static final int BASIC_X_OFFSET = 2;

@@ -21,6 +21,11 @@ version = "1.0.1a" //newWorldControlVersion
 group = "worldcontrolteam.worldcontrol"
 archivesBaseName = "worldcontrol"
 
+sourceCompatibility = targetCompatibility = "1.6" 
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.6"
+}
+
 repositories {
 	maven {
 		name = "jei"
@@ -33,18 +38,17 @@ repositories {
 }
 
 minecraft {
-	version = "1.10.2-12.18.2.2099" //forgeVersion
+	version = "1.11.2-13.20.1.2425" //forgeVersion
 	runDir = "run"
-	mappings = "snapshot_20160518" //mappingsVersion
+	mappings = "snapshot_20161220" //mappingsVersion
 	replace "@VERSION@", project.version
 	useDepAts = true
 }
 
 dependencies {
-	//deobfCompile "mezz.jei:jei_1.9:${jeiVersion}"
-	deobfCompile "mezz.jei:jei_1.10.2:3.11.1.270"
-	compile "net.darkhax.tesla:Tesla:1.10.2-1.2.1.49"
-	compile files("libs/industrialcraft-2-2.6.85-ex110-dev.jar")
+	deobfCompile "mezz.jei:jei_1.11.2:4.5.0.294"
+	compile "net.darkhax.tesla:Tesla:1.11-1.3.0.52"
+	compile files("libs/industrialcraft-2-2.7.74-ex111.jar")
 }
 
 processResources {

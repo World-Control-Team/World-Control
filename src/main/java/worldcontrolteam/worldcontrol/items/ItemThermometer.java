@@ -32,8 +32,9 @@ public class ItemThermometer extends WCBaseItem {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
 		if(!heatTypes.isEmpty()){
+			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.hasTagCompound()){
 				NBTTagCompound tagCompound = new NBTTagCompound();
 				tagCompound.setInteger("type", 0);
@@ -44,7 +45,7 @@ public class ItemThermometer extends WCBaseItem {
 				IHeatSeeker user = heatTypes.get(toUse);
 				if(user.canUse(world, pos, world.getTileEntity(pos))){
 					if(!world.isRemote)
-						player.addChatComponentMessage(new TextComponentString(WCUtility.translateFormatted("thermometer.chat_info", user.getHeat(world, pos, world.getTileEntity(pos)))));
+						player.sendMessage(new TextComponentString(WCUtility.translateFormatted("thermometer.chat_info", user.getHeat(world, pos, world.getTileEntity(pos)))));
 					stack.damageItem(10, player);
 					return EnumActionResult.SUCCESS;
 				}
@@ -54,7 +55,8 @@ public class ItemThermometer extends WCBaseItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStack, World world, EntityPlayer player, EnumHand hand){
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
+		ItemStack itemStack = player.getHeldItem(hand);
 		if(!heatTypes.isEmpty()){
 			if(itemStack.hasTagCompound()){
 				NBTTagCompound tag = itemStack.getTagCompound();

@@ -32,7 +32,8 @@ public class ItemRemotePanel extends WCBaseItem {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
+		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()){
 			player.openGui(WorldControl.instance, GuiLib.REMOTE_PANEL, world, 0, 0, 0);
 			return new ActionResult(EnumActionResult.SUCCESS, stack);
