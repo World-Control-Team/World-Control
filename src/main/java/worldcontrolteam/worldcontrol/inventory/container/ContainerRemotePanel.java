@@ -45,7 +45,7 @@ public class ContainerRemotePanel extends Container {
 		ItemStack stack = null;
 		Slot slots = this.inventorySlots.get(slot);
 
-		if(slots.getStack() != null)
+		if(slots.getStack() != ItemStack.EMPTY)
 			if(slots.getStack().getItem() == WCItems.REMOTE_PANEL)
 				return null;
 

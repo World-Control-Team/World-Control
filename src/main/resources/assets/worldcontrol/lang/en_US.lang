@@ -24,7 +24,7 @@ fluid.mercury=Mercury
 msg.worldcontrol.thermometer.chat_info=Heat: %s
 msg.worldcontrol.thermometer.mode=Mode: %s
 msg.worldcontrol.thermometer.unset=Unset
-msg.worldcontrol.thermometer.mode.ic2=IndustrialCraft 2
+msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
 
 ###################
 #Card Strings
@@ -32,7 +32,7 @@ msg.worldcontrol.thermometer.mode.ic2=IndustrialCraft 2
 msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
 msg.worldcontrol.card.no_cords=Missing cordinates
 
-msg.worldcontrol.timecard.time=Time: %s
+msg.worldcontrol.time_card.time=Time: %s
 msg.worldcontrol.none=None
 msg.worldcontrol.average_counter_period=Period: %s sec
 

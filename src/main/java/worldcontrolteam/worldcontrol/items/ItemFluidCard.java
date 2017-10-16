@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.items;
 
-import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,6 +11,8 @@ import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.util.List;
 
 public class ItemFluidCard extends ItemBaseCard {
 
@@ -58,7 +59,7 @@ public class ItemFluidCard extends ItemBaseCard {
 			list.add(new StringWrapper(WCUtility.translateFormatted("liquid_amount", amount)));
 			list.add(new StringWrapper(WCUtility.translateFormatted("liquid_free", capacity - amount)));
 			list.add(new StringWrapper(WCUtility.translateFormatted("liquid_capacity", capacity)));
-			list.add(new StringWrapper(WCUtility.translateFormatted("liquid_percentage", capacity == 0 ? 100 : amount / capacity * 100)));
+			list.add(new StringWrapper(WCUtility.translateFormatted("liquid_percentage", capacity == 0 ? 100 : ((float)amount / capacity) * 100)));
 		}
 		return list;
 	}

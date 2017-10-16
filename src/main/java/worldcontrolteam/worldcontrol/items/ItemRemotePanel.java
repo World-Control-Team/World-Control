@@ -1,7 +1,5 @@
 package worldcontrolteam.worldcontrol.items;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.IItemPropertyGetter;
@@ -15,6 +13,8 @@ import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
+import javax.annotation.Nullable;
+
 public class ItemRemotePanel extends WCBaseItem {
 
 	public ItemRemotePanel() {
@@ -24,7 +24,7 @@ public class ItemRemotePanel extends WCBaseItem {
 			@Override
 			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn){
 				InventoryItem inv = new InventoryItem(stack);
-				if(inv.getStackInSlot(0) == null)
+				if(inv.getStackInSlot(0) == ItemStack.EMPTY)
 					return 1;
 				return 0;
 			}

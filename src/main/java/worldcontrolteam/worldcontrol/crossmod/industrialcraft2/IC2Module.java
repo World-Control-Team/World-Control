@@ -43,7 +43,7 @@ public class IC2Module extends ModuleBase {
 
 	@Override
 	public String modID(){ //TODO: change in 1.11
-		return "IC2";
+		return "ic2";
 	}
 
 	@Override

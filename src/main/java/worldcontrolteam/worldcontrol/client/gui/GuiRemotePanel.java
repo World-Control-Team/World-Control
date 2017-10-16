@@ -1,16 +1,12 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
@@ -18,6 +14,9 @@ import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.messages.PacketServerRemotePanel;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GuiRemotePanel extends GuiContainer {
 
@@ -54,7 +53,7 @@ public class GuiRemotePanel extends GuiContainer {
 		boolean anyCardFound = true;
 		InventoryItem itemInv = new InventoryItem(e.getHeldItemMainhand());
 
-		if(inv.getStackInSlot(0) != null && itemInv.getStackInSlot(0) != null && itemInv.getStackInSlot(0).getItem() instanceof IProviderCard){
+		if(inv.getStackInSlot(0) != ItemStack.EMPTY && itemInv.getStackInSlot(0) != ItemStack.EMPTY && itemInv.getStackInSlot(0).getItem() instanceof IProviderCard){
 			IProviderCard card = (IProviderCard) inv.getStackInSlot(0).getItem();
 			// CardWrapperImpl helper = new
 			// CardWrapperImpl(itemInv.getStackInSlot(0), 0);

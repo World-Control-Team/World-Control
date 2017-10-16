@@ -6,7 +6,7 @@
   },
   "overrides": [{
       "predicate": {
-        "noCard": 1
+        "no_card": 1
       },
       "model": "worldcontrol:item/remote_panel_no_card"
     }]
