@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.TileEntityIC2ReactorMonitor;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageKit;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
@@ -29,6 +29,8 @@ public class IC2Module extends ModuleBase {
 	@Override
 	public void preInit(){
 		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
+
+		GameRegistry.registerTileEntity(TileEntityIC2ReactorMonitor.class, "IC2reactorMonitor");
 
 
 		//temp.
