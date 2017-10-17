@@ -19,12 +19,17 @@ public class IC2Module extends ModuleBase {
 	public static Item energyCard, energyKit;
 
 	@Override
-	public void preInit(){
-		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
+	public void registryEvents() {
 		reactorKit = new IC2ReactorKit();
 		reactorCard = new IC2ReactorCard();
 		energyCard = new IC2EnergyStorageCard();
 		energyKit = new IC2EnergyStorageKit();
+	}
+
+	@Override
+	public void preInit(){
+		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
+
 
 		//temp.
 		GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{" c ", "cgc", " c ", 'g', "ingotGold", 'c', "circuitBasic"}));

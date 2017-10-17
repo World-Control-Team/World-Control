@@ -12,9 +12,16 @@ import worldcontrolteam.worldcontrol.inventory.container.ContainerAverageCounter
 
 public class TeslaModule extends ModuleBase {
 
-	public static final Item TESLA_KIT = new TeslaPowerKit();
-	public static final Item TESLA_CARD = new TeslaPowerCard();
-	public static final Block TESLA_AVERAGE_COUNTER = new BlockTeslaAverageCounter();
+	public static Item TESLA_KIT;
+	public static Item TESLA_CARD;
+	public static Block TESLA_AVERAGE_COUNTER;
+
+	@Override
+	public void registryEvents() {
+		TESLA_KIT = new TeslaPowerKit();
+		TESLA_CARD = new TeslaPowerCard();
+		TESLA_AVERAGE_COUNTER = new BlockTeslaAverageCounter();
+	}
 
 	@Override
 	public void preInit(){

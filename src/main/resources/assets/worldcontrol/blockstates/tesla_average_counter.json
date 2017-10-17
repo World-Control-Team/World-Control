@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "normal": { "model": "worldcontrol:tesla_average_counter" },
+    "facing=north": { "model": "worldcontrol:tesla_average_counter"},
+    "facing=south": { "model": "worldcontrol:tesla_average_counter", "y": 180},
+    "facing=west":  { "model": "worldcontrol:tesla_average_counter", "y": 270},
+    "facing=east":  { "model": "worldcontrol:tesla_average_counter", "y": 90 },
+    "facing=down":  { "model": "worldcontrol:tesla_average_counter", "x": 90 },
+    "facing=up":    { "model": "worldcontrol:tesla_average_counter", "x": 270 }
+  }
+}

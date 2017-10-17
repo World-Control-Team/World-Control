@@ -1,5 +1,5 @@
 {
-  "parent": "worldcontrol:block/teslaAverageCounter",
+  "parent": "worldcontrol:block/tesla_average_counter",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

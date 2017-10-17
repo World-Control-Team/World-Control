@@ -7,6 +7,11 @@ import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 
 public class RFModule extends ModuleBase{
     @Override
+    public void registryEvents() {
+
+    }
+
+    @Override
     public void preInit() {
 
     }

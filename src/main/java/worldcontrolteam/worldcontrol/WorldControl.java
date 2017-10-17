@@ -1,8 +1,5 @@
 package worldcontrolteam.worldcontrol;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -15,12 +12,15 @@ import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 import worldcontrolteam.worldcontrol.crossmod.Modules;
 import worldcontrolteam.worldcontrol.init.WCBlocks;
-import worldcontrolteam.worldcontrol.items.ItemThermometer;
 import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.items.ItemThermometer;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.utils.WCConfig;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.io.File;
+import java.util.ArrayList;
 
 @Mod(modid = WorldControl.MODID, version = "@VERSION@")
 public class WorldControl {
@@ -37,7 +37,7 @@ public class WorldControl {
 
 	public static Side side; // As in client vs server
 
-	protected static ArrayList<IHeatSeeker> heatTypez = new ArrayList<IHeatSeeker>();
+	protected static ArrayList<IHeatSeeker> heatSources = new ArrayList<IHeatSeeker>();
 
 	public static Modules modules = new Modules();
 
@@ -49,8 +49,10 @@ public class WorldControl {
 		WorldControlAPI.init(new WCapiImpl());
 		proxy.preinit(event);
 
-		WCItems.registerItems();
+		modules.registryEvents();
 		WCBlocks.registerBlocks();
+		WCItems.registerItems();
+
 
 		proxy.registerItemTextures();
 
@@ -65,7 +67,7 @@ public class WorldControl {
 
 		modules.init();
 
-		ItemThermometer.addInHeatTypes(heatTypez);
+		ItemThermometer.addInHeatTypes(heatSources);
 
 		proxy.init();
 

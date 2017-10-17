@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import worldcontrolteam.worldcontrol.CommonProxy;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
+import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
 import worldcontrolteam.worldcontrol.init.WCBlocks;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.init.WCItems;
@@ -68,16 +69,9 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	public static void registerBlockTextures() {
-		try{
-			for(Field field : WCBlocks.class.getDeclaredFields()){
-				if(field.get(null) instanceof Block){
-					Item itemB = Item.REGISTRY.getObject(((Block) field.get(null)).getRegistryName());
-					ModelLoader.setCustomModelResourceLocation(itemB, 0, new ModelResourceLocation(((Block) field.get(null)).getRegistryName(), "inventory"));
-
-				}
-			}
-		}catch (Exception e){
-
+		for(Block field : BlockBasicTileProvider.wcBlocks){
+			Item itemB = Item.REGISTRY.getObject(field.getRegistryName());
+			ModelLoader.setCustomModelResourceLocation(itemB, 0, new ModelResourceLocation(field.getRegistryName(), "inventory"));
 		}
 	}
 }

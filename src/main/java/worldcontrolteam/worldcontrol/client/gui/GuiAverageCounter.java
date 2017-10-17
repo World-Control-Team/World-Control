@@ -23,7 +23,7 @@ public class GuiAverageCounter extends GuiContainer {
 	public GuiAverageCounter(Container container) {
 		super(container);
 		this.container = (ContainerAverageCounter) container;
-		name = I18n.format("tile.blockAverageCounter.name");
+		name = I18n.format("tile.average_counter.name");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,7 +48,7 @@ public class GuiAverageCounter extends GuiContainer {
 		String key = container.averageCounter.getPowerTranslateKey();
 		String value = WCUtility.translateFormatted(key, container.averageCounter.getAverage());
 		fontRendererObj.drawString(value, (xSize - fontRendererObj.getStringWidth(value)) / 2, 22, 0x404040);
-		value = WCUtility.translateFormatted("AverageCounterPeriod", container.averageCounter.period);
+		value = WCUtility.translateFormatted("average_counter_period", container.averageCounter.period);
 		fontRendererObj.drawString(value, (xSize - fontRendererObj.getStringWidth(value)) / 2, 32, 0x404040);
 
 	}

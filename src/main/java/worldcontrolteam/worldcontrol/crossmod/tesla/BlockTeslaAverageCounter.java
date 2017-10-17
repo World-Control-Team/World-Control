@@ -1,24 +1,17 @@
 package worldcontrolteam.worldcontrol.crossmod.tesla;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import worldcontrolteam.worldcontrol.WorldControl;
-import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
+import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
-public class BlockTeslaAverageCounter extends BlockBasicTileProvider {
+public class BlockTeslaAverageCounter extends BlockBasicRotate {
 
 	public BlockTeslaAverageCounter() {
-		super(Material.ANVIL);
-		this.setRegistryName("tesla_average_counter");
-		this.setUnlocalizedName("tesla_average_counter");
+		super(Material.ANVIL, "tesla_average_counter");
 		this.setCreativeTab(WorldControl.TAB);
-
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 	}
 
 	@Override

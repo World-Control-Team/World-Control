@@ -57,19 +57,28 @@ public class ItemThermometer extends WCBaseItem {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand){
 		ItemStack itemStack = player.getHeldItem(hand);
-		if(!heatTypes.isEmpty()){
-			if(itemStack.hasTagCompound()){
-				NBTTagCompound tag = itemStack.getTagCompound();
-				int currentType = tag.getInteger("type");
-				if(currentType + 1 < heatTypes.size())
-					tag.setInteger("type", currentType++);
-				else tag.setInteger("type", 0);
-			}else{
-				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setInteger("type", 0);
-				itemStack.setTagCompound(tagCompound);
+		if(player.isSneaking()) {
+			if (!heatTypes.isEmpty()) {
+				if (itemStack.hasTagCompound()) {
+					NBTTagCompound tag = itemStack.getTagCompound();
+					int currentType = tag.getInteger("type");
+					if (currentType + 1 < heatTypes.size()) {
+						currentType++;
+						tag.setInteger("type", currentType);
+						itemStack.setTagCompound(tag);
+					} else tag.setInteger("type", 0);
+				} else {
+					NBTTagCompound tagCompound = new NBTTagCompound();
+					tagCompound.setInteger("type", 0);
+					itemStack.setTagCompound(tagCompound);
+				}
+				if(world.isRemote) {
+					player.sendMessage(new TextComponentString(
+						WCUtility.translateFormatted("thermometer.switchTo", WCUtility.translate("thermometer.mode." + heatTypes.get(itemStack.getTagCompound().getInteger("type")).getUnloalizedName()))
+					));
+				}
+				return new ActionResult(EnumActionResult.SUCCESS, itemStack);
 			}
-			return new ActionResult(EnumActionResult.SUCCESS, itemStack);
 		}
 		return new ActionResult(EnumActionResult.PASS, itemStack);
 	}

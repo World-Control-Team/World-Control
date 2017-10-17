@@ -9,7 +9,7 @@ public class WCapiImpl implements WorldControlAPI.IWorldControlAPI {
 
 	@Override
 	public void addThermometerModule(IHeatSeeker m){
-		WorldControl.heatTypez.add(m);
+		WorldControl.heatSources.add(m);
 	}
 
 	@Override

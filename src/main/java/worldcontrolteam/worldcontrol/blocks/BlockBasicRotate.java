@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.blocks;
 
-import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -15,13 +14,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 
 
-	public BlockBasicRotate(Material material) {
-		super(material);
+	public BlockBasicRotate(Material material, String name) {
+		super(material, name);
 	}
 
 

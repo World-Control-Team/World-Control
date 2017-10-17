@@ -12,11 +12,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider {
 
-	public BlockBasicTileProvider(Material blockMaterial) {
-		super(blockMaterial);
+	public static List<Block> wcBlocks = new ArrayList<Block>();
 
+	public BlockBasicTileProvider(Material blockMaterial, String name) {
+		super(blockMaterial);
+		this.setBlockName(name);
+
+
+		wcBlocks.add(this);
 	}
 
 	@Override
@@ -41,5 +49,14 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
 			return true;
 		}
 		return false;
+	}
+
+	protected void setBlockName(String name){
+		this.setUnlocalizedName(name);
+		this.setRegistryName(name);
+	}
+
+	protected void defaultCreativeTab(){
+		this.setCreativeTab(WorldControl.TAB);
 	}
 }

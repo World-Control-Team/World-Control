@@ -13,6 +13,7 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
 
 	public TileEntityBaseAverageCounter() {
 		this.period = 1;
+		this.stack = ItemStack.EMPTY;
 	}
 
 	@Override
@@ -30,16 +31,16 @@ public abstract class TileEntityBaseAverageCounter extends TileEntity implements
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stackl, boolean simulate){
-		if(stackl != null)
+		if(stackl != ItemStack.EMPTY)
 			if(this.stack.getCount() < 5){
 				//TODO: Finish this code...
 			}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate){
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override

@@ -54,6 +54,7 @@ dependencies {
 	compile files("libs/ExtremeReactors-1.11.2-0.4.5.44.jar")
 	compile files("libs/ThermalExpansion-1.11.2-5.2.7.30-universal.jar")
 	compile files("libs/ThermalFoundation-1.11.2-2.2.5.16-universal.jar")
+	compile files("libs/zerocore-1.11.2-0.1.1.0.jar")
 }
 
 processResources {

@@ -5,6 +5,12 @@ import net.minecraft.world.World;
 
 public abstract class ModuleBase {
 
+	/**
+	 * Used to create Instances of Items and Blocks, the registry all instances will be loaded into the registry
+	 * immediately after this call.
+	 */
+	public abstract void registryEvents();
+
 	public abstract void preInit();
 
 	public abstract void init();

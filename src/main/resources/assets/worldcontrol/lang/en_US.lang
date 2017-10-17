@@ -13,18 +13,24 @@ item.worldcontrol.forge_energy_kit.name=Forge Energy Kit
 item.worldcontrol.forge_energy_card.name=Forge Energy Card
 item.worldcontrol.fluid_kit.name=Fluid Kit
 item.worldcontrol.fluid_card.name=Fluid Card
+item.worldcontrol.er_card.name=Extreme Reactor Card
+item.worldcontrol.er_kit.name=Extreme Reactor Kit
 
 tile.tesla_average_counter.name=Tesla Average Counter
+tile.average_counter.name=Average Counter
 tile.IndustrialAlarm.name=Industrial Alarm
 tile.HowlerAlarm.name=Howler Alarm
+tile.extremereactormonitor.name=Extreme Reactor Monitor
 
 fluid.mercury=Mercury
 
 #Thermometer
 msg.worldcontrol.thermometer.chat_info=Heat: %s
+msg.worldcontrol.thermometer.switchTo=Mode set to: %s
 msg.worldcontrol.thermometer.mode=Mode: %s
 msg.worldcontrol.thermometer.unset=Unset
 msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
+msg.worldcontrol.thermometer.mode.extremereactors=Extreme Reactors
 
 ###################
 #Card Strings
@@ -68,6 +74,15 @@ msg.worldcontrol.tesla.average=Average: %s T
 msg.worldcontrol.forge_energy=Energy: %s FE
 msg.worldcontrol.forge_free=Free: %s FE
 msg.worldcontrol.forge_stored=Storage: %s FE
+
+#Extreme Reactors
+msg.worldcontrol.exreactors.temp=Core Temp.: %s C
+msg.worldcontrol.exreactors.energystored=Energy: %s RF
+msg.worldcontrol.exreactors.createdenergy=Output Energy: %s RF/t
+msg.worldcontrol.exreactors.percentage=Storage Buffer is %s%% Full
+msg.worldcontrol.exreactors.steamoutput=Output Steam: %s mB/t
+msg.worldcontrol.exreactors.coolanttank=Coolant Tank: %s x%smB
+msg.worldcontrol.exreactors.outputtank=Output Tank: %s x%smB
 
 
 ###################
