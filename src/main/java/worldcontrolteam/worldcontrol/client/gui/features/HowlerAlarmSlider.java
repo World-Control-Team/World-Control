@@ -1,7 +1,6 @@
 package worldcontrolteam.worldcontrol.client.gui.features;
 
 
-import java.lang.reflect.Method;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
@@ -47,7 +46,7 @@ public class HowlerAlarmSlider extends GuiButton {
     }
 
     private void setSliderPos(int targetX) {
-        sliderValue = (float) (targetX - (xPosition + 4)) / (float) (width - 8);
+        sliderValue = (float) (targetX - (x + 4)) / (float) (width - 8);
 
         if (sliderValue < 0.0F)
             sliderValue = 0.0F;
@@ -64,15 +63,15 @@ public class HowlerAlarmSlider extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int targetX, int targetY) {
+    public void drawButton(Minecraft minecraft, int targetX, int targetY, float f) {
         if (visible) {
             minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             if (dragging)
                 setSliderPos(targetX);
 
-            drawTexturedModalRect(xPosition + (int) (sliderValue * (width - 8)), yPosition, 131, 0, 8, 16);
-            minecraft.fontRendererObj.drawString(displayString, xPosition, yPosition - 12, 0x404040);
+            drawTexturedModalRect(x + (int) (sliderValue * (width - 8)), y, 131, 0, 8, 16);
+            minecraft.fontRenderer.drawString(displayString, x, y - 12, 0x404040);
         }
     }
 

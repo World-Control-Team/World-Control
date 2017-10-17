@@ -84,15 +84,15 @@ public class HowlerAlarmListBox extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft minecraft, int cursorX, int cursorY) {
+    public void drawButton(Minecraft minecraft, int cursorX, int cursorY, float i) {
         if (dragging) {
-            int pos = (cursorY - yPosition - SCROLL_BUTTON_HEIGHT - dragDelta) * (lineHeight * items.size() + BASIC_Y_OFFSET - height) /
+            int pos = (cursorY - y - SCROLL_BUTTON_HEIGHT - dragDelta) * (lineHeight * items.size() + BASIC_Y_OFFSET - height) /
                     Math.max(height - 2 * SCROLL_BUTTON_HEIGHT - sliderHeight, 1);
 
             scrollTo(pos);
         }
 
-        FontRenderer fontRenderer = minecraft.fontRendererObj;
+        FontRenderer fontRenderer = minecraft.fontRenderer;
         String currentItem = alarm.getSound();
         if (lineHeight == 0) {
             lineHeight = fontRenderer.FONT_HEIGHT + 2;
@@ -118,14 +118,14 @@ public class HowlerAlarmListBox extends GuiButton {
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         Minecraft mc = FMLClientHandler.instance().getClient();
         ScaledResolution scaler = new ScaledResolution(mc);
-        GL11.glScissor(xPosition * scaler.getScaleFactor(), mc.displayHeight - (yPosition + height) * scaler.getScaleFactor(), (width - SCROLL_WIDTH) * scaler.getScaleFactor(), height * scaler.getScaleFactor());
+        GL11.glScissor(x * scaler.getScaleFactor(), mc.displayHeight - (y + height) * scaler.getScaleFactor(), (width - SCROLL_WIDTH) * scaler.getScaleFactor(), height * scaler.getScaleFactor());
 
         for (String row : items) {
             if(row.equals(currentItem)){
-                drawRect(xPosition, yPosition + rowTop - scrollTop - 1, xPosition + width - SCROLL_WIDTH, yPosition + rowTop - scrollTop + lineHeight - 1, selectedColor);
-                fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, selectedFontColor);
+                drawRect(x, y + rowTop - scrollTop - 1, x + width - SCROLL_WIDTH, y + rowTop - scrollTop + lineHeight - 1, selectedColor);
+                fontRenderer.drawString(row, x + BASIC_X_OFFSET, y + rowTop - scrollTop, selectedFontColor);
             }else
-                fontRenderer.drawString(row, xPosition + BASIC_X_OFFSET, yPosition + rowTop - scrollTop, fontColor);
+                fontRenderer.drawString(row, x + BASIC_X_OFFSET, y + rowTop - scrollTop, fontColor);
 
             rowTop += lineHeight;
         }
@@ -133,8 +133,8 @@ public class HowlerAlarmListBox extends GuiButton {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
         // Slider
-        int sliderX = xPosition + width - SCROLL_WIDTH + 1;
-        sliderY = yPosition
+        int sliderX = x + width - SCROLL_WIDTH + 1;
+        sliderY = y
                 + SCROLL_BUTTON_HEIGHT
                 + ((height - 2 * SCROLL_BUTTON_HEIGHT - sliderHeight) * scrollTop)
                 / (lineHeight * items.size() + BASIC_Y_OFFSET - height);
@@ -168,7 +168,7 @@ public class HowlerAlarmListBox extends GuiButton {
         if (lineHeight == 0)
             return;
 
-        int itemIndex = (targetY - BASIC_Y_OFFSET - yPosition + scrollTop) / lineHeight;
+        int itemIndex = (targetY - BASIC_Y_OFFSET - y + scrollTop) / lineHeight;
         if (itemIndex >= items.size())
             itemIndex = items.size() - 1;
 
@@ -183,11 +183,11 @@ public class HowlerAlarmListBox extends GuiButton {
     @Override
     public boolean mousePressed(Minecraft minecraft, int targetX, int targetY) {
         if(super.mousePressed(minecraft, targetX, targetY)){
-            if (targetX > xPosition + width - SCROLL_WIDTH) {// scroll click
+            if (targetX > x + width - SCROLL_WIDTH) {// scroll click
 
-                if (targetY - yPosition < SCROLL_BUTTON_HEIGHT)
+                if (targetY - y < SCROLL_BUTTON_HEIGHT)
                     scrollUp();
-                else if (height + yPosition - targetY < SCROLL_BUTTON_HEIGHT)
+                else if (height + y - targetY < SCROLL_BUTTON_HEIGHT)
                     scrollDown();
                 else if (targetY >= sliderY && targetY <= sliderY + sliderHeight) {
                     dragging = true;

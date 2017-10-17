@@ -95,13 +95,13 @@ public class GuiRemotePanel extends GuiContainer {
 		int row = 0;
 		for(StringWrapper panelString : joinedData){
 			if(panelString.textLeft != null)
-				fontRendererObj.drawString(panelString.textLeft, 9, row * 10 + 20, 0x06aee4);
+				fontRenderer.drawString(panelString.textLeft, 9, row * 10 + 20, 0x06aee4);
 
 			if(panelString.textCenter != null)
-				fontRendererObj.drawString(panelString.textCenter, (168 - fontRendererObj.getStringWidth(panelString.textCenter)) / 2, row * 10 + 20, 0x06aee4);
+				fontRenderer.drawString(panelString.textCenter, (168 - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10 + 20, 0x06aee4);
 
 			if(panelString.textRight != null)
-				this.fontRendererObj.drawString(panelString.textRight, 168 - fontRendererObj.getStringWidth(panelString.textRight), (row - 1) * 10 + 20, 0x06aee4);
+				this.fontRenderer.drawString(panelString.textRight, 168 - fontRenderer.getStringWidth(panelString.textRight), (row - 1) * 10 + 20, 0x06aee4);
 
 			row++;
 		}
@@ -111,7 +111,7 @@ public class GuiRemotePanel extends GuiContainer {
 	public void updateScreen(){
 		super.updateScreen();
 
-		if(this.e.getHeldItemMainhand() == null)
+		if(this.e.getHeldItemMainhand().isEmpty())
 			this.mc.player.closeScreen();
 	}
 }

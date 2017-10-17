@@ -57,7 +57,7 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 				EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
 
 				if(item.hasTagCompound())
-					entityItem.getEntityItem().setTagCompound(item.getTagCompound().copy());
+					entityItem.getItem().setTagCompound(item.getTagCompound().copy());
 
 				float factor = 0.05F;
 				entityItem.motionX = rand.nextGaussian() * factor;

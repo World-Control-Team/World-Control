@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -50,8 +51,7 @@ public class WorldControl {
 		proxy.preinit(event);
 
 		modules.registryEvents();
-		WCBlocks.registerBlocks();
-		WCItems.registerItems();
+		MinecraftForge.EVENT_BUS.register(WCBlocks.class);
 
 
 		proxy.registerItemTextures();

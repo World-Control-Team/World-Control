@@ -30,3 +30,7 @@ hs_err_pid*
 /.gradle/
 /bin/
 *.hprof
+
+\.idea/
+/classes/
+*.iml

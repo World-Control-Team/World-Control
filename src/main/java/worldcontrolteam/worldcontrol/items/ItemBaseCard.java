@@ -1,8 +1,6 @@
 package worldcontrolteam.worldcontrol.items;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -14,6 +12,8 @@ import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.util.List;
 
 public abstract class ItemBaseCard extends WCBaseItem implements IProviderCard {
 
@@ -36,7 +36,7 @@ public abstract class ItemBaseCard extends WCBaseItem implements IProviderCard {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
+	public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced){
 		try{
 			NBTTagCompound nbt = stack.getTagCompound();
 			BlockPos pos = NBTUtils.getBlockPos(nbt);

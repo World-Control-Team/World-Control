@@ -1,16 +1,14 @@
 package worldcontrolteam.worldcontrol.items;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.util.List;
 
 public class ItemCardTime extends ItemBaseCard {
 
@@ -54,10 +52,9 @@ public class ItemCardTime extends ItemBaseCard {
 	public int getCardColor(){
 		return WCUtility.YELLOW;
 	}
-	
-	@SideOnly(Side.CLIENT)
+
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
-		//Overriding base, has no coords
+	public void addInformation(ItemStack stack, World playerIn, List<String> tooltip, ITooltipFlag advanced) {
+
 	}
 }

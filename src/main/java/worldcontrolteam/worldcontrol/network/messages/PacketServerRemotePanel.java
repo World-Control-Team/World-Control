@@ -46,12 +46,12 @@ public class PacketServerRemotePanel implements IMessage {
 
 			if(stack != null && stack.getItem() instanceof ItemBaseCard){
 				ItemBaseCard card = (ItemBaseCard) stack.getItem();
-				CardState state = card.update(ctx.getServerHandler().playerEntity.mcServer.worlds[0], stack);
+				CardState state = card.update(ctx.getServerHandler().player.mcServer.worlds[0], stack);
 				// CardState state = ((IPanelDataSource)
 				// stack.getItem()).update(ContainerRemoteMonitor.panel, helper,
 				// 100);
 				if(state == CardState.OK){
-					EntityPlayer player = ctx.getServerHandler().playerEntity;
+					EntityPlayer player = ctx.getServerHandler().player;
 					InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());
 					// NCLog.fatal(itemInv.getStackInSlot(0));
 					if(itemInv.getStackInSlot(0) == null || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard))

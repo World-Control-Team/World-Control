@@ -4,7 +4,6 @@ import erogenousbeef.bigreactors.common.multiblock.PartTier;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -43,9 +42,9 @@ public class BlockReactorMonitor extends BlockBasicTileProvider {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list)
     {
-        list.add(new ItemStack(itemIn));
+        list.add(new ItemStack(this));
         //TODO: keep up with ER Dev and re-add when needed
         //list.add(new ItemStack(itemIn, 1, 1));
     }

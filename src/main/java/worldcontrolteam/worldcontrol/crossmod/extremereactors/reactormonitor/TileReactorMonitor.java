@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * Created by dmf444 on 10/16/2017. Code originally written for World-Control.
  */
-public class TileReactorMonitor extends TileEntityReactorPartBase implements ITickableMultiblockPart{
+public class TileReactorMonitor extends TileEntityReactorPartBase implements ITickableMultiblockPart {
 
     private boolean isReactorOn;
     private float energyStored;

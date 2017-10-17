@@ -5,56 +5,55 @@ buildscript {
 			name = "forge"
 			url = "http://files.minecraftforge.net/maven"
 		}
-		maven {
-			name = "jei"
-			url = "http://dvs1.progwml6.com/files/maven"
-		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
 	}
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.1a" //newWorldControlVersion
+version = "1.0.0"
 group = "worldcontrolteam.worldcontrol"
 archivesBaseName = "worldcontrol"
 
-sourceCompatibility = targetCompatibility = "1.6" 
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+	sourceCompatibility = targetCompatibility = '1.8'
 }
 
 repositories {
+	maven { url "http://maven.amadornes.com/" }
 	maven {
-		name = "jei"
+		name = "Progwml6 maven"
 		url = "http://dvs1.progwml6.com/files/maven"
 	}
+	maven {url "http://tehnut.info/maven"}
 	maven {
 		name = "tesla"
 		url 'http://maven.epoxide.xyz'
 	}
+	maven {
+		name = "ic2"
+		url = "http://maven.ic2.player.to"
+	}
 }
 
 minecraft {
-	version = "1.11.2-13.20.1.2454" //forgeVersion
+	version = "1.12.2-14.23.0.2512"
 	runDir = "run"
-	mappings = "snapshot_20161220" //mappingsVersion
+
+	mappings = "snapshot_20170624"
 	replace "@VERSION@", project.version
-	useDepAts = true
 }
 
 dependencies {
-	deobfCompile "mezz.jei:jei_1.11.2:4.5.0.294"
-	compile "net.darkhax.tesla:Tesla:1.11-1.3.0.52"
-	compile files("libs/industrialcraft-2-2.7.74-ex111.jar")
-	compile files("libs/buildcraft-7.99.7.jar")
-	compile files("libs/CoFHCore-1.11.2-4.2.8.16-universal.jar")
-	compile files("libs/ExtremeReactors-1.11.2-0.4.5.44.jar")
-	compile files("libs/ThermalExpansion-1.11.2-5.2.7.30-universal.jar")
-	compile files("libs/ThermalFoundation-1.11.2-2.2.5.16-universal.jar")
-	compile files("libs/zerocore-1.11.2-0.1.1.0.jar")
+	deobfCompile "MCMultiPart2:MCMultiPart:2.3.0"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
+	deobfProvided "mezz.jei:jei_1.12.2:4.7.11.102:api"
+	runtime "mezz.jei:jei_1.12.2:4.7.11.102"
+	compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
+	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.25-ex112:dev'
 }
 
 processResources {

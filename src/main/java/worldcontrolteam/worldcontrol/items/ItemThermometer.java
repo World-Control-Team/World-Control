@@ -1,7 +1,6 @@
 package worldcontrolteam.worldcontrol.items;
 
-import java.util.List;
-
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +15,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
+
+import java.util.List;
 
 public class ItemThermometer extends WCBaseItem {
 
@@ -85,7 +86,7 @@ public class ItemThermometer extends WCBaseItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced){
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag advanced){
 		try{
 			tooltip.add(WCUtility.translateFormatted("thermometer.mode", WCUtility.translate("thermometer.mode." + heatTypes.get(stack.getTagCompound().getInteger("type")).getUnloalizedName())));
 		}catch (NullPointerException e){

@@ -21,7 +21,7 @@ public class WCBaseItem extends Item {
 		this.setUnlocalizedName("worldcontrol." + name);
 
 		wcItems.add(this);
-		GameRegistry.register(this);
+		//GameRegistry.register(this);
 
 		if(WorldControl.side == Side.CLIENT)
 			ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation("worldcontrol:" + name, "inventory"));
