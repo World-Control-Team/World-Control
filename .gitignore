@@ -4,7 +4,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 !/libs/*.jar
 *.war
 *.ear
@@ -24,7 +23,7 @@ hs_err_pid*
 .classpath
 .project
 /bin/
-
+wi
 # Gradle
 !gradle/wrapper/gradle-wrapper.jar
 /.gradle/
