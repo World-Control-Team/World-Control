@@ -8,10 +8,13 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import worldcontrolteam.worldcontrol.api.card.CardManager;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
 import worldcontrolteam.worldcontrol.blocks.BlockHowlerAlarm;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.blocks.fluids.FluidMercury;
+import worldcontrolteam.worldcontrol.card.TimeCardManager;
+import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 
 public class WCBlocks {
@@ -33,5 +36,12 @@ public class WCBlocks {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         BlockBasicTileProvider.wcBlocks.stream().map(block -> new ItemBlock(block).setRegistryName(block.getRegistryName())).forEach(event.getRegistry()::register);
+    }
+
+    @SubscribeEvent
+    public static void registerCards(RegistryEvent.Register<CardManager> event) {
+        event.getRegistry().registerAll(
+                new TimeCardManager().setRegistryName("time")
+        );
     }
 }

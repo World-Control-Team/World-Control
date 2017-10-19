@@ -9,23 +9,23 @@ import worldcontrolteam.worldcontrol.utils.GuiLib;
 
 public class BlockTeslaAverageCounter extends BlockBasicRotate {
 
-	public BlockTeslaAverageCounter() {
-		super(Material.ANVIL, "tesla_average_counter");
-		this.setCreativeTab(WorldControl.TAB);
-	}
+    public BlockTeslaAverageCounter() {
+        super(Material.ANVIL, "tesla_average_counter");
+        this.setCreativeTab(WorldControl.TAB);
+    }
 
-	@Override
-	public TileEntity getTile(World world, int meta){
-		return new TileEntityTeslaAverageCounter();
-	}
+    @Override
+    public TileEntity getTile(World world, int meta) {
+        return new TileEntityTeslaAverageCounter();
+    }
 
-	@Override
-	public boolean hasGUI(){
-		return true;
-	}
+    @Override
+    public boolean hasGUI() {
+        return true;
+    }
 
-	@Override
-	public int guiID(){
-		return GuiLib.TESLA_AVERAGE_COUNTER;
-	}
+    @Override
+    public int guiID() {
+        return GuiLib.TESLA_AVERAGE_COUNTER;
+    }
 }

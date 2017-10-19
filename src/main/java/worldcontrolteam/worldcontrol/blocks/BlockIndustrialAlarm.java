@@ -17,16 +17,16 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
 
-public class BlockIndustrialAlarm extends BlockBasicRotate{
+public class BlockIndustrialAlarm extends BlockBasicRotate {
 
-    private static final AxisAlignedBB UP_BLOCK_AABB = new AxisAlignedBB( 0.125F, 0, 0.125F, 0.875F, 0.4375F, 0.875F );
-    private static final AxisAlignedBB DOWN_BLOCK_AABB = new AxisAlignedBB( 0.125F, 1, 0.125F, 0.875F, 0.5625F, 0.875F );
-    private static final AxisAlignedBB EAST_BLOCK_AABB = new AxisAlignedBB( 0F, 0.125F, 0.125F, 0.4375F,0.875F,  0.875F );
-    private static final AxisAlignedBB WEST_BLOCK_AABB = new AxisAlignedBB( 1F, 0.125F, 0.125F, 0.5625F,0.875F,  0.875F );
-    private static final AxisAlignedBB NORTH_BLOCK_AABB = new AxisAlignedBB(  0.125F,0.125F, 0.5625F, 0.875F,0.875F,  1 );
-    private static final AxisAlignedBB SOUTH_BLOCK_AABB = new AxisAlignedBB(  0.125F,0.125F, 0.4375F, 0.875F,0.875F,  0);
+    private static final AxisAlignedBB UP_BLOCK_AABB = new AxisAlignedBB(0.125F, 0, 0.125F, 0.875F, 0.4375F, 0.875F);
+    private static final AxisAlignedBB DOWN_BLOCK_AABB = new AxisAlignedBB(0.125F, 1, 0.125F, 0.875F, 0.5625F, 0.875F);
+    private static final AxisAlignedBB EAST_BLOCK_AABB = new AxisAlignedBB(0F, 0.125F, 0.125F, 0.4375F, 0.875F, 0.875F);
+    private static final AxisAlignedBB WEST_BLOCK_AABB = new AxisAlignedBB(1F, 0.125F, 0.125F, 0.5625F, 0.875F, 0.875F);
+    private static final AxisAlignedBB NORTH_BLOCK_AABB = new AxisAlignedBB(0.125F, 0.125F, 0.5625F, 0.875F, 0.875F, 1);
+    private static final AxisAlignedBB SOUTH_BLOCK_AABB = new AxisAlignedBB(0.125F, 0.125F, 0.4375F, 0.875F, 0.875F, 0);
 
-    public BlockIndustrialAlarm(){
+    public BlockIndustrialAlarm() {
         this("IndustrialAlarm");
     }
 
@@ -53,18 +53,17 @@ public class BlockIndustrialAlarm extends BlockBasicRotate{
         return GuiLib.INDUSTRIAL_ALARM;
     }
 
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
-    }
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos){
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         EnumFacing dir = state.getValue(BlockBasicRotate.FACING);
-        switch (dir){
+        switch (dir) {
             case NORTH:
                 return NORTH_BLOCK_AABB;
             case SOUTH:
@@ -80,15 +79,15 @@ public class BlockIndustrialAlarm extends BlockBasicRotate{
         }
     }
 
-    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor){
-        if(!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite(), true))){
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        if (!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite(), true))) {
             this.dropBlockAsItem((World) world, pos, world.getBlockState(pos), 0);
             ((World) world).setBlockToAir(pos);
         }
     }
 
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos){
-        if(!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite()))){
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite()))) {
             this.dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
             world.setBlockToAir(pos);
         }
@@ -96,19 +95,19 @@ public class BlockIndustrialAlarm extends BlockBasicRotate{
 
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-        if (world.isSideSolid(pos.offset(facing.getOpposite()),facing.getOpposite())){
+        if (world.isSideSolid(pos.offset(facing.getOpposite()), facing.getOpposite())) {
             return this.getDefaultState().withProperty(FACING, facing);
-        }else{
-            if(world.getBlockState(pos.down()).getBlock() != Blocks.AIR){
+        } else {
+            if (world.getBlockState(pos.down()).getBlock() != Blocks.AIR) {
                 return this.getDefaultState().withProperty(FACING, EnumFacing.UP);
-            }else {
+            } else {
                 return null;
             }
         }
     }
 
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack){
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
         super.onBlockPlacedBy(world, pos, state, entity, stack);
         world.setBlockState(pos, state, 2);
     }

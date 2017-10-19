@@ -1,7 +1,6 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
 
-import java.util.List;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -13,6 +12,8 @@ import worldcontrolteam.worldcontrol.client.gui.features.HowlerAlarmSlider;
 import worldcontrolteam.worldcontrol.container.ContainerEmpty;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.WCConfig;
+
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiHowlerAlarm extends GuiContainer {

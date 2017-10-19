@@ -8,5 +8,9 @@ public class CommonProxy {
 
 	public void init(){}
 
-	public void preinit(FMLPreInitializationEvent event){}
+    public void registerItemTextures() {
+    }
+
+    public void preinit(FMLPreInitializationEvent event) {
+    }
 }

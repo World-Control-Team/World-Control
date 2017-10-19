@@ -1,9 +1,6 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -13,8 +10,6 @@ import org.lwjgl.opengl.GL11;
 import worldcontrolteam.worldcontrol.client.gui.features.HowlerAlarmSlider;
 import worldcontrolteam.worldcontrol.container.ContainerEmpty;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
-
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiIndustrialAlarm extends GuiContainer {
@@ -41,7 +36,7 @@ public class GuiIndustrialAlarm extends GuiContainer {
         guiLeft = (this.width - xSize) / 2;
         guiTop = (this.height - ySize) / 2;
         buttonList.clear();
-        slider = new HowlerAlarmSlider(3, guiLeft + 12, guiTop + 33,"msg.worldcontrol.HowlerAlarmSoundRange", alarm);
+        slider = new HowlerAlarmSlider(3, guiLeft + 12, guiTop + 33, "msg.worldcontrol.HowlerAlarmSoundRange", alarm);
         buttonList.add(slider);
     }
 

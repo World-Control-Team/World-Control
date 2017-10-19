@@ -12,7 +12,7 @@ import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 public class ExtremeReactorHeat implements IHeatSeeker {
     @Override
     public int getHeat(World world, BlockPos pos, TileEntity entity) {
-        if(entity instanceof IHeatEntity){
+        if (entity instanceof IHeatEntity) {
             IHeatEntity tile = (IHeatEntity) entity;
             return (int) tile.getHeat();
         }

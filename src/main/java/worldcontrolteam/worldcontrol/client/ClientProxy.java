@@ -12,13 +12,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import worldcontrolteam.worldcontrol.CommonProxy;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
 import worldcontrolteam.worldcontrol.init.WCBlocks;
 import worldcontrolteam.worldcontrol.init.WCItems;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
+import worldcontrolteam.worldcontrol.utils.CardUtils;
 
 public class ClientProxy extends CommonProxy {
 
@@ -50,7 +50,28 @@ public class ClientProxy extends CommonProxy {
             return 16777215;
         }, WCBlocks.HOWLER_ALARM);
 
-	}
+    @Override
+    public void init() {
+        Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+            if (tintIndex == 1) {
+                InventoryItem inv = new InventoryItem(stack);
+                if (!inv.getStackInSlot(0).isEmpty())
+                    if (inv.getStackInSlot(0).hasCapability(WCCapabilities.CARD_HOLDER, null))
+                        return CardUtils.getCard(inv.getStackInSlot(0)).map(c -> c.getCardColor()).orElse(-1);
+            }
+            return -1;
+        }, WCItems.REMOTE_PANEL);
+        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor() {
+            public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
+                if (world != null && pos != null) {
+                    TileEntity tile = world.getTileEntity(pos);
+                    if (tile instanceof TileEntityHowlerAlarm) {
+                        return ((TileEntityHowlerAlarm) tile).getColor();
+                    }
+                }
+                return 16777215;
+            }
+        }, WCBlocks.HOWLER_ALARM);
 
 	@SubscribeEvent
 	public void registerTextures(ModelRegistryEvent event){

@@ -7,26 +7,26 @@ import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
 
+    protected BlockPos referenceBlock;
     private int threshhold = 500;
     private boolean outputInverse = false;
-    protected BlockPos referenceBlock;
 
-    public TileEntityBaseReactorHeatMonitor(){
+    public TileEntityBaseReactorHeatMonitor() {
 
     }
 
     @Override
     public void update() {
-        if(!outputInverse) {
+        if (!outputInverse) {
             if (this.getCurrentHeat() >= threshhold) {
                 this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 3);
-            } else{
+            } else {
                 this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 3);
             }
         } else {
             if (this.getCurrentHeat() <= threshhold) {
                 this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 3);
-            } else{
+            } else {
                 this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 3);
             }
         }
@@ -40,7 +40,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
         this.threshhold = updateT;
     }
 
-    public void setInverse(boolean updateInverse){
+    public void setInverse(boolean updateInverse) {
         this.outputInverse = updateInverse;
     }
 

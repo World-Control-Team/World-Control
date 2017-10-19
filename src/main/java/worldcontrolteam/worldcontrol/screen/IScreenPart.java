@@ -5,10 +5,10 @@ package worldcontrolteam.worldcontrol.screen;
  */
 public interface IScreenPart {
 
-    public void setScreen(Screen screen);
+    Screen getScreen();
 
-    public Screen getScreen();
+    void setScreen(Screen screen);
 
-    public void updateData();
+    void updateData();
 
 }

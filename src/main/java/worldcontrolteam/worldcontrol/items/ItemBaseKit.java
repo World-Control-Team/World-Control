@@ -13,28 +13,28 @@ import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
 public abstract class ItemBaseKit extends WCBaseItem {
 
-	public ItemBaseKit(String name) {
-		super(name);
-	}
+    public ItemBaseKit(String name) {
+        super(name);
+    }
 
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
-		ItemStack stack = player.getHeldItem(hand);
-		if(canReturnCard(stack, world, pos)){
-			ItemStack card = new ItemStack(getCardType());
-			NBTTagCompound nbt = new NBTTagCompound();
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack stack = player.getHeldItem(hand);
+        if (canReturnCard(stack, world, pos)) {
+            ItemStack card = new ItemStack(getCardType());
+            NBTTagCompound nbt = new NBTTagCompound();
 
-			NBTUtils.writeBlockPos(nbt, pos);
+            NBTUtils.writeBlockPos(nbt, pos);
 
-			card.setTagCompound(nbt);
+            card.setTagCompound(nbt);
 
-			player.inventory.mainInventory.set(player.inventory.currentItem, card);
-			return EnumActionResult.SUCCESS;
-		}
-		return EnumActionResult.PASS;
-	}
+            player.inventory.mainInventory.set(player.inventory.currentItem, card);
+            return EnumActionResult.SUCCESS;
+        }
+        return EnumActionResult.PASS;
+    }
 
-	public abstract Item getCardType();
+    public abstract Item getCardType();
 
-	public abstract boolean canReturnCard(ItemStack stack, World world, BlockPos pos);
+    public abstract boolean canReturnCard(ItemStack stack, World world, BlockPos pos);
 }

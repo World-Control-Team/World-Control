@@ -9,7 +9,7 @@ import worldcontrolteam.worldcontrol.network.messages.PacketServerRemotePanel;
 import worldcontrolteam.worldcontrol.network.messages.PacketUpdateHowlerAlarm;
 
 public class ChannelHandler {
-	public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");
+    public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");
 
 	public static void init(){
 		network.registerMessage(PacketServerRemotePanel.Handler.class, PacketServerRemotePanel.class, 0, Side.SERVER);

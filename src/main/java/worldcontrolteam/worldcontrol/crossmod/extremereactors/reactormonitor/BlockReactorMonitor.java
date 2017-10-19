@@ -42,16 +42,14 @@ public class BlockReactorMonitor extends BlockBasicTileProvider {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list)
-    {
+    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
         list.add(new ItemStack(this));
         //TODO: keep up with ER Dev and re-add when needed
         //list.add(new ItemStack(itemIn, 1, 1));
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced)
-    {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
         tooltip.add(PartTier.fromMeta(stack.getMetadata()).toString());
     }
 

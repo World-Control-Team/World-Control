@@ -21,32 +21,29 @@ import worldcontrolteam.worldcontrol.utils.WCConfig;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 
-
-public class TileEntityHowlerAlarm extends TileEntity implements ITickable, RedstoneHelper.IRedstoneConsumer{
-
-    private String soundName;
-    private int color;
-    private int range;
-    private int updateTicker;
-    protected int tickRate;
-    private boolean init = false;
-    private boolean powered;
-
-    @SideOnly(Side.CLIENT)
-    private TileEntitySound sound;
+public class TileEntityHowlerAlarm extends TileEntity implements ITickable, RedstoneHelper.IRedstoneConsumer {
 
     private static final String DEFAULT_SOUND_NAME = "default";
     private static final String SOUND_PREFIX = "worldcontrol:alarm-";
     private static final float BASE_SOUND_RANGE = 16F;
+    protected int tickRate;
+    private String soundName;
+    private int color;
+    private int range;
+    private int updateTicker;
+    private boolean init = false;
+    private boolean powered;
+    @SideOnly(Side.CLIENT)
+    private TileEntitySound sound;
 
 
-    public TileEntityHowlerAlarm(){
+    public TileEntityHowlerAlarm() {
         tickRate = 2;
         updateTicker = 0;
         soundName = DEFAULT_SOUND_NAME;
         range = WCConfig.alarmRange;
         color = WCUtility.WHITE;
-        if(WorldControl.side == Side.CLIENT){
+        if (WorldControl.side == Side.CLIENT) {
             sound = new TileEntitySound(BASE_SOUND_RANGE);
         }
     }
@@ -72,9 +69,9 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     @Override
     public void update() {
-       // WCUtility.error(color);
+        // WCUtility.error(color);
         if (!init) {
-            if(!getWorld().isRemote)
+            if (!getWorld().isRemote)
                 RedstoneHelper.checkPowered(getWorld(), this);
             init = true;
         }
@@ -102,14 +99,12 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
         return range / BASE_SOUND_RANGE;
     }
 
-    public NBTTagCompound getUpdateTag()
-    {
+    public NBTTagCompound getUpdateTag() {
         return this.writeToNBT(new NBTTagCompound());
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket()
-    {
+    public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound syncData = new NBTTagCompound();
         syncData.setString("soundName", soundName);
         syncData.setInteger("range", range);
@@ -120,8 +115,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt)
-    {
+    public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt) {
         color = pkt.getNbtCompound().getInteger("color");
         range = pkt.getNbtCompound().getInteger("range");
         soundName = pkt.getNbtCompound().getString("soundName");
@@ -141,7 +135,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-        nbttagcompound  = super.writeToNBT(nbttagcompound);
+        nbttagcompound = super.writeToNBT(nbttagcompound);
         nbttagcompound.setString("soundName", soundName);
         nbttagcompound.setInteger("range", range);
         nbttagcompound.setInteger("color", color);
@@ -156,15 +150,17 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
         this.range = range;
     }
 
+    public String getSound() {
+        return soundName;
+    }
+
     public void setSound(String sound) {
-        if(WCConfig.howlerAlarmSounds.contains(sound)) {
+        if (WCConfig.howlerAlarmSounds.contains(sound)) {
             this.soundName = sound;
-        }else{
+        } else {
             this.soundName = DEFAULT_SOUND_NAME;
         }
     }
-
-    public String getSound(){return soundName;}
 
     public int getColor() {
         return color;

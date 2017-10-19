@@ -10,7 +10,7 @@ import worldcontrolteam.worldcontrol.items.ItemBaseKit;
 /**
  * Created by dmf444 on 10/16/2017. Code originally written for World-Control.
  */
-public class ExtremeReactorsKit extends ItemBaseKit{
+public class ExtremeReactorsKit extends ItemBaseKit {
 
     public ExtremeReactorsKit() {
         super("er_kit");
@@ -23,7 +23,7 @@ public class ExtremeReactorsKit extends ItemBaseKit{
 
     @Override
     public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
-        if(world.getBlockState(pos).getBlock() == ExtremeReactorsModule.REACTOR_MONITOR){
+        if (world.getBlockState(pos).getBlock() == ExtremeReactorsModule.REACTOR_MONITOR) {
             TileReactorMonitor monitor = (TileReactorMonitor) world.getTileEntity(pos);
             monitor.startFetching();
             return true;

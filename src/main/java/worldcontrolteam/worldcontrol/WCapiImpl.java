@@ -7,13 +7,13 @@ import worldcontrolteam.worldcontrol.crossmod.Modules;
 
 public class WCapiImpl implements WorldControlAPI.IWorldControlAPI {
 
-	@Override
-	public void addThermometerModule(IHeatSeeker m){
-		WorldControl.heatSources.add(m);
-	}
+    @Override
+    public void addThermometerModule(IHeatSeeker m) {
+        WorldControl.heatSources.add(m);
+    }
 
-	@Override
-	public void removeModule(Class<? extends ModuleBase> module){
-		Modules.removeModule(module);
-	}
+    @Override
+    public void removeModule(Class<? extends ModuleBase> module) {
+        Modules.removeModule(module);
+    }
 }

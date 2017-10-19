@@ -81,7 +81,7 @@ public class HowlerAlarmSlider extends GuiButton {
             setSliderPos(targetX);
             dragging = true;
             return true;
-        }else
+        } else
             return false;
     }
 

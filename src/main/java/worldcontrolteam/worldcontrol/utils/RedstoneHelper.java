@@ -29,8 +29,7 @@ public class RedstoneHelper {
     }
 
 
-
-    public interface IRedstoneConsumer{
+    public interface IRedstoneConsumer {
         boolean getPowered();
 
         void setPowered(boolean value);

@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
-public class BlockHowlerAlarm extends BlockIndustrialAlarm{
+public class BlockHowlerAlarm extends BlockIndustrialAlarm {
 
-    public BlockHowlerAlarm(){
+    public BlockHowlerAlarm() {
         super("HowlerAlarm");
     }
 
@@ -36,7 +36,7 @@ public class BlockHowlerAlarm extends BlockIndustrialAlarm{
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if(player.getHeldItem(hand) != ItemStack.EMPTY) {
+        if (player.getHeldItem(hand) != ItemStack.EMPTY) {
             if (player.getHeldItem(hand).getItem() instanceof ItemDye) {
                 int metacolor = player.getHeldItem(hand).getMetadata();
                 int color = ItemDye.DYE_COLORS[metacolor];

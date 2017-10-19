@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by dmf444 on 10/16/2017. Code originally written for World-Control.
  */
-public class ExtremeReactorsCard extends ItemBaseCard{
+public class ExtremeReactorsCard extends ItemBaseCard {
 
     public ExtremeReactorsCard() {
         super("er_card");
@@ -24,9 +24,9 @@ public class ExtremeReactorsCard extends ItemBaseCard{
 
     @Override
     public CardState update(World world, ItemStack card) {
-        if(card.hasTagCompound()){
+        if (card.hasTagCompound()) {
             BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
-            if(world.getTileEntity(pos) instanceof TileReactorMonitor){
+            if (world.getTileEntity(pos) instanceof TileReactorMonitor) {
                 TileReactorMonitor reactorMonitor = (TileReactorMonitor) world.getTileEntity(pos);
                 NBTTagCompound tag = new NBTTagCompound();
 
@@ -37,17 +37,17 @@ public class ExtremeReactorsCard extends ItemBaseCard{
                 tag.setDouble("FillPercent", (double) reactorMonitor.getEnergyOutPercent());
                 tag.setBoolean("isPassive", reactorMonitor.getReactorController().isPassivelyCooled());
 
-                if(reactorMonitor.getReactorController().getCoolantContainer().getVaporType() != null) {
+                if (reactorMonitor.getReactorController().getCoolantContainer().getVaporType() != null) {
                     tag.setString("VaporType", reactorMonitor.getReactorController().getCoolantContainer().getVaporType().getLocalizedName(new FluidStack(reactorMonitor.getReactorController().getCoolantContainer().getVaporType(), 1)));
                     tag.setInteger("VaporAmount", reactorMonitor.getReactorController().getCoolantContainer().getVaporAmount());
-                }else{
+                } else {
                     tag.setString("VaporType", "Empty");
                     tag.setInteger("VaporAmount", 0);
                 }
-                if(reactorMonitor.getReactorController().getCoolantContainer().getCoolantType() != null) {
+                if (reactorMonitor.getReactorController().getCoolantContainer().getCoolantType() != null) {
                     tag.setString("CoolantType", new FluidStack(reactorMonitor.getReactorController().getCoolantContainer().getCoolantType(), 1).getLocalizedName());
                     tag.setInteger("CoolantAmount", reactorMonitor.getReactorController().getCoolantContainer().getCoolantAmount());
-                }else{
+                } else {
                     tag.setString("CoolantType", "Empty");
                     tag.setInteger("CoolantAmount", 0);
                 }
@@ -55,7 +55,7 @@ public class ExtremeReactorsCard extends ItemBaseCard{
                 card.getTagCompound().setTag("reactorData", tag);
                 return CardState.OK;
 
-            }else {
+            } else {
                 return CardState.INVALID_CARD;
             }
         }
@@ -64,8 +64,8 @@ public class ExtremeReactorsCard extends ItemBaseCard{
 
     @Override
     public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels) {
-        if(card.hasTagCompound()){
-            if(card.getTagCompound().hasKey("reactorData")){
+        if (card.hasTagCompound()) {
+            if (card.getTagCompound().hasKey("reactorData")) {
                 NBTTagCompound tag = card.getTagCompound().getCompoundTag("reactorData");
 
                 double perOut = tag.getDouble("FillPercent");
@@ -80,7 +80,7 @@ public class ExtremeReactorsCard extends ItemBaseCard{
                 String text;
                 StringWrapper line;
 
-                if(passive){
+                if (passive) {
                     //Temperature
                     line = new StringWrapper();
                     line.textLeft = WCUtility.translateFormatted("exreactors.temp", coreTemp);
@@ -119,18 +119,18 @@ public class ExtremeReactorsCard extends ItemBaseCard{
                 //Active
                 int txtColor;
                 boolean reactorPowered = tag.getBoolean("Online");
-                if(reactorPowered){
+                if (reactorPowered) {
                     txtColor = 0x00ff00;
                     text = WCUtility.translateFormatted("info_panel_on");
-                }else{
+                } else {
                     txtColor = 0xff0000;
                     text = WCUtility.translateFormatted("info_panel_off");
                 }
-                if(list.size() > 0){
+                if (list.size() > 0) {
                     StringWrapper firstLine = list.get(0);
                     firstLine.textRight = text;
                     firstLine.colorRight = txtColor;
-                }else{
+                } else {
                     line = new StringWrapper();
                     line.textLeft = text;
                     line.colorLeft = txtColor;

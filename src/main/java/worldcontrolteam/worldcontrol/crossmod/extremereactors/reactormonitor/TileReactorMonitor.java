@@ -20,12 +20,12 @@ public class TileReactorMonitor extends TileEntityReactorPartBase implements ITi
     private boolean shouldBlockCache;
     private int meta;
 
-    public TileReactorMonitor(){
+    public TileReactorMonitor() {
         this.meta = 0;
         shouldBlockCache = false;
     }
 
-    public TileReactorMonitor(int meta){
+    public TileReactorMonitor(int meta) {
         shouldBlockCache = false;
         this.meta = meta;
     }
@@ -45,7 +45,7 @@ public class TileReactorMonitor extends TileEntityReactorPartBase implements ITi
 
     @Override
     public void onMultiblockServerTick() {
-        if(shouldBlockCache){
+        if (shouldBlockCache) {
             isReactorOn = this.getReactorController().getActive();
             energyStored = this.getReactorController().getEnergyStored();
             energyGen = this.getReactorController().getEnergyGeneratedLastTick();
@@ -59,39 +59,48 @@ public class TileReactorMonitor extends TileEntityReactorPartBase implements ITi
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag){
+    public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
         shouldBlockCache = tag.getBoolean("cache");
         this.meta = tag.getInteger("meta");
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound tag){
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setBoolean("cache", shouldBlockCache);
         tag.setInteger("meta", this.meta);
         return tag;
     }
 
-    public float getEnergyStored(){
+    public float getEnergyStored() {
         return energyStored;
     }
-    public float getEnergyGenerated(){
+
+    public float getEnergyGenerated() {
         return energyGen;
     }
-    public boolean isReactorOnline(){
+
+    public boolean isReactorOnline() {
         return isReactorOn;
     }
-    public void startFetching(){
+
+    public void startFetching() {
         shouldBlockCache = true;
     }
-    public float getEnergyOutPercent(){
+
+    public float getEnergyOutPercent() {
         return EstoredPer;
     }
-    public int getTemp(){
+
+    public int getTemp() {
         return temp;
     }
-    public MultiblockReactor getReactor(){return this.getReactorController();}
+
+    public MultiblockReactor getReactor() {
+        return this.getReactorController();
+    }
+
     public PartTier getPartTier() {
         return PartTier.fromMeta(this.meta);
     }

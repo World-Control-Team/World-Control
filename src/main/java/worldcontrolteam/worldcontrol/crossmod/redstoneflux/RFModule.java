@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 
-public class RFModule extends ModuleBase{
+public class RFModule extends ModuleBase {
     @Override
     public void registryEvents() {
 
@@ -31,7 +31,7 @@ public class RFModule extends ModuleBase{
         return null;
     }
 
-    public boolean apiAvaliable(){
+    public boolean apiAvaliable() {
         try {
             Class.forName("cofh.api.energy.IEnergyHandler.class");
             return true;

@@ -18,12 +18,12 @@ public class Screen {
     private boolean isPowered = false;
 
 
-    public TileEntityInfoPanel getCore(IBlockAccess world){
+    public TileEntityInfoPanel getCore(IBlockAccess world) {
         TileEntity tile = world.getTileEntity(corePos);
         return (TileEntityInfoPanel) tile;
     }
 
-    public void setCore(TileEntityInfoPanel panel){
+    public void setCore(TileEntityInfoPanel panel) {
         this.corePos = panel.getPos();
         this.isPowered = panel.getPowered();
     }
@@ -190,7 +190,6 @@ public class Screen {
     }
 
 
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -211,25 +210,9 @@ public class Screen {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
+        if (obj == null || getClass() != obj.getClass())
             return false;
         Screen other = (Screen) obj;
-        if (corePos != ((Screen) obj).corePos)
-            return false;
-        if (maxX != other.maxX)
-            return false;
-        if (maxY != other.maxY)
-            return false;
-        if (maxZ != other.maxZ)
-            return false;
-        if (minX != other.minX)
-            return false;
-        if (minY != other.minY)
-            return false;
-        if (minZ != other.minZ)
-            return false;
-        return true;
+        return corePos == ((Screen) obj).corePos && maxX == other.maxX && maxY == other.maxY && maxZ == other.maxZ && minX == other.minX && minY == other.minY && minZ == other.minZ;
     }
 }

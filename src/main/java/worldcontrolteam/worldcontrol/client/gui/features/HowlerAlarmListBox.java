@@ -28,12 +28,12 @@ public class HowlerAlarmListBox extends GuiButton {
     public int fontColor;
     public int selectedColor;
     public int selectedFontColor;
+    public int lineHeight;
+    public boolean dragging;
     private int scrollTop;
     private List<String> items;
     private TileEntityHowlerAlarm alarm;
-    public int lineHeight;
     private int sliderHeight;
-    public boolean dragging;
     private int sliderY;
     private int dragDelta;
 
@@ -49,6 +49,13 @@ public class HowlerAlarmListBox extends GuiButton {
         sliderHeight = 0;
         dragging = false;
         dragDelta = 0;
+    }
+
+    private static void draw(Tessellator tess, double x, double y, double z, float U, float V) {
+        tess.getBuffer().pos(x, y, z);
+        tess.getBuffer().tex(U, V);
+        tess.getBuffer().color(1.0f, 1.0f, 1.0f, 1.0f);
+        tess.getBuffer().endVertex();
     }
 
     private void scrollTo(int pos) {
@@ -121,10 +128,10 @@ public class HowlerAlarmListBox extends GuiButton {
         GL11.glScissor(x * scaler.getScaleFactor(), mc.displayHeight - (y + height) * scaler.getScaleFactor(), (width - SCROLL_WIDTH) * scaler.getScaleFactor(), height * scaler.getScaleFactor());
 
         for (String row : items) {
-            if(row.equals(currentItem)){
+            if (row.equals(currentItem)) {
                 drawRect(x, y + rowTop - scrollTop - 1, x + width - SCROLL_WIDTH, y + rowTop - scrollTop + lineHeight - 1, selectedColor);
                 fontRenderer.drawString(row, x + BASIC_X_OFFSET, y + rowTop - scrollTop, selectedFontColor);
-            }else
+            } else
                 fontRenderer.drawString(row, x + BASIC_X_OFFSET, y + rowTop - scrollTop, fontColor);
 
             rowTop += lineHeight;
@@ -157,13 +164,6 @@ public class HowlerAlarmListBox extends GuiButton {
         GL11.glPopMatrix();
     }
 
-    private static void draw(Tessellator tess, double x, double y, double z, float U, float V){
-        tess.getBuffer().pos(x, y ,z);
-        tess.getBuffer().tex(U, V);
-        tess.getBuffer().color(1.0f, 1.0f, 1.0f, 1.0f);
-        tess.getBuffer().endVertex();
-    }
-
     private void setCurrent(int targetY) {
         if (lineHeight == 0)
             return;
@@ -182,7 +182,7 @@ public class HowlerAlarmListBox extends GuiButton {
 
     @Override
     public boolean mousePressed(Minecraft minecraft, int targetX, int targetY) {
-        if(super.mousePressed(minecraft, targetX, targetY)){
+        if (super.mousePressed(minecraft, targetX, targetY)) {
             if (targetX > x + width - SCROLL_WIDTH) {// scroll click
 
                 if (targetY - y < SCROLL_BUTTON_HEIGHT)
@@ -193,12 +193,12 @@ public class HowlerAlarmListBox extends GuiButton {
                     dragging = true;
                     dragDelta = targetY - sliderY;
                 }
-            }else {
+            } else {
                 setCurrent(targetY);
 
                 return true;
             }
-        }else {
+        } else {
             return false;
         }
         return false;

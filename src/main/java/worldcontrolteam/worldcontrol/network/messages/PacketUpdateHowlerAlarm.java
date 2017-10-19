@@ -12,14 +12,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 
 
-public class PacketUpdateHowlerAlarm implements IMessage{
+public class PacketUpdateHowlerAlarm implements IMessage {
     public int range;
     public String soundName;
     public BlockPos pos;
 
-    public PacketUpdateHowlerAlarm(){}
+    public PacketUpdateHowlerAlarm() {
+    }
 
-    public PacketUpdateHowlerAlarm(int range, String sound, BlockPos pos){
+    public PacketUpdateHowlerAlarm(int range, String sound, BlockPos pos) {
         this.range = range;
         this.soundName = sound;
         this.pos = pos;
@@ -46,7 +47,7 @@ public class PacketUpdateHowlerAlarm implements IMessage{
         public IMessage onMessage(PacketUpdateHowlerAlarm message, MessageContext ctx) {
             World world = ctx.getServerHandler().player.getEntityWorld();
             TileEntity tile = world.getTileEntity(message.pos);
-            if(tile instanceof TileEntityHowlerAlarm){
+            if (tile instanceof TileEntityHowlerAlarm) {
                 TileEntityHowlerAlarm alarm = (TileEntityHowlerAlarm) tile;
                 alarm.setRange(message.range);
                 alarm.setSound(message.soundName);

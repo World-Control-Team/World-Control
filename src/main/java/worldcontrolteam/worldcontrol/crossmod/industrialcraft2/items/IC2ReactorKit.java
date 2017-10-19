@@ -9,18 +9,18 @@ import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
 import worldcontrolteam.worldcontrol.items.ItemBaseKit;
 
 public class IC2ReactorKit extends ItemBaseKit {
-	public IC2ReactorKit() {
-		super("ic2_reactor_kit");
-	}
+    public IC2ReactorKit() {
+        super("ic2_reactor_kit");
+    }
 
-	@Override
-	public Item getCardType(){
-		return IC2Module.reactorCard;
-	}
+    @Override
+    public Item getCardType() {
+        return IC2Module.reactorCard;
+    }
 
-	@Override
-	public boolean canReturnCard(ItemStack stack, World world, BlockPos pos){
-		return ReactorUtils.getReactorAt(world, pos) != null;
-	}
+    @Override
+    public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
+        return ReactorUtils.getReactorAt(world, pos) != null;
+    }
 
 }

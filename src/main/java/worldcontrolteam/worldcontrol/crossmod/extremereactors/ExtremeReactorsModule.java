@@ -15,7 +15,7 @@ import worldcontrolteam.worldcontrol.crossmod.extremereactors.reactormonitor.Til
 /**
  * Created by dmf444 on 10/15/2017. Code originally written for World-Control.
  */
-public class ExtremeReactorsModule extends ModuleBase{
+public class ExtremeReactorsModule extends ModuleBase {
 
     public static Block REACTOR_MONITOR;
     public static Item REACTOR_KIT, REACTOR_CARD;

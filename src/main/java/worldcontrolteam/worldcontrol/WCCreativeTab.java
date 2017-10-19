@@ -9,19 +9,19 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class WCCreativeTab extends CreativeTabs {
 
-	public WCCreativeTab() {
-		super("World Control");
-	}
+    public WCCreativeTab() {
+        super("World Control");
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public ItemStack getTabIconItem(){
-		return new ItemStack(WCItems.THERMOMETER);
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ItemStack getTabIconItem() {
+        return new ItemStack(WCItems.THERMOMETER);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public String getTranslatedTabLabel(){
-		return WCUtility.translate("creativetab");
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public String getTranslatedTabLabel() {
+        return WCUtility.translate("creativetab");
+    }
 }
