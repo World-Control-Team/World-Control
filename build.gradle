@@ -13,7 +13,11 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.0"
+def BUILD_NUMBER = System.getenv("BUILD_NUMBER") ?: "0"
+
+def VERSION = "1.0"
+
+version = VERSION+"."+BUILD_NUMBER
 group = "worldcontrolteam.worldcontrol"
 archivesBaseName = "worldcontrol"
 
@@ -68,5 +72,50 @@ processResources {
 
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
+	}
+}
+
+task("uploadJars", dependsOn: "reobf") {
+	description = "uploads JARs"
+	if (System.getenv("local_maven") != null) {
+		apply plugin: 'maven'
+		uploadArchives {
+			repositories {
+				mavenDeployer {
+					repository(url: "file://" + System.getenv("local_maven"))
+					pom {
+						groupId = project.group
+						version = project.version
+						artifactId = project.archivesBaseName
+						project {
+							name project.archivesBaseName
+							packaging 'jar'
+							description 'ServerInfoProvider'
+							issueManagement {
+								system 'github'
+								url 'https://github.com/World-Control-Team/World-Control/issues'
+							}
+							developers {
+								developer {
+									id 'TheCodedOne'
+									name 'TheCodedOne'
+									roles { role 'developer' }
+								}
+								developer {
+									id 'DMF444'
+									name 'DMF444'
+									roles { role 'developer' }
+								}
+								developer {
+									id 'Xbony2'
+									name 'Xbony2'
+									roles { role 'developer' }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
