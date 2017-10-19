@@ -33,6 +33,10 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
     }
 
     public void setThreshhold(int updateT){
+        if(updateT > 15000)
+            updateT = 15000;
+        if(updateT < 0)
+            updateT = 0;
         this.threshhold = updateT;
     }
 
