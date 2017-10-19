@@ -12,7 +12,6 @@ import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
 import worldcontrolteam.worldcontrol.blocks.BlockHowlerAlarm;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.blocks.fluids.FluidMercury;
-import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 
 public class WCBlocks {
@@ -34,7 +33,5 @@ public class WCBlocks {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         BlockBasicTileProvider.wcBlocks.stream().map(block -> new ItemBlock(block).setRegistryName(block.getRegistryName())).forEach(event.getRegistry()::register);
-
-        WCBaseItem.wcItems.forEach(event.getRegistry()::register);
     }
 }

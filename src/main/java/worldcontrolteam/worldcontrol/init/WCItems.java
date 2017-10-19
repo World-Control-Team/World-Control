@@ -24,9 +24,7 @@ public class WCItems {
 		FORGE_ENERGY_CARD = new ItemForgeEnergyCard();
 		FORGE_ENERGY_KIT = new ItemForgeEnergyKit();
 
-		for (Item item : WCBaseItem.wcItems){
-			event.getRegistry().register(item);
-		}
+		WCBaseItem.wcItems.forEach(event.getRegistry()::register);
 
 		//temp.
 		//GameRegistry.addRecipe(new ShapedOreRecipe(THERMOMETER, new Object[]{"ig ", "gbg", " gg", 'i', "ingotIron", 'g', "blockGlass", 'b', Items.WATER_BUCKET}));
