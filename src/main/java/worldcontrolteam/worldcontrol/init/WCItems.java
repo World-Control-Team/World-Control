@@ -1,9 +1,8 @@
 package worldcontrolteam.worldcontrol.init;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import worldcontrolteam.worldcontrol.items.*;
 
 public class WCItems {
@@ -15,7 +14,8 @@ public class WCItems {
 	public static Item FORGE_ENERGY_CARD;
 	public static Item FORGE_ENERGY_KIT;
 
-	public static void registerItems(){
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event){
 		THERMOMETER = new ItemThermometer();
 		TIME_CARD = new ItemCardTime();
 		REMOTE_PANEL = new ItemRemotePanel();
@@ -23,6 +23,10 @@ public class WCItems {
 		FLUID_KIT = new ItemFluidKit();
 		FORGE_ENERGY_CARD = new ItemForgeEnergyCard();
 		FORGE_ENERGY_KIT = new ItemForgeEnergyKit();
+
+		for (Item item : WCBaseItem.wcItems){
+			event.getRegistry().register(item);
+		}
 
 		//temp.
 		//GameRegistry.addRecipe(new ShapedOreRecipe(THERMOMETER, new Object[]{"ig ", "gbg", " gg", 'i', "ingotIron", 'g', "blockGlass", 'b', Items.WATER_BUCKET}));

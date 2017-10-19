@@ -1,74 +1,71 @@
 package worldcontrolteam.worldcontrol.client;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import worldcontrolteam.worldcontrol.CommonProxy;
 import worldcontrolteam.worldcontrol.api.card.IProviderCard;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
 import worldcontrolteam.worldcontrol.init.WCBlocks;
-import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.inventory.InventoryItem;
+import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
-
-import java.lang.reflect.Field;
 
 public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preinit(FMLPreInitializationEvent event){
+		MinecraftForge.EVENT_BUS.register(this);
 		AlarmAudioLoader.checkAndCreateFolders(event.getModConfigurationDirectory());
 		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new AlarmAudioLoader.TextureSetting());
 	}
 
 	@Override
 	public void init(){
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor(){
-			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex){
-				if(tintIndex == 1){
-					InventoryItem inv = new InventoryItem(stack);
-					if(inv.getStackInSlot(0) != null)
-						if(inv.getStackInSlot(0).getItem() instanceof IProviderCard)
-							return ((IProviderCard) inv.getStackInSlot(0).getItem()).getCardColor();
-				}
-				return -1;
-			}
-		}, WCItems.REMOTE_PANEL);
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(new IBlockColor()
-		{
-			public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex)
-			{
-				if(world != null && pos != null) {
-					TileEntity tile = world.getTileEntity(pos);
-					if (tile instanceof TileEntityHowlerAlarm) {
-						return ((TileEntityHowlerAlarm) tile).getColor();
-					}
-				}
-				return 16777215;
-			}
-		}, WCBlocks.HOWLER_ALARM);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+            if(tintIndex == 1){
+                InventoryItem inv = new InventoryItem(stack);
+                if(inv.getStackInSlot(0) != null)
+                    if(inv.getStackInSlot(0).getItem() instanceof IProviderCard)
+                        return ((IProviderCard) inv.getStackInSlot(0).getItem()).getCardColor();
+            }
+            return -1;
+        }, WCItems.REMOTE_PANEL);
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) -> {
+            if(world != null && pos != null) {
+                TileEntity tile = world.getTileEntity(pos);
+                if (tile instanceof TileEntityHowlerAlarm) {
+                    return ((TileEntityHowlerAlarm) tile).getColor();
+                }
+            }
+            return 16777215;
+        }, WCBlocks.HOWLER_ALARM);
 
 	}
 
-	public void registerItemTextures(){
-
+	@SubscribeEvent
+	public void registerTextures(ModelRegistryEvent event){
+		registerItemTextures();
 		registerBlockTextures();
 	}
 
-	public static void registerBlockTextures() {
+	private void registerItemTextures() {
+		for(Item item : WCBaseItem.wcItems){
+			String name = item.getUnlocalizedName().substring(18); //"item.worldcontrol.".length()
+			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("worldcontrol:"+ name, "inventory"));
+		}
+	}
+
+	public void registerBlockTextures() {
 		for(Block field : BlockBasicTileProvider.wcBlocks){
 			Item itemB = Item.REGISTRY.getObject(field.getRegistryName());
 			ModelLoader.setCustomModelResourceLocation(itemB, 0, new ModelResourceLocation(field.getRegistryName(), "inventory"));

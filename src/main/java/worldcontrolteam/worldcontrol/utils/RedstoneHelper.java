@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 public class RedstoneHelper {
 
-    public static IProperty POWERED = PropertyBool.create("powered");
+    public static final IProperty POWERED = PropertyBool.create("powered");
 
     private static boolean isPoweredWire(World world, BlockPos pos) {
         return world.getBlockState(pos).getBlock() == Blocks.REDSTONE_WIRE && Blocks.REDSTONE_WIRE.getStrongPower(world.getBlockState(pos), world, pos, EnumFacing.DOWN) > 0;

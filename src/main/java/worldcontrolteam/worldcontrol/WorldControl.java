@@ -52,9 +52,7 @@ public class WorldControl {
 
 		modules.registryEvents();
 		MinecraftForge.EVENT_BUS.register(WCBlocks.class);
-
-
-		proxy.registerItemTextures();
+		MinecraftForge.EVENT_BUS.register(WCItems.class);
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		ChannelHandler.init();
