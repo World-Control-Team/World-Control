@@ -7,7 +7,9 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Level;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
 
@@ -21,6 +23,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     @Override
     public void update() {
+        WCUtility.log(Level.FATAL, threshhold);
         if(this.isConnectionValid()) {
             if (!outputInverse) {
                 if (this.getCurrentHeat() >= threshhold) {

@@ -47,6 +47,7 @@ public class GuiThermoInvertRedstone extends GuiButton {
     public boolean mousePressed(Minecraft minecraft, int i, int j) {
         if(super.mousePressed(minecraft, i, j)){
             checked = !checked;
+            thermo.setInverse(checked);
             ChannelHandler.network.sendToServer(new PacketClientUpdateMonitor(thermo.getThreshhold(), checked, thermo.getPos()));
             return true;
         }else

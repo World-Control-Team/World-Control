@@ -121,6 +121,7 @@ public class GuiReactorHeatMonitor extends GuiContainer{
             }
             heat += delta;
             if (heatMonitor.getThreshhold() != heat) {
+                heatMonitor.setThreshhold(heat);
                 ChannelHandler.network.sendToServer(new PacketClientUpdateMonitor(heat, heatMonitor.getInversion(), heatMonitor.getPos()));
             }
             textboxHeat.setText(new Integer(heat).toString());
