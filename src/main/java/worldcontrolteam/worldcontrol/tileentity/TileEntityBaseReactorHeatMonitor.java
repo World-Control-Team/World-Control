@@ -1,8 +1,12 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
@@ -72,5 +76,39 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
                 return false;
             }
         }
+    }
+
+    public NBTTagCompound getUpdateTag() {
+        return this.writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound syncData = new NBTTagCompound();
+        syncData.setInteger("threshold", this.threshhold);
+        syncData.setBoolean("inverted", this.outputInverse);
+        return new SPacketUpdateTileEntity(this.getPos(), 1, syncData);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt) {
+        this.threshhold = pkt.getNbtCompound().getInteger("threshold");
+        this.outputInverse = pkt.getNbtCompound().getBoolean("inverted");
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+        this.threshhold = nbttagcompound.getInteger("threshold");
+        this.outputInverse = nbttagcompound.getBoolean("inverted");
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
+        nbttagcompound = super.writeToNBT(nbttagcompound);
+        nbttagcompound.setBoolean("inverted", this.outputInverse);
+        nbttagcompound.setInteger("threshold", this.threshhold);
+        return nbttagcompound;
     }
 }

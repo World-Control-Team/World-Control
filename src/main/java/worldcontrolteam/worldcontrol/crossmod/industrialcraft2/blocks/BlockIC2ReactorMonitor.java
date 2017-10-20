@@ -43,6 +43,7 @@ public class BlockIC2ReactorMonitor extends BlockBasicRotate{
         return GuiLib.IC2_HEAT_MONITOR;
     }
 
+    //TODO: check if i need to implement getStrongPower()
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing){
         return ((Boolean)state.getValue(RedstoneHelper.POWERED)) ? 15 : 0;
@@ -81,7 +82,7 @@ public class BlockIC2ReactorMonitor extends BlockBasicRotate{
     }
 
     public enum RenderType implements IStringSerializable{
-        NORMAL("normal"),
+        NORMAL("ok"),
         NOT_FOUND("none"),
         OVER_HEAT("hot");
 

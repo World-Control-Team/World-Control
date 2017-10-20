@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "worldcontrol:ic2_reactor_heat_monitor"
+  },
+  "variants": {
+    "rendertype": {
+      "ok": {
+        "textures": {
+          "face": "worldcontrol:blocks/reactorheatmonitor/face_green",
+          "particle" : "worldcontrol:blocks/reactorheatmonitor/face_green"
+        }
+      },
+      "hot": {
+        "textures": {
+          "face": "worldcontrol:blocks/reactorheatmonitor/face_red",
+          "particle" : "worldcontrol:blocks/reactorheatmonitor/face_red"
+        }
+      },
+      "none": {}
+    },
+    "facing": {
+      "north": {"x": 90},
+      "south": {"x": -90},
+      "east": {"x": 90, "y": 90},
+      "west": {"x": -90, "y": 90},
+      "up": {},
+      "down": {"x": 180}
+    },
+    "powered": {
+      "true": {},
+      "false": {}
+    }
+  }
+}
