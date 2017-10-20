@@ -24,6 +24,7 @@ public class BlockIC2ReactorMonitor extends BlockBasicRotate{
 
     public BlockIC2ReactorMonitor() {
         super(Material.ANVIL, "ic2_reactor_monitor");
+        this.defaultCreativeTab();
         this.setDefaultState(this.getDefaultState().withProperty(RedstoneHelper.POWERED, false).withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
     }
 
@@ -54,7 +55,10 @@ public class BlockIC2ReactorMonitor extends BlockBasicRotate{
 
     @Override
     public int getMetaFromState(IBlockState state){
-        return state.getValue(FACING).getIndex() * 2 + state.getValue(RedstoneHelper.POWERED).compareTo(true);
+        int stater = 0;
+        if (((Boolean)state.getValue(RedstoneHelper.POWERED)))
+            stater = 1;
+        return state.getValue(FACING).getIndex() * 2 + stater;
     }
 
     @Override
