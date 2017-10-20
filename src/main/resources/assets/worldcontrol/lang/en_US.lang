@@ -90,3 +90,4 @@ msg.worldcontrol.exreactors.outputtank=Output Tank: %s x%smB
 ###################
 msg.worldcontrol.HowlerAlarmSoundRange=Sound range: %s
 msg.worldcontrol.HowlerAlarmSound=Sound
+msg.worldcontrol.thermalmonitorgui.name=Thermal Monitor
