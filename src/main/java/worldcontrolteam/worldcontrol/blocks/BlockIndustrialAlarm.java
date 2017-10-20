@@ -34,8 +34,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         super(Material.IRON, name);
         this.defaultCreativeTab();
         setHardness(0.5F);
-        //GameRegistry.register(this);
-        //GameRegistry.register(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+
     }
 
     @Override

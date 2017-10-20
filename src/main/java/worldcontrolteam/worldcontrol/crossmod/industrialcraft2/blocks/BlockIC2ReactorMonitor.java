@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -13,18 +12,17 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
+import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 
-public class BlockIC2ReactorMonitor extends BlockBasicRotate{
+public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     public static IProperty RENDER_TYPE = PropertyEnum.create("rendertype", RenderType.class);
 
     public BlockIC2ReactorMonitor() {
-        super(Material.ANVIL, "ic2_reactor_monitor");
-        this.defaultCreativeTab();
+        super("ic2_reactor_monitor");
         this.setDefaultState(this.getDefaultState().withProperty(RedstoneHelper.POWERED, false).withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
     }
 
