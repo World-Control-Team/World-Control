@@ -3,16 +3,24 @@ package worldcontrolteam.worldcontrol.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import worldcontrolteam.worldcontrol.client.ClientUtil;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 
@@ -35,6 +43,19 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         this.defaultCreativeTab();
         setHardness(0.5F);
 
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerModels(ModelRegistryEvent event) {
+        final String resourcePath = getRegistryName().toString();
+        ClientUtil.setCustomStateMapper(this, state -> new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
+        NonNullList<ItemStack> subBlocks = NonNullList.create();
+        getSubBlocks(null, subBlocks);
+        for (ItemStack stack : subBlocks) {
+            IBlockState state = getDefaultState();
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), stack.getMetadata(), new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public class ClientUtil {
             NonNullList<ItemStack> subBlocks = NonNullList.create();
             block.getSubBlocks(null, subBlocks);
             for (ItemStack stack : subBlocks) {
-                IBlockState state = block.getStateFromMeta(1/*stack.getMetadata()*/); //TODO: Find a fix for this, not hard coded
+                IBlockState state = block.getStateFromMeta(stack.getMetadata());
                 ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(resourcePath, getPropertyString(state.getProperties())));
             }
         }
