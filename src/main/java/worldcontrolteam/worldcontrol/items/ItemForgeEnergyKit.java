@@ -17,7 +17,7 @@ public class ItemForgeEnergyKit extends ItemBaseKit {
 
     @Override
     public Item getCardType() {
-        return WCContent.FORGE_ENERGY_CARD;
+        return null;
     }
 
     @Override

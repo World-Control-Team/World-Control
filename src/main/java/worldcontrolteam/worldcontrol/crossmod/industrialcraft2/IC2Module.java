@@ -37,7 +37,6 @@ public class IC2Module extends ModuleBase {
 		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
 
 		GameRegistry.registerTileEntity(TileEntityIC2ReactorMonitor.class, "IC2reactorMonitor");
-oh
 
 		//temp.
 		//GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{" c ", "cgc", " c ", 'g', "ingotGold", 'c', "circuitBasic"}));

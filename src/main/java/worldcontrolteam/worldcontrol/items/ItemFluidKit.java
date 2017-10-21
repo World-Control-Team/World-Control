@@ -15,7 +15,7 @@ public class ItemFluidKit extends ItemBaseKit {
 
     @Override
     public Item getCardType() {
-        return WCContent.FLUID_CARD;
+        return null;
     }
 
     @Override

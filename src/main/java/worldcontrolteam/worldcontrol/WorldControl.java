@@ -28,10 +28,11 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.ArrayList;
 
-@Mod(modid = WorldControl.MODID, version = "@VERSION@")
+@Mod(modid = WorldControl.MODID, name = WorldControl.NAME, version = "@VERSION@")
 public class WorldControl {
 
     public static final String MODID = "worldcontrol";
+    public static final String NAME = "World Control";
     @Mod.Instance("worldcontrol")
     public static WorldControl instance;
     @SidedProxy(clientSide = "worldcontrolteam.worldcontrol.client.ClientProxy", serverSide = "worldcontrolteam.worldcontrol.ServerProxy")
