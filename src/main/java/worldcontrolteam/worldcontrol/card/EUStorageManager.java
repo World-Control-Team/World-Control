@@ -13,6 +13,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class EUStorageManager extends CardManager {
+    public EUStorageManager() {
+        setRegistryName("eu_storage");
+    }
+
     @Override
     public boolean isValidBlock(World world, BlockPos pos) {
         return WCUtility.getTileEntity(world, pos).filter(t -> t instanceof IEnergyStorage).isPresent();
@@ -20,6 +24,6 @@ public class EUStorageManager extends CardManager {
 
     @Override
     public Card createCard(@Nonnull ItemStack stack, @Nullable BlockPos pos, @Nullable EnumFacing facing) {
-        return null;
+        return new EUStorageCard(stack, this, pos);
     }
 }

@@ -27,7 +27,6 @@ import worldcontrolteam.worldcontrol.network.GuiHandler;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 @Mod(modid = WorldControl.MODID, version = "@VERSION@")
 public class WorldControl {
@@ -42,58 +41,6 @@ public class WorldControl {
     public static Side SIDE; // As in client vs server
     public static Modules MODULES = new Modules();
     protected static ArrayList<IHeatSeeker> HEAT_SOURCES = new ArrayList<>();
-
-    public WorldControl() {
-        boolean go = new Random().nextBoolean();
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-        System.out.println(go);
-    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {

@@ -13,8 +13,6 @@ import worldcontrolteam.worldcontrol.client.gui.GuiReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.container.ContainerEmpty;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.BlockIC2ReactorMonitor;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.TileEntityIC2ReactorMonitor;
-import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageCard;
-import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2EnergyStorageKit;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorKit;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
@@ -31,8 +29,6 @@ public class IC2Module extends ModuleBase {
 	public void registryEvents() {
 		reactorKit = new IC2ReactorKit();
 		reactorCard = new IC2ReactorCard();
-		energyCard = new IC2EnergyStorageCard();
-		energyKit = new IC2EnergyStorageKit();
 		THERMO_MONITOR = new BlockIC2ReactorMonitor();
 	}
 
@@ -41,7 +37,7 @@ public class IC2Module extends ModuleBase {
 		WorldControlAPI.getInstance().addThermometerModule(new IC2ReactorHeat());
 
 		GameRegistry.registerTileEntity(TileEntityIC2ReactorMonitor.class, "IC2reactorMonitor");
-
+oh
 
 		//temp.
 		//GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{" c ", "cgc", " c ", 'g', "ingotGold", 'c', "circuitBasic"}));

@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import worldcontrolteam.worldcontrol.api.card.CardManager;
 import worldcontrolteam.worldcontrol.blocks.BlockHowlerAlarm;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
+import worldcontrolteam.worldcontrol.card.EUStorageManager;
 import worldcontrolteam.worldcontrol.card.TimeCardManager;
 import worldcontrolteam.worldcontrol.items.*;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
@@ -59,7 +60,8 @@ public class WCContent {
                 new BlockHowlerAlarm()
         );
         addCards(
-                new TimeCardManager()
+                new TimeCardManager(),
+                new EUStorageManager()
         );
 
         GameRegistry.registerTileEntity(TileEntityHowlerAlarm.class, "HowlerAlarm");
@@ -79,8 +81,5 @@ public class WCContent {
     @SubscribeEvent
     public static void registerCards(RegistryEvent.Register<CardManager> event) {
         CARDS.forEach(event.getRegistry()::register);
-        event.getRegistry().registerAll(
-                new TimeCardManager().setRegistryName("time")
-        );
     }
 }

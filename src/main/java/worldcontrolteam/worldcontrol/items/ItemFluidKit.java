@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import worldcontrolteam.worldcontrol.init.WCContent;
 
 public class ItemFluidKit extends ItemBaseKit {
 
@@ -14,7 +15,7 @@ public class ItemFluidKit extends ItemBaseKit {
 
     @Override
     public Item getCardType() {
-        return WCItems.FLUID_CARD;
+        return WCContent.FLUID_CARD;
     }
 
     @Override
