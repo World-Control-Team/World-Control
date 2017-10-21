@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import worldcontrolteam.worldcontrol.api.core.ModuleBase;
 import worldcontrolteam.worldcontrol.client.gui.GuiAverageCounter;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.container.ContainerAverageCounter;
 
 public class TeslaModule extends ModuleBase {
@@ -21,6 +22,9 @@ public class TeslaModule extends ModuleBase {
         TESLA_KIT = new TeslaPowerKit();
         TESLA_CARD = new TeslaPowerCard();
         TESLA_AVERAGE_COUNTER = new BlockTeslaAverageCounter();
+        WCContent.ITEMS.add(TESLA_KIT);
+        WCContent.ITEMS.add(TESLA_CARD);
+        WCContent.BLOCKS.add(TESLA_AVERAGE_COUNTER);
     }
 
     @Override

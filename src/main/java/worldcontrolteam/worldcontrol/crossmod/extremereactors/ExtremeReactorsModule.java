@@ -11,6 +11,7 @@ import worldcontrolteam.worldcontrol.crossmod.extremereactors.reactormonitor.Blo
 import worldcontrolteam.worldcontrol.crossmod.extremereactors.reactormonitor.ExtremeReactorsCard;
 import worldcontrolteam.worldcontrol.crossmod.extremereactors.reactormonitor.ExtremeReactorsKit;
 import worldcontrolteam.worldcontrol.crossmod.extremereactors.reactormonitor.TileReactorMonitor;
+import worldcontrolteam.worldcontrol.init.WCContent;
 
 /**
  * Created by dmf444 on 10/15/2017. Code originally written for World-Control.
@@ -25,6 +26,8 @@ public class ExtremeReactorsModule extends ModuleBase {
         REACTOR_MONITOR = new BlockReactorMonitor();
         REACTOR_CARD = new ExtremeReactorsCard();
         REACTOR_KIT = new ExtremeReactorsKit();
+        WCContent.BLOCKS.add(REACTOR_MONITOR);
+        WCContent.addItems(REACTOR_CARD,REACTOR_KIT);
     }
 
     @Override

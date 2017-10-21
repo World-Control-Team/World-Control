@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -16,10 +15,11 @@ import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
-    public static IProperty RENDER_TYPE = PropertyEnum.create("rendertype", RenderType.class);
+    public static PropertyEnum<RenderType> RENDER_TYPE = PropertyEnum.create("rendertype", RenderType.class);
 
     public BlockIC2ReactorMonitor() {
         super("ic2_reactor_monitor");
@@ -41,28 +41,24 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
         return GuiLib.IC2_HEAT_MONITOR;
     }
 
-    //TODO: check if i need to implement getStrongPower()
     @Override
-    public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing){
-        return ((Boolean)state.getValue(RedstoneHelper.POWERED)) ? 15 : 0;
+    public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta)).withProperty(RedstoneHelper.POWERED, false);
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
     }
 
     @Override
     public int getMetaFromState(IBlockState state){
-        int stater = 0;
-        if (((Boolean)state.getValue(RedstoneHelper.POWERED)))
-            stater = 1;
-        return state.getValue(FACING).getIndex() * 2 + stater;
+        return state.getValue(FACING).getIndex();
     }
 
     @Override
     protected BlockStateContainer createBlockState(){
-        return new BlockStateContainer(this, new IProperty[]{FACING, RedstoneHelper.POWERED, RENDER_TYPE});
+        return new BlockStateContainer(this, FACING, RENDER_TYPE);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {

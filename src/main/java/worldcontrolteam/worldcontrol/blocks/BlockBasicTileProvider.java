@@ -5,27 +5,27 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
+import worldcontrolteam.worldcontrol.init.IItemBlockFactory;
+import worldcontrolteam.worldcontrol.init.IModelRegistrar;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider {
-
-    public static List<Block> wcBlocks = new ArrayList<>();
+public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider,IModelRegistrar,IItemBlockFactory {
 
     public BlockBasicTileProvider(Material blockMaterial, String name) {
         super(blockMaterial);
         this.setBlockName(name);
+    }
 
-
-        wcBlocks.add(this);
+    @Override
+    public ItemBlock createItemBlock() {
+        return (ItemBlock)new ItemBlock(this).setRegistryName(getRegistryName());
     }
 
     @Override

@@ -2,16 +2,16 @@ package worldcontrolteam.worldcontrol.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import worldcontrolteam.worldcontrol.api.card.CardManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.blocks.BlockHowlerAlarm;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
-import worldcontrolteam.worldcontrol.card.EUStorageManager;
-import worldcontrolteam.worldcontrol.card.TimeCardManager;
 import worldcontrolteam.worldcontrol.items.*;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 
@@ -24,24 +24,23 @@ public class WCContent {
 
     public static List<Block> BLOCKS = new ArrayList<>();
     public static List<Item> ITEMS = new ArrayList<>();
-    public static List<CardManager> CARDS = new ArrayList<>();
 
     public static void addBlocks(Block... blocks) {
         Collections.addAll(BLOCKS, blocks);
     }
+
     public static void addItems(Item... items) {
         Collections.addAll(ITEMS, items);
-    }
-    public static void addCards(CardManager... cards) {
-        Collections.addAll(CARDS, cards);
     }
 
     @ObjectHolder("worldcontrol:remote_panel")
     public static Item REMOTE_PANEL;
+    @ObjectHolder("worldcontrol:fluid_card")
+    public static Item FLUID_CARD;
+    @ObjectHolder("worldcontrol:forge_energy_card")
+    public static Item FORGE_ENERGY_CARD;
     @ObjectHolder("worldcontrol:howler_alarm")
     public static Block HOWLER_ALARM;
-    @ObjectHolder("worldcontrol:card")
-    public static Item CARD;
 
     public static void preInit() {
         addItems(
@@ -51,17 +50,11 @@ public class WCContent {
                 new ItemFluidCard(),
                 new ItemFluidKit(),
                 new ItemForgeEnergyCard(),
-                new ItemForgeEnergyKit(),
-                new ItemCard(),
-                new ItemKit()
+                new ItemForgeEnergyKit()
         );
         addBlocks(
                 new BlockIndustrialAlarm(),
                 new BlockHowlerAlarm()
-        );
-        addCards(
-                new TimeCardManager(),
-                new EUStorageManager()
         );
 
         GameRegistry.registerTileEntity(TileEntityHowlerAlarm.class, "HowlerAlarm");
@@ -79,7 +72,10 @@ public class WCContent {
     }
 
     @SubscribeEvent
-    public static void registerCards(RegistryEvent.Register<CardManager> event) {
-        CARDS.forEach(event.getRegistry()::register);
+    @SideOnly(Side.CLIENT)
+    public static void registerModels(ModelRegistryEvent event) {
+        ITEMS.stream().filter(i -> i instanceof IModelRegistrar).map(i -> (Item & IModelRegistrar) i).forEach(i -> i.registerModels(event));
+        BLOCKS.stream().filter(b -> b instanceof IModelRegistrar).map(b -> (Block & IModelRegistrar) b).forEach(b -> b.registerModels(event));
     }
+
 }

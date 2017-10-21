@@ -10,7 +10,6 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor
 
 public class TileEntityIC2ReactorMonitor extends TileEntityBaseReactorHeatMonitor {
 
-
     @Override
     public int getCurrentHeat() {
         IReactor reactor = ReactorUtils.getReactorAt(world, referenceBlock);

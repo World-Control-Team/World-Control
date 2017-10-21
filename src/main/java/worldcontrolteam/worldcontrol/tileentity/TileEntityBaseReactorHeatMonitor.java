@@ -14,6 +14,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
     private int threshhold = 500;
     private boolean outputInverse = false;
     protected BlockPos referenceBlock;
+    boolean overheated;
 
     public TileEntityBaseReactorHeatMonitor(){
 
@@ -24,10 +25,15 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
         //WCUtility.log(Level.FATAL, outputInverse);
         if(this.isConnectionValid()) {
             if(this.isOverHeated()){
-                //this.getWorld().getBlockState(this.getPos()).
-                this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 1);
+                if(!overheated) {
+                    overheated = true;
+                    world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
+                }
             }else{
-                this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 1);
+                if(overheated) {
+                    overheated = false;
+                    world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
+                }
             }
             /*if (!outputInverse) {
                 if (this.getCurrentHeat() >= threshhold) {

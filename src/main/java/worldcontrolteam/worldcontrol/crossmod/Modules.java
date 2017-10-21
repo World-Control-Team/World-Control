@@ -30,9 +30,7 @@ public class Modules {
                 ModuleBase modBase = mod.newInstance();
                 if (Loader.isModLoaded(modBase.modID()))
                     modBase.registryEvents();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
     }
@@ -43,9 +41,7 @@ public class Modules {
                 ModuleBase modBase = mod.newInstance();
                 if (Loader.isModLoaded(modBase.modID()))
                     modBase.preInit();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
     }

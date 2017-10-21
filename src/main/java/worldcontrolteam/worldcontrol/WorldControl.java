@@ -1,7 +1,5 @@
 package worldcontrolteam.worldcontrol;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -11,16 +9,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.registries.RegistryBuilder;
-import worldcontrolteam.worldcontrol.api.card.CardManager;
-import worldcontrolteam.worldcontrol.api.card.ICardHolder;
 import worldcontrolteam.worldcontrol.api.core.WorldControlAPI;
 import worldcontrolteam.worldcontrol.api.thermometer.IHeatSeeker;
 import worldcontrolteam.worldcontrol.crossmod.Modules;
-import worldcontrolteam.worldcontrol.init.WCCapabilities;
 import worldcontrolteam.worldcontrol.init.WCContent;
-import worldcontrolteam.worldcontrol.init.WCRegistries;
-import worldcontrolteam.worldcontrol.items.ItemCard;
 import worldcontrolteam.worldcontrol.items.ItemThermometer;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
 import worldcontrolteam.worldcontrol.network.GuiHandler;
@@ -48,18 +40,13 @@ public class WorldControl {
 
 
         SIDE = event.getSide();
-        ProgressManager.ProgressBar bar = ProgressManager.push("World Control",2);
+        ProgressManager.ProgressBar bar = ProgressManager.push("World Control",1);
         WCUtility.info("We are in pre-init!");
         bar.step("Initializing API");
         WorldControlAPI.init(new WCapiImpl());
-        bar.step("Registering Capabilities");
-        CapabilityManager.INSTANCE.register(ICardHolder.class, new WCCapabilities.Storage(), ItemCard.Caps.class);
         proxy.preInit(event);
-        WCRegistries.REGISTRY = new RegistryBuilder<CardManager>().setType(CardManager.class).setName(new ResourceLocation(WorldControl.MODID, "card")).setMaxID(255).create();
-
         MODULES.registryEvents();
         WCContent.preInit();
-
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         ChannelHandler.init();
         MODULES.preInit();

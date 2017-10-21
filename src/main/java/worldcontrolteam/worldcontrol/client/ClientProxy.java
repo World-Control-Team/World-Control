@@ -2,12 +2,9 @@ package worldcontrolteam.worldcontrol.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,14 +12,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.CommonProxy;
-import worldcontrolteam.worldcontrol.api.card.Card;
-import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
-import worldcontrolteam.worldcontrol.init.*;
+import worldcontrolteam.worldcontrol.api.card.IProviderCard;
+import worldcontrolteam.worldcontrol.init.IModelRegistrar;
+import worldcontrolteam.worldcontrol.init.Translator;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
-import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
-import worldcontrolteam.worldcontrol.utils.CardUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SideOnly(Side.CLIENT)
@@ -49,8 +45,8 @@ public class ClientProxy extends CommonProxy {
             if (tintIndex == 1) {
                 InventoryItem inv = new InventoryItem(stack);
                 if (!inv.getStackInSlot(0).isEmpty())
-                    if (inv.getStackInSlot(0).hasCapability(WCCapabilities.CARD_HOLDER, null))
-                        return CardUtils.getCard(inv.getStackInSlot(0)).map(Card::getCardColor).orElse(-1);
+                    if (inv.getStackInSlot(0).getItem() instanceof IProviderCard)
+                        return ((IProviderCard) inv.getStackInSlot(0).getItem()).getCardColor();
             }
             return -1;
         }, WCContent.REMOTE_PANEL);
