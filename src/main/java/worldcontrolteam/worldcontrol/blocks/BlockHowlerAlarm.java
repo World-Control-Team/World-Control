@@ -12,11 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class BlockHowlerAlarm extends BlockIndustrialAlarm {
 
     public BlockHowlerAlarm() {
-        super("HowlerAlarm");
+        super("howler_alarm");
     }
 
     @Override
@@ -38,9 +39,10 @@ public class BlockHowlerAlarm extends BlockIndustrialAlarm {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (player.getHeldItem(hand) != ItemStack.EMPTY) {
             if (player.getHeldItem(hand).getItem() instanceof ItemDye) {
-                int metacolor = player.getHeldItem(hand).getMetadata();
-                int color = ItemDye.DYE_COLORS[metacolor];
-                ((TileEntityHowlerAlarm) world.getTileEntity(pos)).setColor(color);
+                before:
+                ((TileEntityHowlerAlarm)world.getTileEntity(pos)).setColor(ItemDye.DYE_COLORS[player.getHeldItem(hand).getMetadata()]);
+                after:
+                WCUtility.getTileEntity(world, pos, TileEntityHowlerAlarm.class).ifPresent(tile -> tile.setColor(ItemDye.DYE_COLORS[player.getHeldItem(hand).getMetadata()]));
                 world.markBlockRangeForRenderUpdate(pos, pos);
                 return true;
             }

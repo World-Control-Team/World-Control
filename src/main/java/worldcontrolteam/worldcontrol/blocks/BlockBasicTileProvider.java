@@ -11,13 +11,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider {
 
-    public static List<Block> wcBlocks = new ArrayList<Block>();
+    public static List<Block> wcBlocks = new ArrayList<>();
 
     public BlockBasicTileProvider(Material blockMaterial, String name) {
         super(blockMaterial);
@@ -41,7 +42,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (this.hasGUI()) {
-            TileEntity tileEntity = world.getTileEntity(pos);
+            TileEntity tileEntity = WCUtility.getTileEntity(world, pos).orElse(null);
             if (tileEntity == null || player.isSneaking())
                 return false;
 
@@ -52,7 +53,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
     }
 
     protected void setBlockName(String name) {
-        this.setUnlocalizedName(name);
+        this.setUnlocalizedName("worldcontrol."+name);
         this.setRegistryName(name);
     }
 

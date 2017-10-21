@@ -14,7 +14,7 @@ import worldcontrolteam.worldcontrol.api.card.Card;
 import worldcontrolteam.worldcontrol.api.card.CardManager;
 import worldcontrolteam.worldcontrol.api.card.ICardHolder;
 import worldcontrolteam.worldcontrol.init.WCCapabilities;
-import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.init.WCRegistries;
 import worldcontrolteam.worldcontrol.utils.CardUtils;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
@@ -31,7 +31,7 @@ public class ItemCard extends WCBaseItem {
     }
 
     public static ItemStack createCard(CardManager manager, NBTTagCompound click) {
-        return new ItemStack(WCItems.CARD, 1, WCRegistries.REGISTRY.getValues().indexOf(manager), click);
+        return new ItemStack(WCContent.CARD, 1, WCRegistries.REGISTRY.getValues().indexOf(manager), click);
     }
 
     @Override

@@ -19,7 +19,7 @@ def VERSION = "1.0"
 
 version = VERSION+"."+BUILD_NUMBER
 group = "worldcontrolteam.worldcontrol"
-archivesBaseName = "worldcontrol"
+archivesBaseName = "World Control"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -90,7 +90,7 @@ task("uploadJars") {
 						project {
 							name project.archivesBaseName
 							packaging 'jar'
-							description 'ServerInfoProvider'
+							description 'World Control'
 							issueManagement {
 								system 'github'
 								url 'https://github.com/World-Control-Team/World-Control/issues'

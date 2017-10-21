@@ -26,8 +26,8 @@ public class ExtremeReactorsCard extends ItemBaseCard {
     public CardState update(World world, ItemStack card) {
         if (card.hasTagCompound()) {
             BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
-            if (world.getTileEntity(pos) instanceof TileReactorMonitor) {
-                TileReactorMonitor reactorMonitor = (TileReactorMonitor) world.getTileEntity(pos);
+            TileReactorMonitor reactorMonitor = WCUtility.getTileEntity(world, pos, TileReactorMonitor.class).orElse(null);
+            if (reactorMonitor != null) {
                 NBTTagCompound tag = new NBTTagCompound();
 
                 tag.setBoolean("Online", reactorMonitor.isReactorOnline());

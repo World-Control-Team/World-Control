@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.crossmod.extremereactors.ExtremeReactorsModule;
 import worldcontrolteam.worldcontrol.items.ItemBaseKit;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 /**
  * Created by dmf444 on 10/16/2017. Code originally written for World-Control.
@@ -24,8 +25,7 @@ public class ExtremeReactorsKit extends ItemBaseKit {
     @Override
     public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
         if (world.getBlockState(pos).getBlock() == ExtremeReactorsModule.REACTOR_MONITOR) {
-            TileReactorMonitor monitor = (TileReactorMonitor) world.getTileEntity(pos);
-            monitor.startFetching();
+            WCUtility.getTileEntity(world, pos, TileReactorMonitor.class).ifPresent(TileReactorMonitor::startFetching);
             return true;
         }
         return false;

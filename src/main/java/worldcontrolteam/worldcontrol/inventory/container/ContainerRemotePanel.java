@@ -7,7 +7,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import worldcontrolteam.worldcontrol.init.WCCapabilities;
-import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;
 
@@ -46,7 +46,7 @@ public class ContainerRemotePanel extends Container {
         Slot slots = this.inventorySlots.get(slot);
 
         if (slots.getStack() != ItemStack.EMPTY)
-            if (slots.getStack().getItem() == WCItems.REMOTE_PANEL)
+            if (slots.getStack().getItem() == WCContent.REMOTE_PANEL)
                 return ItemStack.EMPTY;
 
         if (slots.getHasStack()) {

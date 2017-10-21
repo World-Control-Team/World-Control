@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.init.WCCapabilities;
-import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 
 public class PacketClientRemotePanel implements IMessage {
@@ -42,7 +42,7 @@ public class PacketClientRemotePanel implements IMessage {
         public IMessage onMessage(PacketClientRemotePanel message, MessageContext ctx) {
             EntityPlayer player = Minecraft.getMinecraft().player;
             if (!player.getHeldItemMainhand().isEmpty())
-                if (player.getHeldItemMainhand().getItem() == WCItems.REMOTE_PANEL) {
+                if (player.getHeldItemMainhand().getItem() == WCContent.REMOTE_PANEL) {
                     // ItemRemoteMonitor remote = (ItemRemoteMonitor)
                     // player.getHeldItem().getItem();
                     InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());

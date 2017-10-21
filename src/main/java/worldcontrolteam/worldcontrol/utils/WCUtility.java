@@ -1,11 +1,15 @@
 package worldcontrolteam.worldcontrol.utils;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 import worldcontrolteam.worldcontrol.WorldControl;
+import worldcontrolteam.worldcontrol.init.Translator;
+
+import java.util.Optional;
 
 public class WCUtility {
 
@@ -42,20 +46,21 @@ public class WCUtility {
         log(Level.INFO, object);
     }
 
-    @SideOnly(Side.CLIENT)
     public static String translate(String key) {
-        key = "msg.worldcontrol." + key;
-        if (I18n.hasKey(key))// TODO: used undepreciated methods
-            return I18n.format(key);
-        else return I18n.format(key);
+        return Translator.getSidedTranslator().translate(key);
     }
 
-    @SideOnly(Side.CLIENT)
     public static String translateFormatted(String key, Object... format) {
-        key = "msg.worldcontrol." + key;
-        if (I18n.hasKey(key))// TODO: used undepreciated methods
-            return I18n.format(key, format);// I18n.translateToLocalFormatted(key, format);
-        else return I18n.format(key, format);
+        return Translator.getSidedTranslator().translate(key, format);
+    }
+
+    public static <T extends TileEntity> Optional<T> getTileEntity(IBlockAccess world, BlockPos pos, Class<T> tileClass) {
+        TileEntity tile = world.getTileEntity(pos);
+        return tileClass.isInstance(tile) ? Optional.of(tileClass.cast(tile)) : Optional.empty();
+    }
+
+    public static Optional<TileEntity> getTileEntity(World world, BlockPos pos) {
+        return Optional.ofNullable(world.getTileEntity(pos));
     }
 
     public static int RGBToInt(final int r, final int g, final int b) {

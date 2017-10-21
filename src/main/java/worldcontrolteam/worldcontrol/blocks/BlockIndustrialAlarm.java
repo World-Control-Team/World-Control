@@ -27,7 +27,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
     private static final AxisAlignedBB SOUTH_BLOCK_AABB = new AxisAlignedBB(0.125F, 0.125F, 0.4375F, 0.875F, 0.875F, 0);
 
     public BlockIndustrialAlarm() {
-        this("IndustrialAlarm");
+        this("industrial_alarm");
     }
 
     public BlockIndustrialAlarm(String name) {

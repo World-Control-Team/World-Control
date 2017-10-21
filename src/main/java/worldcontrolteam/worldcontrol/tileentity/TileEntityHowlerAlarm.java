@@ -43,7 +43,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
         soundName = DEFAULT_SOUND_NAME;
         range = WCConfig.alarmRange;
         color = WCUtility.WHITE;
-        if (WorldControl.side == Side.CLIENT) {
+        if (WorldControl.SIDE == Side.CLIENT) {
             sound = new TileEntitySound(BASE_SOUND_RANGE);
         }
     }

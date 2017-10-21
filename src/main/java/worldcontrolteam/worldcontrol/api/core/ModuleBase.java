@@ -18,7 +18,7 @@ public abstract class ModuleBase {
     public abstract void postInit();
 
     /**
-     * Called during preinit, init and postinit. Used to check if
+     * Called during preInit, init and postinit. Used to check if
      * Loader.isModLoaded()
      *
      * @return mod id of module

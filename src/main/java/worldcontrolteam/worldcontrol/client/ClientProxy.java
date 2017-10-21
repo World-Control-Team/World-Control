@@ -15,26 +15,33 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.CommonProxy;
+import worldcontrolteam.worldcontrol.api.card.Card;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicTileProvider;
-import worldcontrolteam.worldcontrol.init.WCBlocks;
-import worldcontrolteam.worldcontrol.init.WCCapabilities;
-import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.init.*;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.items.WCBaseItem;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.utils.CardUtils;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void preinit(FMLPreInitializationEvent event){
-		MinecraftForge.EVENT_BUS.register(this);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBaseReactorHeatMonitor.class, new HeatMonitorTESR());
-		AlarmAudioLoader.checkAndCreateFolders(event.getModConfigurationDirectory());
-		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new AlarmAudioLoader.TextureSetting());
-	}
+    private static Translator translator = new Translator.ClientTranslator();
+
+    @Override
+    public Translator getSidedTranslator() {
+        return translator;
+    }
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(this);
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBaseReactorHeatMonitor.class, new HeatMonitorTESR());
+        AlarmAudioLoader.checkAndCreateFolders(event.getModConfigurationDirectory());
+        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(new AlarmAudioLoader.TextureSetting());
+    }
 
     @Override
     public void init() {
@@ -43,38 +50,16 @@ public class ClientProxy extends CommonProxy {
                 InventoryItem inv = new InventoryItem(stack);
                 if (!inv.getStackInSlot(0).isEmpty())
                     if (inv.getStackInSlot(0).hasCapability(WCCapabilities.CARD_HOLDER, null))
-                        return CardUtils.getCard(inv.getStackInSlot(0)).map(c -> c.getCardColor()).orElse(-1);
+                        return CardUtils.getCard(inv.getStackInSlot(0)).map(Card::getCardColor).orElse(-1);
             }
             return -1;
-        }, WCItems.REMOTE_PANEL);
-        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) -> {
-            if (world != null && pos != null) {
-                TileEntity tile = world.getTileEntity(pos);
-                if (tile instanceof TileEntityHowlerAlarm) {
-                    return ((TileEntityHowlerAlarm) tile).getColor();
-                }
-            }
-            return 16777215;
-        }, WCBlocks.HOWLER_ALARM);
+        }, WCContent.REMOTE_PANEL);
+        Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) -> world != null && pos != null ? WCUtility.getTileEntity(world, pos, TileEntityHowlerAlarm.class).map(TileEntityHowlerAlarm::getColor).orElse(16777215) : 16777215, WCContent.HOWLER_ALARM);
     }
 
-	@SubscribeEvent
-	public void registerTextures(ModelRegistryEvent event){
-		registerItemTextures();
-		registerBlockTextures();
-	}
-
-	public void registerItemTextures() {
-		for(Item item : WCBaseItem.wcItems){
-			String name = item.getUnlocalizedName().substring(18); //"item.worldcontrol.".length()
-			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("worldcontrol:"+ name, "inventory"));
-		}
-	}
-
-	public void registerBlockTextures() {
-		for(Block field : BlockBasicTileProvider.wcBlocks){
-			Item itemB = Item.REGISTRY.getObject(field.getRegistryName());
-			ModelLoader.setCustomModelResourceLocation(itemB, 0, new ModelResourceLocation(field.getRegistryName(), "inventory"));
-		}
-	}
+    @SubscribeEvent
+    public void registerTextures(ModelRegistryEvent event) {
+        WCContent.BLOCKS.stream().filter(b -> b instanceof IModelRegistrar).map(b -> (Block & IModelRegistrar) b).forEach(b -> b.registerModels(event));
+        WCContent.ITEMS.stream().filter(i -> i instanceof IModelRegistrar).map(i -> (Item & IModelRegistrar) i).forEach(i -> i.registerModels(event));
+    }
 }

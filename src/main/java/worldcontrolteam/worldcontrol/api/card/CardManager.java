@@ -6,6 +6,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public abstract class CardManager extends IForgeRegistryEntry.Impl<CardManager> {
 
     public abstract boolean isValidBlock(World world, BlockPos pos);
@@ -14,5 +17,5 @@ public abstract class CardManager extends IForgeRegistryEntry.Impl<CardManager> 
         return true;
     }
 
-    public abstract Card createCard(ItemStack stack, BlockPos pos, EnumFacing facing);
+    public abstract Card createCard(@Nonnull ItemStack stack, @Nullable BlockPos pos, @Nullable EnumFacing facing);
 }

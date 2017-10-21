@@ -5,7 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.IEnergyStorage;
-import worldcontrolteam.worldcontrol.init.WCItems;
+import worldcontrolteam.worldcontrol.init.WCContent;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class ItemForgeEnergyKit extends ItemBaseKit {
 
@@ -15,11 +16,11 @@ public class ItemForgeEnergyKit extends ItemBaseKit {
 
     @Override
     public Item getCardType() {
-        return WCItems.FORGE_ENERGY_CARD;
+        return WCContent.FORGE_ENERGY_CARD;
     }
 
     @Override
     public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
-        return world.getTileEntity(pos) instanceof IEnergyStorage;
+        return WCUtility.getTileEntity(world,pos).filter(t -> t instanceof IEnergyStorage).isPresent();
     }
 }

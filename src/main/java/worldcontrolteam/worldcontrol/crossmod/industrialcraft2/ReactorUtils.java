@@ -8,13 +8,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class ReactorUtils {
 
     public static IReactor getReactorAt(World world, BlockPos pos) {
         if (world == null)
             return null;
-        TileEntity entity = world.getTileEntity(pos);
+        TileEntity entity = WCUtility.getTileEntity(world, pos).orElse(null);
+        if (entity == null)
+            return null;
         if (entity instanceof IReactor)
             return (IReactor) entity;
         if (entity instanceof IReactorChamber)

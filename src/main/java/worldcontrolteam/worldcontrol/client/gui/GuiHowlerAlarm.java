@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -41,10 +42,10 @@ public class GuiHowlerAlarm extends GuiContainer {
         guiTop = (this.height - ySize) / 2;
         buttonList.clear();
         slider = new HowlerAlarmSlider(3, guiLeft + 12, guiTop + 33, "msg.worldcontrol.HowlerAlarmSoundRange", alarm);
-        List<String> items = WCConfig.howlerAlarmSounds;
+        String[] items = WCConfig.howlerAlarmSounds;
 
 
-        listBox = new HowlerAlarmListBox(4, guiLeft + 13, guiTop + 63, 105, 65, items, alarm);
+        listBox = new HowlerAlarmListBox(4, guiLeft + 13, guiTop + 63, 105, 65, Lists.newArrayList(items), alarm);
         buttonList.add(slider);
         buttonList.add(listBox);
 

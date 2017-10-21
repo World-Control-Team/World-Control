@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.Random;
 
@@ -41,7 +42,8 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
     private void dropItems(World world, BlockPos pos) {
         Random rand = new Random();
 
-        TileEntity tileEntity = world.getTileEntity(pos);
+        TileEntity tileEntity = WCUtility.getTileEntity(world, pos).orElse(null);
+        //TODO: for inventory rewrite
         if (!(tileEntity instanceof IInventory))
             return;
         IInventory inventory = (IInventory) tileEntity;
@@ -69,9 +71,7 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
         }
         EntityItem e = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this));
         world.spawnEntity(e);
-
     }
-
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
@@ -85,7 +85,7 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING});
+        return new BlockStateContainer(this, FACING);
     }
 
 }

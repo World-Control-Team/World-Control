@@ -21,11 +21,11 @@ public class IC2EnergyStorageCard extends ItemBaseCard {
 
     @Override
     public CardState update(World world, ItemStack card) {
-        CardState state = CardState.NO_TARGET;
+        CardState state;
         if (card.hasTagCompound()) {
             BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
-            if (world.getTileEntity(pos) instanceof TileEntityElectricBlock) {
-                TileEntityElectricBlock energySource = (TileEntityElectricBlock) world.getTileEntity(pos);
+            TileEntityElectricBlock energySource = WCUtility.getTileEntity(world,pos,TileEntityElectricBlock.class).orElse(null);
+            if (energySource!=null) {
                 card.getTagCompound().setInteger("max_storage", energySource.getCapacity());
                 card.getTagCompound().setInteger("capacity", energySource.getStored());
                 card.getTagCompound().setInteger("output", energySource.getOutput());
