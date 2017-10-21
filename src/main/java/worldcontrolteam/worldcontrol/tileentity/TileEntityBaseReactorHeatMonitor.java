@@ -7,9 +7,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
-import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
 
@@ -23,21 +21,27 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     @Override
     public void update() {
-        WCUtility.log(Level.FATAL, threshhold);
+        //WCUtility.log(Level.FATAL, outputInverse);
         if(this.isConnectionValid()) {
-            if (!outputInverse) {
+            if(this.isOverHeated()){
+                //this.getWorld().getBlockState(this.getPos()).
+                this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 1);
+            }else{
+                this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 1);
+            }
+            /*if (!outputInverse) {
                 if (this.getCurrentHeat() >= threshhold) {
-                    this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 3);
+                    this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 1);
                 } else {
-                    this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 3);
+                    this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 1);
                 }
             } else {
                 if (this.getCurrentHeat() <= threshhold) {
-                    this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 3);
+                    this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, true), 1);
                 } else {
-                    this.world.setBlockState(this.getPos(), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 3);
+                    this.world.notifyBlockUpdate(this.getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.getPos()).withProperty(RedstoneHelper.POWERED, false), 1);
                 }
-            }
+            }*/
         }
     }
 
@@ -96,8 +100,8 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
     @Override
     @SideOnly(Side.CLIENT)
     public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.threshhold = pkt.getNbtCompound().getInteger("threshold");
-        this.outputInverse = pkt.getNbtCompound().getBoolean("inverted");
+       this.threshhold = pkt.getNbtCompound().getInteger("threshold");
+       this.outputInverse = pkt.getNbtCompound().getBoolean("inverted");
     }
 
     @Override

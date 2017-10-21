@@ -120,6 +120,11 @@ public class GuiReactorHeatMonitor extends GuiContainer{
                 // do nothing
             }
             heat += delta;
+            if(heat > 1000000)
+                heat = 1000000;
+            if(heat < 0)
+                heat = 0;
+
             if (heatMonitor.getThreshhold() != heat) {
                 heatMonitor.setThreshhold(heat);
                 ChannelHandler.network.sendToServer(new PacketClientUpdateMonitor(heat, heatMonitor.getInversion(), heatMonitor.getPos()));
