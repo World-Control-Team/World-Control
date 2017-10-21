@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "worldcontrol:extremereactormonitor" }
+    "inventory": { "model": "worldcontrol:extremereactormonitor" }
   }
 }

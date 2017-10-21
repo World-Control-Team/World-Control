@@ -2,6 +2,7 @@ package worldcontrolteam.worldcontrol;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.init.WCContent;
@@ -23,5 +24,16 @@ public class WCCreativeTab extends CreativeTabs {
     @SideOnly(Side.CLIENT)
     public String getTranslatedTabLabel() {
         return WCUtility.translate("creativetab");
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void displayAllRelevantItems(NonNullList<ItemStack> items)
+    {
+        super.displayAllRelevantItems(items);
+        sortList(items);
+    }
+
+    private void sortList(NonNullList<ItemStack> items){
+
     }
 }

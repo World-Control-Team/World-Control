@@ -1,6 +1,6 @@
 {
   "variants": {
-    "normal": { "model": "worldcontrol:IndustrialAlarm" },
+    "normal": {"model": "worldcontrol:IndustrialAlarm"},
     "facing=north": { "model": "worldcontrol:IndustrialAlarm", "x": 90},
     "facing=south": { "model": "worldcontrol:IndustrialAlarm", "x": -90},
     "facing=west":  { "model": "worldcontrol:IndustrialAlarm", "x": -90, "y": 90},

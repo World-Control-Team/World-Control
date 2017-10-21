@@ -14,7 +14,6 @@ import net.minecraft.world.chunk.Chunk;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
-import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
@@ -23,7 +22,7 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     public BlockIC2ReactorMonitor() {
         super("ic2_reactor_monitor");
-        this.setDefaultState(this.getDefaultState().withProperty(RedstoneHelper.POWERED, false).withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
+        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
     }
 
     @Override
