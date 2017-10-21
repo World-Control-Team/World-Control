@@ -36,9 +36,7 @@ public class ItemCard extends WCBaseItem {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        Card card = CardUtils.getNullableCard(stack);
-        if (card != null)
-            card.addTooltip(tooltip, worldIn, flagIn);
+        CardUtils.getCard(stack).ifPresent(c -> c.addTooltip(tooltip,worldIn,flagIn));
     }
 
     @Override
@@ -53,16 +51,26 @@ public class ItemCard extends WCBaseItem {
         }
     }
 
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName(stack);
+    }
+
+    @Nullable
+    @Override
+    public String getCreatorModId(ItemStack itemStack) {
+        return CardUtils.getCardManager(itemStack).map(m -> m.getRegistryName().getResourceDomain()).orElse("worldcontrol");
+    }
+
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        CardManager manager = CardUtils.getCardManager(stack);
-        if(manager.hasKit()) {
+        CardManager manager = CardUtils.getCardManager(stack).orElse(null);
+        if (manager!=null&&manager.hasKit()) {
             if (nbt != null && nbt.getBoolean("click"))
                 return new Caps(manager.createCard(stack, NBTUtils.getBlockPos(nbt), NBTUtils.getEnumFacing(nbt)));
-        } else
-            return new Caps(manager.createCard(stack, null,null));
-        return super.initCapabilities(stack, nbt);
+        }
+        return new Caps(manager.createCard(stack, null, null));
     }
 
     public static class Caps implements ICapabilitySerializable<NBTTagCompound>, ICardHolder {

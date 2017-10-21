@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
@@ -155,13 +156,13 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
     }
 
     public void setSound(String sound) {
-        if (WCConfig.howlerAlarmSounds.contains(sound)) {
+        if (Lists.newArrayList(WCConfig.howlerAlarmSounds).contains(sound)) {
             this.soundName = sound;
         } else {
             this.soundName = DEFAULT_SOUND_NAME;
         }
     }
-
+    
     public int getColor() {
         return color;
     }

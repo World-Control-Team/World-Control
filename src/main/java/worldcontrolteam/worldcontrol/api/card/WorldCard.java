@@ -26,7 +26,7 @@ public abstract class WorldCard extends Card {
     @Override
     public void update(World world) {
         if (!this.manager.isValidBlock(world, pos)) {
-            state = CardState.INVALID_CARD;
+            setState(CardState.INVALID_CARD);
             return;
         }
 

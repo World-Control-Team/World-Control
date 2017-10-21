@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.card.CardManager;
+import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.api.card.WorldCard;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -22,6 +23,10 @@ public class EUStorageCard extends WorldCard {
     @Override
     public void updateData(World world, BlockPos pos) {
         storage = (IEnergyStorage) WCUtility.getTileEntity(world, pos).filter(t -> t instanceof IEnergyStorage).orElse(null);
+        if(storage==null)
+            setState(CardState.INVALID_CARD);
+        else
+            setState(CardState.OK);
     }
 
     @Override

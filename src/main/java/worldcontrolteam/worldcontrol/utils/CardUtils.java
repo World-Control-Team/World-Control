@@ -8,6 +8,7 @@ import worldcontrolteam.worldcontrol.init.WCRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class CardUtils {
@@ -18,8 +19,8 @@ public class CardUtils {
     }
 
     @Nonnull
-    public static CardManager getCardManager(ItemStack stack) {
-        return WCRegistries.REGISTRY.getValues().get(stack.getMetadata());
+    public static Optional<CardManager> getCardManager(ItemStack stack) {
+        return Optional.ofNullable(WCRegistries.REGISTRY.getValues().get(stack.getMetadata()));
     }
 
     @Nullable

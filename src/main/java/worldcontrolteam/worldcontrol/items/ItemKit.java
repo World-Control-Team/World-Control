@@ -27,8 +27,8 @@ public class ItemKit extends WCBaseItem {
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
-        CardManager manager = CardUtils.getCardManager(stack);
-        if (!manager.isValidBlock(worldIn, pos))
+        CardManager manager = CardUtils.getCardManager(stack).orElse(null);
+        if (manager==null||!manager.isValidBlock(worldIn, pos))
             return EnumActionResult.PASS;
         NBTTagCompound click = getClickData(pos, facing);
 
