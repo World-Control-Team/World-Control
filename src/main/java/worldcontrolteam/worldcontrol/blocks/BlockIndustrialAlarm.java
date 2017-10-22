@@ -74,14 +74,17 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         return GuiLib.INDUSTRIAL_ALARM;
     }
 
+    @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         EnumFacing dir = state.getValue(BlockBasicRotate.FACING);
         switch (dir) {
@@ -100,6 +103,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         }
     }
 
+    @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         if (!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite(), true))) {
             this.dropBlockAsItem((World) world, pos, world.getBlockState(pos), 0);
@@ -107,6 +111,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         }
     }
 
+    @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!(world.isSideSolid(pos.offset(world.getBlockState(pos).getValue(FACING).getOpposite()), world.getBlockState(pos).getValue(FACING).getOpposite()))) {
             this.dropBlockAsItem(world, pos, world.getBlockState(pos), 0);
