@@ -27,9 +27,10 @@ wi
 # Gradle
 !gradle/wrapper/gradle-wrapper.jar
 /.gradle/
-/bin/
 *.hprof
 
 \.idea/
 /classes/
 *.iml
+World-Control.ipr
+World-Control.iws
