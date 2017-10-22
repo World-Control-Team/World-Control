@@ -40,6 +40,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
 
     public BlockIndustrialAlarm(String name) {
         super(Material.IRON, name);
+        this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.UP));
         this.defaultCreativeTab();
         setHardness(0.5F);
 

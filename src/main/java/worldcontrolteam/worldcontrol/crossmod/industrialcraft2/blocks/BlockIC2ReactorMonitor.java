@@ -11,6 +11,7 @@ import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
@@ -22,7 +23,7 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     public BlockIC2ReactorMonitor() {
         super("ic2_reactor_monitor");
-        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
+        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, RenderType.NOT_FOUND).withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
     }
 
     @Override
