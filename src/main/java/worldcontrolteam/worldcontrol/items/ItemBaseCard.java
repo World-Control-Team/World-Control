@@ -33,6 +33,10 @@ public abstract class ItemBaseCard extends WCBaseItem implements IProviderCard {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public abstract int getCardColor();
+
+	public boolean hasKit() {
+		return true;
+	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override

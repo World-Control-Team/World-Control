@@ -36,6 +36,11 @@ public class ItemCardTime extends ItemBaseCard {
 	}
 
 	@Override
+	public boolean hasKit() {
+		return false;
+	}
+
+	@Override
 	public List<StringWrapper> getStringData(List<StringWrapper> list, int displaySettings, ItemStack card, boolean showLabels){
 		StringWrapper text = new StringWrapper();
 		text.textLeft = WCUtility.translateFormatted("time_card.time", card.getTagCompound().getString("time"));
