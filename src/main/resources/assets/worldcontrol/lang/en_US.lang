@@ -16,11 +16,12 @@ item.worldcontrol.fluid_card.name=Fluid Card
 item.worldcontrol.er_card.name=Extreme Reactor Card
 item.worldcontrol.er_kit.name=Extreme Reactor Kit
 
-tile.tesla_average_counter.name=Tesla Average Counter
-tile.average_counter.name=Average Counter
-tile.IndustrialAlarm.name=Industrial Alarm
-tile.HowlerAlarm.name=Howler Alarm
-tile.extremereactormonitor.name=Extreme Reactor Monitor
+tile.worldcontrol.tesla_average_counter.name=Tesla Average Counter
+tile.worldcontrol.average_counter.name=Average Counter
+tile.worldcontrol.industrial_alarm.name=Industrial Alarm
+tile.worldcontrol.howler_alarm.name=Howler Alarm
+tile.worldcontrol.extremereactormonitor.name=Extreme Reactor Monitor
+tile.worldcontrol.ic2_reactor_monitor.name=IC2 Thermal Monitor
 
 fluid.mercury=Mercury
 

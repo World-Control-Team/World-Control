@@ -26,7 +26,7 @@ public class GuiIndustrialAlarm extends GuiContainer {
         xSize = 131;
         ySize = 64;
         this.alarm = alarm;
-        name = I18n.format("tile.IndustrialAlarm.name");
+        name = I18n.format("tile.worldcontrol.industrial_alarm.name");
     }
 
     @SuppressWarnings("unchecked")

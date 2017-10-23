@@ -31,7 +31,7 @@ public class GuiHowlerAlarm extends GuiContainer {
         this.alarm = alarm;
         xSize = 131;
         ySize = 136;
-        name = I18n.format("tile.HowlerAlarm.name");
+        name = I18n.format("tile.worldcontrol.howler_alarm.name");
     }
 
     @SuppressWarnings("unchecked")
