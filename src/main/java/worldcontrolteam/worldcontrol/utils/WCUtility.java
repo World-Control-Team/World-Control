@@ -2,8 +2,10 @@ package worldcontrolteam.worldcontrol.utils;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 import worldcontrolteam.worldcontrol.WorldControl;
@@ -55,7 +57,7 @@ public class WCUtility {
     }
 
     public static <T extends TileEntity> Optional<T> getTileEntity(IBlockAccess world, BlockPos pos, Class<T> tileClass) {
-        TileEntity tile = world.getTileEntity(pos);
+        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
         return tileClass.isInstance(tile) ? Optional.of(tileClass.cast(tile)) : Optional.empty();
     }
 

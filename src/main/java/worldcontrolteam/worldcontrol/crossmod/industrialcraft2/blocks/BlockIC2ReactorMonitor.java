@@ -43,6 +43,8 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        if(facing == state.getValue(FACING).getOpposite())
+            return 0;
         return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }
 
@@ -63,14 +65,8 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         TileEntity tile = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-        if(tile instanceof TileEntityBaseReactorHeatMonitor){
-            if(((TileEntityBaseReactorHeatMonitor)tile).isConnectionValid()){
-                if(!((TileEntityBaseReactorHeatMonitor)tile).isOverHeated()){
-                    return state.withProperty(RENDER_TYPE, RenderType.NORMAL);
-                }else{
-                    return state.withProperty(RENDER_TYPE, RenderType.OVER_HEAT);
-                }
-            }
+        if(((TileEntityBaseReactorHeatMonitor)tile).isConnectionValid()){
+            return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? state.withProperty(RENDER_TYPE, RenderType.OVER_HEAT) : state.withProperty(RENDER_TYPE, RenderType.NORMAL)).orElse(state.withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
         }
         return state.withProperty(RENDER_TYPE, RenderType.NOT_FOUND);
     }
