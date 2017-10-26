@@ -12,7 +12,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     private int threshhold = 500;
     private boolean outputInverse = false;
-    protected BlockPos referenceBlock;
+    private BlockPos referenceBlock;
     boolean overheated;
 
     public TileEntityBaseReactorHeatMonitor(){
@@ -40,6 +40,14 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     public boolean getInversion(){
         return outputInverse;
+    }
+
+    public BlockPos getReferenceBlock(){
+        return referenceBlock;
+    }
+
+    public void setReferenceBlock(BlockPos pos){
+        this.referenceBlock = pos;
     }
 
     public void setInverse(boolean updateInverse){
