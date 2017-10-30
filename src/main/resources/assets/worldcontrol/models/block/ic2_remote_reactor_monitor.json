@@ -1,0 +1,12 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "worldcontrol:blocks/remoteheatmonitor/face",
+    "down": "worldcontrol:blocks/remoteheatmonitor/back",
+    "up": "worldcontrol:blocks/remoteheatmonitor/face",
+    "north": "worldcontrol:blocks/remoteheatmonitor/side",
+    "east": "worldcontrol:blocks/remoteheatmonitor/side",
+    "south": "worldcontrol:blocks/remoteheatmonitor/side",
+    "west": "worldcontrol:blocks/remoteheatmonitor/side"
+  }
+}

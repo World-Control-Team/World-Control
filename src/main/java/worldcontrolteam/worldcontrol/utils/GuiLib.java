@@ -7,4 +7,5 @@ public class GuiLib {
     public static final int INDUSTRIAL_ALARM = 2;
     public static final int HOWLER_ALARM = 3;
     public static final int IC2_HEAT_MONITOR = 4;
+    public static final int IC2_REMOTE_HEAT_MONITOR = 5;
 }
