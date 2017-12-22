@@ -38,7 +38,7 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     private static final double MIN_RANGE = 20;
     //TODO: Cap upgrade stacksize to 16 blocks
-    private static final double ADDITIONAL_RANGE = 2.75f;
+    private static final double ADDITIONAL_RANGE = 2.1875f;
     private boolean addedToENet = false;
     private double energy;
 
