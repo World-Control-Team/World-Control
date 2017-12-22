@@ -39,6 +39,8 @@ public class WCContent {
     public static Item FLUID_CARD;
     @ObjectHolder("worldcontrol:forge_energy_card")
     public static Item FORGE_ENERGY_CARD;
+    @ObjectHolder("worldcontrol:upgrade_cards")
+    public static Item UPGRADE;
     @ObjectHolder("worldcontrol:howler_alarm")
     public static Block HOWLER_ALARM;
 
@@ -50,7 +52,8 @@ public class WCContent {
                 new ItemFluidCard(),
                 new ItemFluidKit(),
                 new ItemForgeEnergyCard(),
-                new ItemForgeEnergyKit()
+                new ItemForgeEnergyKit(),
+                new ItemUpgrade()
         );
         addBlocks(
                 new BlockIndustrialAlarm(),

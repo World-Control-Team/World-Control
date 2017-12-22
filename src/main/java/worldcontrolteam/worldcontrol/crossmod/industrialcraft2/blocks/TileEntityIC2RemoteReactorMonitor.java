@@ -10,6 +10,7 @@ import ic2.api.reactor.IReactor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -18,7 +19,9 @@ import net.minecraftforge.common.MinecraftForge;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
+import worldcontrolteam.worldcontrol.items.ItemUpgrade;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
@@ -29,9 +32,8 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     private final int CARD_SLOT = 0;
     private final int POWER_SLOT = 1;
-    private final int RANGE_SLOT = 2;
-    private final int TRANSFORMER_SLOT = 3;
-    private final int BASESTORAGE_SLOT = 4;
+    private final int MIN_SLOT = 2;
+    private final int MAX_SLOT = 4;
     private NonNullList<ItemStack> invContents = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
 
     private static final double MIN_RANGE = 20;
@@ -43,6 +45,7 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
     //TODO: Re-add Storage Size Upgrades
     private double maxStorage = 600;
     public final double STORAGE_INCREMENT = 10000;
+    public static final int BASE_STORAGE = 600;
 
     public TileEntityIC2RemoteReactorMonitor(){
 
@@ -68,10 +71,10 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
                 if (card.hasTagCompound()) {
                     BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
                     double distance = this.getPos().getDistance(pos.getX(), pos.getY(), pos.getZ());
-                    int count = 0;
-                    if(!(invContents.get(RANGE_SLOT) == ItemStack.EMPTY)){
-                        count = invContents.get(RANGE_SLOT).getCount();
-                    }
+
+                    //Get Range Upgrade Count
+                    int count = this.getItemCount(WCContent.UPGRADE);
+
                     if(distance <= (count * ADDITIONAL_RANGE) + MIN_RANGE) {
                         this.setReferenceBlock(pos);
                         return true;
@@ -94,6 +97,7 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     public void invalidate() {
         onChunkUnload();
+        super.invalidate();
     }
 
     public void onChunkUnload() {
@@ -110,8 +114,9 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     @Override
     public int getSinkTier() {
-        //TODO: transformer upgrades
-        return Integer.MAX_VALUE;
+        int count = this.getItemCount(IC2Items.getItem("upgrade", "transformer").getItem());
+        count = Math.min(count, 4) + 1;
+        return count;
     }
 
     @Override
@@ -157,7 +162,8 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
                 return itemStack.getItem() instanceof IC2ReactorCard;
             default:
                 return itemStack.getItem() == IC2Items.getItem("upgrade", "transformer").getItem() ||
-                        itemStack.getItem() == IC2Items.getItem("upgrade", "energy_storage").getItem(); //TODO: ADD IN WC UPGRADE
+                        itemStack.getItem() == IC2Items.getItem("upgrade", "energy_storage").getItem() ||
+                        (itemStack.getItem() == WCContent.UPGRADE && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
         }
     }
 
@@ -237,4 +243,14 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     @Override
     public boolean hasCustomName() { return false; }
+
+    private int getItemCount(Item item) {
+        int count = 0;
+        for(int i = MIN_SLOT; i < MAX_SLOT; i++){
+            if(!(invContents.get(i) == ItemStack.EMPTY) && invContents.get(i).getItem() == item) {
+                count += invContents.get(i).getCount();
+            }
+        }
+        return count;
+    }
 }
