@@ -162,7 +162,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
             this.soundName = DEFAULT_SOUND_NAME;
         }
     }
-    
+
     public int getColor() {
         return color;
     }

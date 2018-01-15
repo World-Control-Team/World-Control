@@ -11,11 +11,11 @@ import worldcontrolteam.worldcontrol.network.messages.PacketUpdateHowlerAlarm;
 public class ChannelHandler {
     public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");
 
-	public static void init(){
-		network.registerMessage(PacketServerRemotePanel.Handler.class, PacketServerRemotePanel.class, 0, Side.SERVER);
-		network.registerMessage(PacketClientRemotePanel.Handler.class, PacketClientRemotePanel.class, 1, Side.CLIENT);
-		network.registerMessage(PacketUpdateHowlerAlarm.Handler.class, PacketUpdateHowlerAlarm.class, 2, Side.SERVER);
-		network.registerMessage(PacketClientUpdateMonitor.Handler.class, PacketClientUpdateMonitor.class, 3, Side.SERVER);
-	}
+    public static void init() {
+        network.registerMessage(PacketServerRemotePanel.Handler.class, PacketServerRemotePanel.class, 0, Side.SERVER);
+        network.registerMessage(PacketClientRemotePanel.Handler.class, PacketClientRemotePanel.class, 1, Side.CLIENT);
+        network.registerMessage(PacketUpdateHowlerAlarm.Handler.class, PacketUpdateHowlerAlarm.class, 2, Side.SERVER);
+        network.registerMessage(PacketClientUpdateMonitor.Handler.class, PacketClientUpdateMonitor.class, 3, Side.SERVER);
+    }
 
 }

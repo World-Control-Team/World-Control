@@ -17,7 +17,7 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
+public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm {
 
     public static PropertyEnum<RenderType> RENDER_TYPE = PropertyEnum.create("rendertype", RenderType.class);
 
@@ -43,46 +43,47 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm{
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        if(facing == state.getValue(FACING).getOpposite())
+        if (facing == state.getValue(FACING).getOpposite())
             return 0;
         return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta){
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
     }
 
     @Override
-    public int getMetaFromState(IBlockState state){
+    public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
     @Override
-    protected BlockStateContainer createBlockState(){
+    protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, RENDER_TYPE);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-        if(((TileEntityBaseReactorHeatMonitor)tile).isConnectionValid()){
+        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache) world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+        if (((TileEntityBaseReactorHeatMonitor) tile).isConnectionValid()) {
             return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? state.withProperty(RENDER_TYPE, RenderType.OVER_HEAT) : state.withProperty(RENDER_TYPE, RenderType.NORMAL)).orElse(state.withProperty(RENDER_TYPE, RenderType.NOT_FOUND));
         }
         return state.withProperty(RENDER_TYPE, RenderType.NOT_FOUND);
     }
 
-    public enum RenderType implements IStringSerializable{
+    public enum RenderType implements IStringSerializable {
         NORMAL("ok"),
         NOT_FOUND("none"),
         OVER_HEAT("hot");
 
         private String name;
-        RenderType(String name){
+
+        RenderType(String name) {
             this.name = name;
         }
 
         @Override
-        public String getName(){
+        public String getName() {
             return this.name;
         }
 

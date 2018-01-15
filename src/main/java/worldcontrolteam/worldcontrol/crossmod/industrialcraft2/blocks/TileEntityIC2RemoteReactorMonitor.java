@@ -28,33 +28,31 @@ import worldcontrolteam.worldcontrol.utils.NBTUtils;
 /**
  * Created by dmf444 on 10/25/2017. Code originally written for World-Control.
  */
-public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeatMonitor implements IEnergySink, IInventory, ISlotItemFilter{
+public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeatMonitor implements IEnergySink, IInventory, ISlotItemFilter {
 
+    public static final int BASE_STORAGE = 600;
+    private static final double MIN_RANGE = 20;
+    //TODO: Cap upgrade stacksize to 16 blocks
+    private static final double ADDITIONAL_RANGE = 2.1875f;
+    public final double STORAGE_INCREMENT = 10000;
     private final int CARD_SLOT = 0;
     private final int POWER_SLOT = 1;
     private final int MIN_SLOT = 2;
     private final int MAX_SLOT = 4;
     private NonNullList<ItemStack> invContents = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
-
-    private static final double MIN_RANGE = 20;
-    //TODO: Cap upgrade stacksize to 16 blocks
-    private static final double ADDITIONAL_RANGE = 2.1875f;
     private boolean addedToENet = false;
     private double energy;
-
     //TODO: Re-add Storage Size Upgrades
     private double maxStorage = 600;
-    public final double STORAGE_INCREMENT = 10000;
-    public static final int BASE_STORAGE = 600;
 
-    public TileEntityIC2RemoteReactorMonitor(){
+    public TileEntityIC2RemoteReactorMonitor() {
 
     }
 
     @Override
     public int getCurrentHeat() {
         BlockPos ref = this.getReferenceBlock();
-        if(ref != null) {
+        if (ref != null) {
             IReactor reactor = ReactorUtils.getReactorAt(world, ref);
             if (reactor != null) {
                 return reactor.getHeat();
@@ -65,8 +63,8 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     @Override
     public boolean isConnectionValid() {
-        if(invContents.get(CARD_SLOT) != ItemStack.EMPTY){
-            if(invContents.get(CARD_SLOT).getItem() instanceof IC2ReactorCard){
+        if (invContents.get(CARD_SLOT) != ItemStack.EMPTY) {
+            if (invContents.get(CARD_SLOT).getItem() instanceof IC2ReactorCard) {
                 ItemStack card = invContents.get(CARD_SLOT);
                 if (card.hasTagCompound()) {
                     BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
@@ -75,7 +73,7 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
                     //Get Range Upgrade Count
                     int count = this.getItemCount(WCContent.UPGRADE);
 
-                    if(distance <= (count * ADDITIONAL_RANGE) + MIN_RANGE) {
+                    if (distance <= (count * ADDITIONAL_RANGE) + MIN_RANGE) {
                         this.setReferenceBlock(pos);
                         return true;
                     }
@@ -87,8 +85,8 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
 
     @Override
-    public void update(){
-        if(!addedToENet && !getWorld().isRemote){
+    public void update() {
+        if (!addedToENet && !getWorld().isRemote) {
             MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
             addedToENet = !addedToENet;
         }
@@ -132,12 +130,12 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
         return left;
     }
 
-    public void setEnergy(double value) {
-        energy = value;
-    }
-
     public double getEnergy() {
         return energy;
+    }
+
+    public void setEnergy(double value) {
+        energy = value;
     }
 
     public double getMaxStorage() {
@@ -155,9 +153,9 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
 
     @Override
     public boolean isItemValid(int slotIndex, ItemStack itemStack) {
-        switch (slotIndex){
+        switch (slotIndex) {
             case POWER_SLOT:
-                return itemStack.getItem() instanceof IElectricItem && ((IElectricItem)itemStack.getItem()).canProvideEnergy(itemStack);
+                return itemStack.getItem() instanceof IElectricItem && ((IElectricItem) itemStack.getItem()).canProvideEnergy(itemStack);
             case CARD_SLOT:
                 return itemStack.getItem() instanceof IC2ReactorCard;
             default:
@@ -203,7 +201,7 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
         boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
         this.invContents.set(index, stack);
 
-        if(!flag)
+        if (!flag)
             this.markDirty();
     }
 
@@ -218,36 +216,51 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
     }
 
     @Override
-    public void openInventory(EntityPlayer player) { }
+    public void openInventory(EntityPlayer player) {
+    }
 
     @Override
-    public void closeInventory(EntityPlayer player) { }
+    public void closeInventory(EntityPlayer player) {
+    }
 
     @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) { return isItemValid(index, stack); }
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return isItemValid(index, stack);
+    }
 
     @Override
-    public int getField(int id) { return 0; }
+    public int getField(int id) {
+        return 0;
+    }
 
     @Override
-    public void setField(int id, int value) { }
+    public void setField(int id, int value) {
+    }
 
     @Override
-    public int getFieldCount() { return 0; }
+    public int getFieldCount() {
+        return 0;
+    }
 
     @Override
-    public void clear() { this.invContents.clear(); }
+    public void clear() {
+        this.invContents.clear();
+    }
 
     @Override
-    public String getName() { return "vaca"; }
+    public String getName() {
+        return "vaca";
+    }
 
     @Override
-    public boolean hasCustomName() { return false; }
+    public boolean hasCustomName() {
+        return false;
+    }
 
     private int getItemCount(Item item) {
         int count = 0;
-        for(int i = MIN_SLOT; i < MAX_SLOT; i++){
-            if(!(invContents.get(i) == ItemStack.EMPTY) && invContents.get(i).getItem() == item) {
+        for (int i = MIN_SLOT; i < MAX_SLOT; i++) {
+            if (!(invContents.get(i) == ItemStack.EMPTY) && invContents.get(i).getItem() == item) {
                 count += invContents.get(i).getCount();
             }
         }

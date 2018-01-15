@@ -40,7 +40,7 @@ public class WorldControl {
 
 
         SIDE = event.getSide();
-        ProgressManager.ProgressBar bar = ProgressManager.push("World Control",1);
+        ProgressManager.ProgressBar bar = ProgressManager.push("World Control", 1);
         WCUtility.info("We are in pre-init!");
         bar.step("Initializing API");
         WorldControlAPI.init(new WCapiImpl());

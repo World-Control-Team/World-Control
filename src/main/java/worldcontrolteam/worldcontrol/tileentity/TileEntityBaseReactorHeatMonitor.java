@@ -10,12 +10,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
 
+    boolean overheated;
     private int threshhold = 500;
     private boolean outputInverse = false;
     private BlockPos referenceBlock;
-    boolean overheated;
 
-    public TileEntityBaseReactorHeatMonitor(){
+    public TileEntityBaseReactorHeatMonitor() {
 
     }
 
@@ -26,40 +26,41 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
         world.notifyBlockUpdate(getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.pos), 3);
     }
 
-    public void setThreshhold(int updateT){
-        if(updateT > 1000000)
+    public int getThreshhold() {
+        return threshhold;
+    }
+
+    public void setThreshhold(int updateT) {
+        if (updateT > 1000000)
             updateT = 1000000;
-        if(updateT < 0)
+        if (updateT < 0)
             updateT = 0;
         this.threshhold = updateT;
     }
 
-    public int getThreshhold(){
-        return threshhold;
-    }
-
-    public boolean getInversion(){
+    public boolean getInversion() {
         return outputInverse;
     }
 
-    public BlockPos getReferenceBlock(){
+    public BlockPos getReferenceBlock() {
         return referenceBlock;
     }
 
-    public void setReferenceBlock(BlockPos pos){
+    public void setReferenceBlock(BlockPos pos) {
         this.referenceBlock = pos;
     }
 
-    public void setInverse(boolean updateInverse){
+    public void setInverse(boolean updateInverse) {
         this.outputInverse = updateInverse;
     }
 
 
     public abstract int getCurrentHeat();
+
     public abstract boolean isConnectionValid();
 
-    public boolean isOverHeated(){
-        if(this.isConnectionValid()) {
+    public boolean isOverHeated() {
+        if (this.isConnectionValid()) {
             if (!outputInverse) {
                 if (this.getCurrentHeat() >= threshhold) {
                     return true;
@@ -92,8 +93,8 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
     @Override
     @SideOnly(Side.CLIENT)
     public void onDataPacket(net.minecraft.network.NetworkManager net, SPacketUpdateTileEntity pkt) {
-       this.threshhold = pkt.getNbtCompound().getInteger("threshold");
-       this.outputInverse = pkt.getNbtCompound().getBoolean("inverted");
+        this.threshhold = pkt.getNbtCompound().getInteger("threshold");
+        this.outputInverse = pkt.getNbtCompound().getBoolean("inverted");
     }
 
     @Override

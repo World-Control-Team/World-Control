@@ -9,8 +9,8 @@ import worldcontrolteam.worldcontrol.client.ClientUtil;
 public interface IModelRegistrar {
     @SideOnly(Side.CLIENT)
     default void registerModels(ModelRegistryEvent event) {
-        if(this instanceof Block) {
-            ClientUtil.registerWithMapper((Block)this);
+        if (this instanceof Block) {
+            ClientUtil.registerWithMapper((Block) this);
         }
     }
 }

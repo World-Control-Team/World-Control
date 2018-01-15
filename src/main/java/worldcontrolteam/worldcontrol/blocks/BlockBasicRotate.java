@@ -41,35 +41,34 @@ public abstract class BlockBasicRotate extends BlockBasicTileProvider {
     private void dropItems(World world, BlockPos pos) {
         Random rand = new Random();
 
-        TileEntity tileEntity = WCUtility.getTileEntity(world, pos).orElse(null);
-        //TODO: for inventory rewrite
-        if (!(tileEntity instanceof IInventory))
-            return;
-        IInventory inventory = (IInventory) tileEntity;
+        //TODO: Rewrite inventories to IItemHandler
+        WCUtility.getTileEntity(world, pos)
+                .filter(te -> te instanceof IInventory).map(te -> (TileEntity & IInventory) te)
+                .ifPresent(tileEntity -> {
+                    for (int i = 0; i < tileEntity.getSizeInventory(); i++) {
+                        ItemStack item = tileEntity.getStackInSlot(i);
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++) {
-            ItemStack item = inventory.getStackInSlot(i);
+                        if (item != ItemStack.EMPTY && item.getCount() > 0) {
+                            float rx = rand.nextFloat() * 0.8F + 0.1F;
+                            float ry = rand.nextFloat() * 0.8F + 0.1F;
+                            float rz = rand.nextFloat() * 0.8F + 0.1F;
 
-            if (item != ItemStack.EMPTY && item.getCount() > 0) {
-                float rx = rand.nextFloat() * 0.8F + 0.1F;
-                float ry = rand.nextFloat() * 0.8F + 0.1F;
-                float rz = rand.nextFloat() * 0.8F + 0.1F;
+                            EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
 
-                EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
+                            if (item.hasTagCompound())
+                                entityItem.getItem().setTagCompound(item.getTagCompound().copy());
 
-                if (item.hasTagCompound())
-                    entityItem.getItem().setTagCompound(item.getTagCompound().copy());
-
-                float factor = 0.05F;
-                entityItem.motionX = rand.nextGaussian() * factor;
-                entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-                entityItem.motionZ = rand.nextGaussian() * factor;
-                world.spawnEntity(entityItem);
-                item.setCount(0);
-            }
-        }
-        EntityItem e = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this));
-        world.spawnEntity(e);
+                            float factor = 0.05F;
+                            entityItem.motionX = rand.nextGaussian() * factor;
+                            entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
+                            entityItem.motionZ = rand.nextGaussian() * factor;
+                            world.spawnEntity(entityItem);
+                            item.setCount(0);
+                        }
+                    }
+                    EntityItem e = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this));
+                    world.spawnEntity(e);
+                });
     }
 
     @Override

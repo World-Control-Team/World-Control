@@ -22,7 +22,7 @@ public class GuiHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        TileEntity tile = WCUtility.getTileEntity(world,new BlockPos(x,y,z)).orElse(null);
+        TileEntity tile = WCUtility.getTileEntity(world, new BlockPos(x, y, z)).orElse(null);
         if (ID == GuiLib.REMOTE_PANEL) {
             return new ContainerRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()));
         } else if (ID == GuiLib.INDUSTRIAL_ALARM) {
@@ -37,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
     @Override
     @SideOnly(Side.CLIENT)
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        TileEntity tile = WCUtility.getTileEntity(world,new BlockPos(x,y,z)).orElse(null);
+        TileEntity tile = WCUtility.getTileEntity(world, new BlockPos(x, y, z)).orElse(null);
         if (ID == GuiLib.REMOTE_PANEL) {
             return new GuiRemotePanel(player.inventory, player.getHeldItemMainhand(), new InventoryItem(player.getHeldItemMainhand()), player);
         } else if (ID == GuiLib.INDUSTRIAL_ALARM) {

@@ -1,8 +1,6 @@
 package worldcontrolteam.worldcontrol.items;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -12,8 +10,6 @@ import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
-
-import javax.annotation.Nullable;
 
 public class ItemRemotePanel extends WCBaseItem {
 

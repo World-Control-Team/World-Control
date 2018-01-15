@@ -13,8 +13,7 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
     private TileEntityIC2RemoteReactorMonitor remoteHeatMonitor;
     private double lastEnergy = -1;
 
-    public ContainerIC2RemoteReactorMonitor(EntityPlayer player, TileEntityIC2RemoteReactorMonitor remoteThermo)
-    {
+    public ContainerIC2RemoteReactorMonitor(EntityPlayer player, TileEntityIC2RemoteReactorMonitor remoteThermo) {
         super();
 
         this.player = player;
@@ -30,28 +29,23 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
         addSlotToContainer(new SlotFilter(remoteThermo, 4, 190, 62));
 
         //inventory
-        for (int i = 0; i < 3; i++)
-        {
-            for (int k = 0; k < 9; k++)
-            {
+        for (int i = 0; i < 3; i++) {
+            for (int k = 0; k < 9; k++) {
                 addSlotToContainer(new Slot(player.inventory, k + i * 9 + 9, 27 + k * 18, 84 + i * 18));
             }
         }
 
-        for (int j = 0; j < 9; j++)
-        {
+        for (int j = 0; j < 9; j++) {
             addSlotToContainer(new Slot(player.inventory, j, 27 + j * 18, 142));
         }
     }
 
     @Override
-    public void detectAndSendChanges()
-    {
+    public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        int energy = (int)remoteHeatMonitor.getEnergy();
-        for (int i = 0; i < this.listeners.size(); i++)
-        {
-            IContainerListener crafting = (IContainerListener)this.listeners.get(i);
+        int energy = (int) remoteHeatMonitor.getEnergy();
+        for (int i = 0; i < this.listeners.size(); i++) {
+            IContainerListener crafting = (IContainerListener) this.listeners.get(i);
             if (lastEnergy != energy) {
                 crafting.sendWindowProperty(this, 0, energy);
             }
@@ -59,17 +53,14 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
         lastEnergy = energy;
     }
 
-    public void updateProgressBar(int type, int value)
-    {
-        if (type == 0)
-        {
+    public void updateProgressBar(int type, int value) {
+        if (type == 0) {
             remoteHeatMonitor.setEnergy(value);
         }
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer var1)
-    {
+    public boolean canInteractWith(EntityPlayer var1) {
         return remoteHeatMonitor.isUsableByPlayer(player);
     }
 }

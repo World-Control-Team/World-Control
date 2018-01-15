@@ -7,7 +7,8 @@ import worldcontrolteam.worldcontrol.init.Translator;
 
 public abstract class CommonProxy {
 
-	public void init(){}
+    public void init() {
+    }
 
     public void registerItemTextures() {
     }

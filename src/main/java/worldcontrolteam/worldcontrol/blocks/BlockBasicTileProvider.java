@@ -16,7 +16,7 @@ import worldcontrolteam.worldcontrol.init.IItemBlockFactory;
 import worldcontrolteam.worldcontrol.init.IModelRegistrar;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider,IModelRegistrar,IItemBlockFactory {
+public abstract class BlockBasicTileProvider extends Block implements ITileEntityProvider, IModelRegistrar, IItemBlockFactory {
 
     public BlockBasicTileProvider(Material blockMaterial, String name) {
         super(blockMaterial);
@@ -25,7 +25,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
 
     @Override
     public ItemBlock createItemBlock() {
-        return (ItemBlock)new ItemBlock(this).setRegistryName(getRegistryName());
+        return (ItemBlock) new ItemBlock(this).setRegistryName(getRegistryName());
     }
 
     @Override
@@ -42,8 +42,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (this.hasGUI()) {
-            TileEntity tileEntity = WCUtility.getTileEntity(world, pos).orElse(null);
-            if (tileEntity == null || player.isSneaking())
+            if (!WCUtility.getTileEntity(world, pos).isPresent() || player.isSneaking())
                 return false;
 
             player.openGui(WorldControl.instance, guiID(), world, pos.getX(), pos.getY(), pos.getZ());
@@ -53,7 +52,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
     }
 
     protected void setBlockName(String name) {
-        this.setUnlocalizedName("worldcontrol."+name);
+        this.setUnlocalizedName("worldcontrol." + name);
         this.setRegistryName(name);
     }
 

@@ -30,6 +30,7 @@ public interface Translator {
             return net.minecraft.client.resources.I18n.format(key, format);
         }
     }
+
     class ServerTranslator implements Translator {
 
         @Override

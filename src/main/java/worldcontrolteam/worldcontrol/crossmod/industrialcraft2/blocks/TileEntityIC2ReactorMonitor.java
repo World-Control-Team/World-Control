@@ -14,7 +14,7 @@ public class TileEntityIC2ReactorMonitor extends TileEntityBaseReactorHeatMonito
     @Override
     public int getCurrentHeat() {
         BlockPos ref = this.getReferenceBlock();
-        if(ref != null) {
+        if (ref != null) {
             IReactor reactor = ReactorUtils.getReactorAt(world, ref);
             if (reactor != null) {
                 return reactor.getHeat();
@@ -28,7 +28,7 @@ public class TileEntityIC2ReactorMonitor extends TileEntityBaseReactorHeatMonito
         EnumFacing facing = this.getWorld().getBlockState(this.getPos()).getValue(BlockBasicRotate.FACING);
         this.setReferenceBlock(this.getPos().offset(facing.getOpposite()));
         TileEntity tile = getWorld().getTileEntity(this.getReferenceBlock());
-        if(tile instanceof IReactor || tile instanceof IReactorChamber){
+        if (tile instanceof IReactor || tile instanceof IReactorChamber) {
             return true;
         }
         return false;

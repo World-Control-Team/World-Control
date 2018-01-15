@@ -20,7 +20,7 @@ public class GuiThermoInvertRedstone extends GuiButton {
     TileEntityBaseReactorHeatMonitor thermo;
     private boolean checked;
 
-    public GuiThermoInvertRedstone(int id, int x, int y, TileEntityBaseReactorHeatMonitor thermo){
+    public GuiThermoInvertRedstone(int id, int x, int y, TileEntityBaseReactorHeatMonitor thermo) {
         super(id, x, y, 0, 0, "");
         height = 15;
         width = 51;
@@ -30,7 +30,7 @@ public class GuiThermoInvertRedstone extends GuiButton {
 
     @Override
     public void drawButton(Minecraft minecraft, int par2, int par3, float iDoThings) {
-        if(this.visible){
+        if (this.visible) {
             minecraft.renderEngine.bindTexture(TEXTURE_LOCATION);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             int delta = checked ? 15 : 0;
@@ -45,12 +45,12 @@ public class GuiThermoInvertRedstone extends GuiButton {
 
     @Override
     public boolean mousePressed(Minecraft minecraft, int i, int j) {
-        if(super.mousePressed(minecraft, i, j)){
+        if (super.mousePressed(minecraft, i, j)) {
             checked = !checked;
             thermo.setInverse(checked);
             ChannelHandler.network.sendToServer(new PacketClientUpdateMonitor(thermo.getThreshhold(), checked, thermo.getPos()));
             return true;
-        }else
+        } else
             return false;
     }
 }

@@ -9,17 +9,17 @@ import worldcontrolteam.worldcontrol.init.WCContent;
 
 public class ItemFluidKit extends ItemBaseKit {
 
-	public ItemFluidKit() {
-		super("fluid_kit");
-	}
+    public ItemFluidKit() {
+        super("fluid_kit");
+    }
 
-	@Override
-	public Item getCardType(){
-		return WCContent.FLUID_CARD;
-	}
+    @Override
+    public Item getCardType() {
+        return WCContent.FLUID_CARD;
+    }
 
-	@Override
-	public boolean canReturnCard(ItemStack stack, World world, BlockPos pos){
-		return world.getTileEntity(pos) instanceof IFluidHandler;
-	}
+    @Override
+    public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
+        return world.getTileEntity(pos) instanceof IFluidHandler;
+    }
 }

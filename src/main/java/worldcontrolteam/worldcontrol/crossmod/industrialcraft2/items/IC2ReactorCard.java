@@ -38,7 +38,7 @@ public class IC2ReactorCard extends ItemBaseCard {
                 int timeLeft = 0;
                 for (int i = 0; i < slotCount; i++) {
                     ItemStack rStack = inventory.getStackInSlot(i);
-                    if (rStack != null)
+                    if (!rStack.isEmpty())
                         timeLeft = Math.max(timeLeft, ReactorUtils.getNuclearCellTimeLeft(rStack));
                 }
                 card.getTagCompound().setInteger("time_left", timeLeft * (isSteam ? 20 : reactor.getTickRate()) / 20);

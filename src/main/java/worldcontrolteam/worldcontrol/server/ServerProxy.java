@@ -8,11 +8,11 @@ import worldcontrolteam.worldcontrol.init.Translator;
 @SideOnly(Side.CLIENT)
 public class ServerProxy extends CommonProxy {
 
-	private static Translator translator = new Translator.ServerTranslator();
+    private static Translator translator = new Translator.ServerTranslator();
 
-	@Override
-	public Translator getSidedTranslator() {
-		return translator;
-	}
+    @Override
+    public Translator getSidedTranslator() {
+        return translator;
+    }
 
 }

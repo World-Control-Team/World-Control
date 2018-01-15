@@ -5,13 +5,10 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.client.gui.features.CompactButton;
 import worldcontrolteam.worldcontrol.client.gui.features.GuiThermoInvertRedstone;
 import worldcontrolteam.worldcontrol.container.ContainerIC2RemoteReactorMonitor;
@@ -21,12 +18,11 @@ import worldcontrolteam.worldcontrol.network.messages.PacketClientUpdateMonitor;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SideOnly(Side.CLIENT)
-public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer{
+public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer {
     private static final String TEXTURE_FILE = "worldcontrol:textures/gui/gui_remote_thermo.png";
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
-
-    private TileEntityIC2RemoteReactorMonitor remoteReactorMonitor;
     private final String name = WCUtility.translate("blockremoteheatmonitor.name");
+    private TileEntityIC2RemoteReactorMonitor remoteReactorMonitor;
     private GuiTextField textboxHeat = null;
 
     public GuiIC2RemoteReactorHeatMonitor(EntityPlayer player, TileEntityIC2RemoteReactorMonitor tile) {
@@ -95,18 +91,18 @@ public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer{
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         fontRenderer.drawString(name, (xSize - fontRenderer.getStringWidth(name)) / 2, 6, 0x404040);
         fontRenderer.drawString(I18n.format("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
-        if(textboxHeat != null)
+        if (textboxHeat != null)
             textboxHeat.drawTextBox();
     }
 
     @Override
-    public void onGuiClosed(){
+    public void onGuiClosed() {
         updateHeat(0);
         super.onGuiClosed();
     }
 
     @Override
-    protected void actionPerformed(GuiButton button){
+    protected void actionPerformed(GuiButton button) {
         if (button.id >= 10)
             return;
 
@@ -116,11 +112,11 @@ public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer{
 
     @Override
     protected void keyTyped(char par1, int par2) {
-        if(par2 == 1)//Esc
+        if (par2 == 1)//Esc
             mc.player.closeScreen();
-        else if(par1 == 13)//Enter
+        else if (par1 == 13)//Enter
             updateHeat(0);
-        else if(textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
+        else if (textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
             textboxHeat.textboxKeyTyped(par1, par2);
     }
 
@@ -135,9 +131,9 @@ public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer{
                 // do nothing
             }
             heat += delta;
-            if(heat > 1000000)
+            if (heat > 1000000)
                 heat = 1000000;
-            if(heat < 0)
+            if (heat < 0)
                 heat = 0;
 
             if (remoteReactorMonitor.getThreshhold() != heat) {

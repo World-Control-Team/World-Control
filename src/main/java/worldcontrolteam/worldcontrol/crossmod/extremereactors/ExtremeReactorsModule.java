@@ -27,7 +27,7 @@ public class ExtremeReactorsModule extends ModuleBase {
         REACTOR_CARD = new ExtremeReactorsCard();
         REACTOR_KIT = new ExtremeReactorsKit();
         WCContent.BLOCKS.add(REACTOR_MONITOR);
-        WCContent.addItems(REACTOR_CARD,REACTOR_KIT);
+        WCContent.addItems(REACTOR_CARD, REACTOR_KIT);
     }
 
     @Override

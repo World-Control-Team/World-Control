@@ -17,12 +17,12 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import static worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.BlockIC2ReactorMonitor.RENDER_TYPE;
 
-public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate{
+public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
 
-     public BlockIC2RemoteReactorMonitor(){
-         super(Material.IRON, "ic2_remote_reactor_monitor");
-         this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND).withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
-     }
+    public BlockIC2RemoteReactorMonitor() {
+        super(Material.IRON, "ic2_remote_reactor_monitor");
+        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND).withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
+    }
 
     @Override
     public TileEntity getTile(World world, int meta) {
@@ -41,29 +41,29 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate{
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        if(facing == state.getValue(FACING).getOpposite())
+        if (facing == state.getValue(FACING).getOpposite())
             return 0;
         return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta){
+    public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
     }
 
     @Override
-    public int getMetaFromState(IBlockState state){
+    public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
 
     @Override
-    protected BlockStateContainer createBlockState(){
+    protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, RENDER_TYPE);
     }
 
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-        if(((TileEntityBaseReactorHeatMonitor)tile).isConnectionValid()){
+        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache) world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+        if (((TileEntityBaseReactorHeatMonitor) tile).isConnectionValid()) {
             return WCUtility.getTileEntity(world, pos, TileEntityIC2RemoteReactorMonitor.class).map(t -> t.isOverHeated() ? state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.OVER_HEAT) : state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NORMAL)).orElse(state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND));
         }
         return state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND);

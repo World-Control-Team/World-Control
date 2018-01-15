@@ -24,15 +24,6 @@ public class WCContent {
 
     public static List<Block> BLOCKS = new ArrayList<>();
     public static List<Item> ITEMS = new ArrayList<>();
-
-    public static void addBlocks(Block... blocks) {
-        Collections.addAll(BLOCKS, blocks);
-    }
-
-    public static void addItems(Item... items) {
-        Collections.addAll(ITEMS, items);
-    }
-
     @ObjectHolder("worldcontrol:remote_panel")
     public static Item REMOTE_PANEL;
     @ObjectHolder("worldcontrol:fluid_card")
@@ -43,6 +34,14 @@ public class WCContent {
     public static Item UPGRADE;
     @ObjectHolder("worldcontrol:howler_alarm")
     public static Block HOWLER_ALARM;
+
+    public static void addBlocks(Block... blocks) {
+        Collections.addAll(BLOCKS, blocks);
+    }
+
+    public static void addItems(Item... items) {
+        Collections.addAll(ITEMS, items);
+    }
 
     public static void preInit() {
         addItems(

@@ -13,14 +13,12 @@ import worldcontrolteam.worldcontrol.network.messages.PacketClientUpdateMonitor;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-public class GuiReactorHeatMonitor extends GuiContainer{
+public class GuiReactorHeatMonitor extends GuiContainer {
 
     private static final String TEXTURE_FILE = "worldcontrol:textures/gui/guithermalmonitor.png";
- 	private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
-
-
-    private TileEntityBaseReactorHeatMonitor heatMonitor;
+    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(TEXTURE_FILE);
     String name;
+    private TileEntityBaseReactorHeatMonitor heatMonitor;
     private GuiTextField textboxHeat = null;
 
     public GuiReactorHeatMonitor(TileEntityBaseReactorHeatMonitor tile) {
@@ -101,11 +99,11 @@ public class GuiReactorHeatMonitor extends GuiContainer{
 
     @Override
     protected void keyTyped(char par1, int par2) {
-        if(par2 == 1)// Esc button
+        if (par2 == 1)// Esc button
             mc.player.closeScreen();
-        else if(par1 == 13)// Enter
+        else if (par1 == 13)// Enter
             updateHeat(0);
-        else if(textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
+        else if (textboxHeat != null && textboxHeat.isFocused() && (Character.isDigit(par1) || par1 == 0 || par1 == 8))
             textboxHeat.textboxKeyTyped(par1, par2);
     }
 
@@ -120,9 +118,9 @@ public class GuiReactorHeatMonitor extends GuiContainer{
                 // do nothing
             }
             heat += delta;
-            if(heat > 1000000)
+            if (heat > 1000000)
                 heat = 1000000;
-            if(heat < 0)
+            if (heat < 0)
                 heat = 0;
 
             if (heatMonitor.getThreshhold() != heat) {
