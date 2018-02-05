@@ -20,7 +20,7 @@ public class ContainerAverageCounter extends Container {
         this.player = player;
 
         //transformer upgrades
-        addSlotToContainer(new SlotFilterItemHandler(averageCounter, 0, 8, 18));
+        addSlotToContainer(new SlotFilterItemHandler(averageCounter.inventory, 0, 8, 18));
 
         //inventory
         for (int i = 0; i < 3; i++)
@@ -41,31 +41,31 @@ public class ContainerAverageCounter extends Container {
         Slot slot = this.inventorySlots.get(slotId);
         if (slot != null) {
             ItemStack items = slot.getStack();
-            if (items != null) {
+            if (!items.isEmpty()) {
                 int initialCount = items.getCount();
-                if (slotId < averageCounter.getSlots())//moving from counter to inventory
+                if (slotId < averageCounter.inventory.getSlots())//moving from counter to inventory
                 {
-                    mergeItemStack(items, averageCounter.getSlots(), inventorySlots.size(), false);
+                    mergeItemStack(items, averageCounter.inventory.getSlots(), inventorySlots.size(), false);
                     if (items.getCount() == 0)
-                        slot.putStack((ItemStack) null);
+                        slot.putStack(ItemStack.EMPTY);
                     else {
                         slot.onSlotChanged();
                         if (initialCount != items.getCount())
                             return items;
                     }
-                } else for (int i = 0; i < averageCounter.getSlots(); i++) {
+                } else for (int i = 0; i < averageCounter.inventory.getSlots(); i++) {
                     if (!averageCounter.isItemValid(i, items))
                         continue;
-                    ItemStack targetStack = averageCounter.getStackInSlot(i);
-                    if (targetStack == null) {
+                    ItemStack targetStack = averageCounter.inventory.getStackInSlot(i);
+                    if (targetStack.isEmpty()) {
                         Slot targetSlot = this.inventorySlots.get(i);
                         targetSlot.putStack(items);
-                        slot.putStack((ItemStack) null);
+                        slot.putStack(ItemStack.EMPTY);
                         break;
                     } else if (items.isStackable() && items.isItemEqual(targetStack)) {
                         mergeItemStack(items, i, i + 1, false);
                         if (items.getCount() == 0)
-                            slot.putStack((ItemStack) null);
+                            slot.putStack(ItemStack.EMPTY);
                         else {
                             slot.onSlotChanged();
                             if (initialCount != items.getCount())
