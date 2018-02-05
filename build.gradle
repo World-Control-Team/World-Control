@@ -43,9 +43,11 @@ repositories {
 	}
 }
 
+
 minecraft {
-	version = "1.12.2-14.23.1.2586"
+	version = "1.12.2-14.23.1.2607"
 	runDir = "run"
+
 	mappings = "snapshot_20171003"
 
 	replace "@VERSION@", project.version
@@ -59,7 +61,6 @@ dependencies {
 	compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
 	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.25-ex112:dev'
 }
-
 processResources {
 	inputs.property "version", project.version
 	inputs.property "mcversion", project.minecraft.version
