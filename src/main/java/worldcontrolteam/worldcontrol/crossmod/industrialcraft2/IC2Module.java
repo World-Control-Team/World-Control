@@ -66,7 +66,7 @@ public class IC2Module extends ModuleBase {
     }
 
     @Override
-    public String modID() { //TODO: change in 1.11
+    public String modID() {
         return "ic2";
     }
 
