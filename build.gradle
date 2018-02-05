@@ -19,7 +19,7 @@ def VERSION = "1.0"
 
 version = VERSION+"."+BUILD_NUMBER
 group = "worldcontrolteam.worldcontrol"
-archivesBaseName = "World Control"
+archivesBaseName = "WorldControl"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -51,6 +51,8 @@ minecraft {
 	mappings = "snapshot_20171003"
 
 	replace "@VERSION@", project.version
+
+	useDepAts=true
 }
 
 dependencies {
