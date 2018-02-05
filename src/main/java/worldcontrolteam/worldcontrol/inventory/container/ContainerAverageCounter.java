@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import worldcontrolteam.worldcontrol.inventory.SlotFilterItemHandler;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseAverageCounter;
 
+import javax.annotation.Nonnull;
+
 public class ContainerAverageCounter extends Container {
 
     public TileEntityBaseAverageCounter averageCounter;
@@ -37,6 +39,7 @@ public class ContainerAverageCounter extends Container {
     }
 
     @Override
+    @Nonnull
     public ItemStack transferStackInSlot(EntityPlayer p, int slotId) {
         Slot slot = this.inventorySlots.get(slotId);
         if (slot != null) {
@@ -77,7 +80,7 @@ public class ContainerAverageCounter extends Container {
                 }
             }
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 
 }
