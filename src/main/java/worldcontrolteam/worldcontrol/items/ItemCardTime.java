@@ -4,6 +4,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -24,7 +25,7 @@ public class ItemCardTime extends ItemBaseCard {
         String suffix = "";
 
         // if ((displaySettings & MODE_24H) == 0) {
-        suffix = hours < 12 ? "AM" : "PM"; // TODO: localize?
+        suffix = hours < 12 ? WorldControl.proxy.getSidedTranslator().translate("msg.worldcontrol.time_card.am"): WorldControl.proxy.getSidedTranslator().translate("msg.worldcontrol.time_card.pm");
         hours %= 12;
         if (hours == 0)
             hours += 12;

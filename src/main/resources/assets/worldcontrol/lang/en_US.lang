@@ -45,6 +45,9 @@ msg.worldcontrol.time_card.time=Time: %s
 msg.worldcontrol.none=None
 msg.worldcontrol.average_counter_period=Period: %s sec
 
+msg.worldcontrol.time_card.am=AM
+msg.worldcontrol.time_card.pm=PM
+
 #IC2 Reactor
 msg.worldcontrol.info_panel_on=On
 msg.worldcontrol.info_panel_off=Off
