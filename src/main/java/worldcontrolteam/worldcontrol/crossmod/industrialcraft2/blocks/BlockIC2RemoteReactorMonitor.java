@@ -25,7 +25,7 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
     }
 
     @Override
-    public TileEntity getTile(World world, int meta) {
+    public TileEntity createTile(World world, int meta) {
         return new TileEntityIC2RemoteReactorMonitor();
     }
 

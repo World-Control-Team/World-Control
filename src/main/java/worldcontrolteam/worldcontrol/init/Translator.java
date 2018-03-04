@@ -7,7 +7,7 @@ import worldcontrolteam.worldcontrol.WorldControl;
 public interface Translator {
 
     static Translator getSidedTranslator() {
-        return WorldControl.proxy.getSidedTranslator();
+        return WorldControl.PROXY.getSidedTranslator();
     }
 
     String translate(String key);

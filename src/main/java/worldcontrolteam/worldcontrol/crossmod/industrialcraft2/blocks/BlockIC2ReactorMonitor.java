@@ -27,7 +27,7 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm {
     }
 
     @Override
-    public TileEntity getTile(World world, int meta) {
+    public TileEntity createTile(World world, int meta) {
         return new TileEntityIC2ReactorMonitor();
     }
 

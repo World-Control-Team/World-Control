@@ -13,6 +13,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Iterator;
 import java.util.Map;
 
 @SideOnly(Side.CLIENT)
@@ -58,6 +59,23 @@ public class ClientUtil {
             stringbuilder.append(args);
         }
         return stringbuilder.toString();
+    }
+
+    public static void registerToNormal(Block block) {
+        final String resourcePath = block.getRegistryName().toString();
+        ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return new ModelResourceLocation(resourcePath, "normal");
+            }
+        });
+        NonNullList<ItemStack> subBlocks = NonNullList.create();
+        block.getSubBlocks(null, subBlocks);
+        Iterator var3 = subBlocks.iterator();
+
+        while (var3.hasNext()) {
+            ItemStack stack = (ItemStack) var3.next();
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(resourcePath, "inventory"));
+        }
     }
 
     public interface StateMapper {

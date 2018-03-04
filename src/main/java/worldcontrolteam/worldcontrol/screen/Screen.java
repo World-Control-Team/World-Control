@@ -5,27 +5,73 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.INBTSerializable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
  */
-public class Screen {
+public class Screen implements INBTSerializable<NBTTagCompound> {
     public int minX, minY, minZ;
     public int maxX, maxY, maxZ;
     private BlockPos corePos;
     private boolean isPowered = false;
+    private int color = 2;
 
+    public boolean isPowered() {
+        return isPowered;
+    }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setInteger("minX", minX);
+        tag.setInteger("minY", minY);
+        tag.setInteger("minZ", minZ);
+        tag.setInteger("maxX", maxX);
+        tag.setInteger("maxY", maxY);
+        tag.setInteger("maxZ", maxZ);
+        tag.setLong("corePos", corePos.toLong());
+        tag.setInteger("color", color);
+        return tag;
+    }
+
+    @Override
+    public void deserializeNBT(NBTTagCompound compound) {
+        minX = compound.getInteger("minX");
+        minY = compound.getInteger("minY");
+        minZ = compound.getInteger("minZ");
+        maxX = compound.getInteger("maxX");
+        maxY = compound.getInteger("maxY");
+        maxZ = compound.getInteger("maxZ");
+        corePos = BlockPos.fromLong(compound.getLong("corePos"));
+        color = compound.getInteger("color");
+    }
+
+    public Screen setPowered(boolean powered) {
+        isPowered = powered;
+        return this;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public Screen setColor(int color) {
+        this.color = color;
+        return this;
+    }
 
     public TileEntityInfoPanel getCore(IBlockAccess world) {
-        TileEntity tile = world.getTileEntity(corePos);
-        return (TileEntityInfoPanel) tile;
+        return (TileEntityInfoPanel) world.getTileEntity(corePos);
     }
 
     public void setCore(TileEntityInfoPanel panel) {
         this.corePos = panel.getPos();
-        this.isPowered = panel.getPowered();
     }
 
     public boolean isBlockNearby(TileEntity tileEntity) {
@@ -189,30 +235,55 @@ public class Screen {
         return 1;
     }
 
-
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + corePos.getX();
-        result = prime * result + corePos.getY();
-        result = prime * result + corePos.getZ();
-        result = prime * result + maxX;
-        result = prime * result + maxY;
-        result = prime * result + maxZ;
-        result = prime * result + minX;
-        result = prime * result + minY;
-        result = prime * result + minZ;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Screen screen = (Screen) o;
+
+        return new EqualsBuilder()
+                .append(minX, screen.minX)
+                .append(minY, screen.minY)
+                .append(minZ, screen.minZ)
+                .append(maxX, screen.maxX)
+                .append(maxY, screen.maxY)
+                .append(maxZ, screen.maxZ)
+                .append(isPowered, screen.isPowered)
+                .append(corePos, screen.corePos)
+                .isEquals();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Screen other = (Screen) obj;
-        return corePos == ((Screen) obj).corePos && maxX == other.maxX && maxY == other.maxY && maxZ == other.maxZ && minX == other.minX && minY == other.minY && minZ == other.minZ;
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(minX)
+                .append(minY)
+                .append(minZ)
+                .append(maxX)
+                .append(maxY)
+                .append(maxZ)
+                .append(corePos)
+                .append(isPowered)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("minX", minX)
+                .append("minY", minY)
+                .append("minZ", minZ)
+                .append("maxX", maxX)
+                .append("maxY", maxY)
+                .append("maxZ", maxZ)
+                .append("corePos", corePos)
+                .append("isPowered", isPowered)
+                .toString();
+    }
+
+    public <T extends TileEntity & IScreenPart> void attemptJoin(T part) {
+
     }
 }

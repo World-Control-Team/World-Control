@@ -60,7 +60,7 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
     }
 
     @Override
-    public TileEntity getTile(World world, int meta) {
+    public TileEntity createTile(World world, int meta) {
         return new TileEntityHowlerAlarm();
     }
 

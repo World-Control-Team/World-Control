@@ -4,7 +4,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
@@ -61,7 +60,7 @@ public class WCUtility {
         return tileClass.isInstance(tile) ? Optional.of(tileClass.cast(tile)) : Optional.empty();
     }
 
-    public static Optional<TileEntity> getTileEntity(World world, BlockPos pos) {
+    public static Optional<TileEntity> getTileEntity(IBlockAccess world, BlockPos pos) {
         return Optional.ofNullable(world.getTileEntity(pos));
     }
 

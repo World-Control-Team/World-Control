@@ -30,10 +30,10 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
 
     @Override
     public TileEntity createNewTileEntity(World world, int meta) {
-        return getTile(world, meta);
+        return createTile(world, meta);
     }
 
-    public abstract TileEntity getTile(World world, int meta);
+    public abstract TileEntity createTile(World world, int meta);
 
     public abstract boolean hasGUI();
 
@@ -45,7 +45,7 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
             if (!WCUtility.getTileEntity(world, pos).isPresent() || player.isSneaking())
                 return false;
 
-            player.openGui(WorldControl.instance, guiID(), world, pos.getX(), pos.getY(), pos.getZ());
+            player.openGui(WorldControl.INSTANCE, guiID(), world, pos.getX(), pos.getY(), pos.getZ());
             return true;
         }
         return false;

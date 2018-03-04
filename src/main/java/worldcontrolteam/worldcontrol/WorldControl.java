@@ -26,9 +26,9 @@ public class WorldControl {
     public static final String MODID = "worldcontrol";
     public static final String NAME = "World Control";
     @Mod.Instance("worldcontrol")
-    public static WorldControl instance;
+    public static WorldControl INSTANCE;
     @SidedProxy(clientSide = "worldcontrolteam.worldcontrol.client.ClientProxy", serverSide = "worldcontrolteam.worldcontrol.ServerProxy")
-    public static CommonProxy proxy;
+    public static CommonProxy PROXY;
     public static WCCreativeTab TAB = new WCCreativeTab();
 
     public static Side SIDE; // As in client vs server
@@ -37,14 +37,12 @@ public class WorldControl {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-
-
         SIDE = event.getSide();
         ProgressManager.ProgressBar bar = ProgressManager.push("World Control", 1);
         WCUtility.info("We are in pre-init!");
         bar.step("Initializing API");
         WorldControlAPI.init(new WCapiImpl());
-        proxy.preInit(event);
+        PROXY.preInit(event);
         MODULES.registryEvents();
         WCContent.preInit();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
@@ -61,7 +59,7 @@ public class WorldControl {
 
         ItemThermometer.addInHeatTypes(HEAT_SOURCES);
 
-        proxy.init();
+        PROXY.init();
 
     }
 
