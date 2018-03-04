@@ -35,7 +35,7 @@ repositories {
 	maven {url "http://tehnut.info/maven"}
 	maven {
 		name = "tesla"
-		url 'http://maven.epoxide.xyz'
+		url 'https://maven.mcmoddev.com/'
 	}
 	maven {
 		name = "ic2"
@@ -48,17 +48,18 @@ minecraft {
 	version = "1.12.2-14.23.1.2607"
 	runDir = "run"
 
-	mappings = "snapshot_20171003"
+	mappings = "snapshot_20170919"
 
 	replace "@VERSION@", project.version
 }
 
 dependencies {
 	deobfCompile "MCMultiPart2:MCMultiPart:2.3.0"
-	deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
+	//deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
 	deobfProvided "mezz.jei:jei_1.12.2:4.7.11.102:api"
 	runtime "mezz.jei:jei_1.12.2:4.7.11.102"
-	compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
+	//compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
+	compile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
 	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.25-ex112:dev'
 }
 processResources {
