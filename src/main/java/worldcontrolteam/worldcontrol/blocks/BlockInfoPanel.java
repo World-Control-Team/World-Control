@@ -33,24 +33,12 @@ public class BlockInfoPanel extends BlockBasicRotate {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
         super.onBlockPlacedBy(world, pos, state, entity, stack);
-        WCUtility.getTileEntity(world,pos, TileEntityInfoPanel.class).ifPresent(TileEntityInfoPanel::attemptConnection);
+        //WCUtility.getTileEntity(world,pos, TileEntityInfoPanel.class).ifPresent(TileEntityInfoPanel::attemptConnection);
     }
 
     @Override
     public void registerModels(ModelRegistryEvent event) {
         ClientUtil.registerToNormal(this);
-    }
-
-    @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return WCUtility.getTileEntity(worldIn, pos, TileEntityInfoPanel.class).map(tile -> state
-                .withProperty(CONNECTED_UP, tile.connectedTo(TileEntityInfoPanel.Side.UP))
-                .withProperty(CONNECTED_DOWN, tile.connectedTo(TileEntityInfoPanel.Side.DOWN))
-                .withProperty(CONNECTED_LEFT, tile.connectedTo(TileEntityInfoPanel.Side.LEFT))
-                .withProperty(CONNECTED_RIGHT, tile.connectedTo(TileEntityInfoPanel.Side.RIGHT))
-                .withProperty(POWERED, tile.screen.isPowered())
-                .withProperty(COLOR, tile.screen.getColor())
-        ).orElse(state);
     }
 
     @Override

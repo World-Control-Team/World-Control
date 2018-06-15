@@ -40,6 +40,12 @@ public abstract class BlockBasicTileProvider extends Block implements ITileEntit
     public abstract int guiID();
 
     @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        super.breakBlock(worldIn, pos, state);
+        worldIn.removeTileEntity(pos);
+    }
+
+    @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (this.hasGUI()) {
             if (!WCUtility.getTileEntity(world, pos).isPresent() || player.isSneaking())
