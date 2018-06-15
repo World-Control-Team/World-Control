@@ -38,12 +38,12 @@ public class BlockInfoPanel extends BlockBasicRotate {
 
     @Override
     public void registerModels(ModelRegistryEvent event) {
-        ClientUtil.registerToNormal(this);
+        ClientUtil.registerToNormalWithoutMapper(this);
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer.Builder(this).add(FACING, CONNECTED_UP, CONNECTED_DOWN, CONNECTED_LEFT, CONNECTED_RIGHT, COLOR, POWERED).build();
+        return new BlockStateContainer.Builder(this).add(FACING).build();
     }
 
     @Override

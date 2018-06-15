@@ -12,7 +12,7 @@ public class BlockInfoPanelExtender extends BlockInfoPanel {
 
     @Override
     public TileEntity createTile(World world, int meta) {
-        return new TileEntityInfoPanel(true);
+        return new TileEntityInfoPanel();
     }
 
     @Override

@@ -1,0 +1,31 @@
+{
+  "parent": "block/cube",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        135,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "textures": {
+    "particle": "worldcontrol:blocks/infopanel/panel_side",
+    "north": "worldcontrol:blocks/infopanel/on/0/15",
+    "down": "worldcontrol:blocks/infopanel/panel_side",
+    "up": "worldcontrol:blocks/infopanel/panel_side",
+    "east": "worldcontrol:blocks/infopanel/panel_side",
+    "west": "worldcontrol:blocks/infopanel/panel_side",
+    "south": "worldcontrol:blocks/infopanel/panel_back"
+  }
+}

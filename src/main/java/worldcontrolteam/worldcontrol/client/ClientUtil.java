@@ -61,6 +61,16 @@ public class ClientUtil {
         return stringbuilder.toString();
     }
 
+    public static void registerToNormalWithoutMapper(Block block) {
+        final String resourcePath = block.getRegistryName().toString();
+        NonNullList<ItemStack> subBlocks = NonNullList.create();
+        block.getSubBlocks(null, subBlocks);
+
+        for (ItemStack stack : subBlocks) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(resourcePath, "inventory"));
+        }
+    }
+
     public static void registerToNormal(Block block) {
         final String resourcePath = block.getRegistryName().toString();
         ModelLoader.setCustomStateMapper(block, new DefaultStateMapper() {

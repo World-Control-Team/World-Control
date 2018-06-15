@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.client.model.base;
+package worldcontrolteam.worldcontrol.client.model.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
