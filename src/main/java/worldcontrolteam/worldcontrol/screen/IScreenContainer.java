@@ -14,4 +14,10 @@ public interface IScreenContainer {
     EnumFacing getFacing(World worldIn, BlockPos pos);
 
     BlockPos getOrigin(World worldIn, BlockPos pos);
+
+    default void setOrigin(World worldIn, BlockPos posBlock, BlockPos posOrigin) {
+
+    }
+
+    boolean isValid(World worldIn, BlockPos pos);
 }

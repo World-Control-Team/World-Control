@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import worldcontrolteam.worldcontrol.client.ClientUtil;
@@ -35,7 +34,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
         super.onBlockPlacedBy(world, pos, state, entity, stack);
-        //WCUtility.getTileEntity(world,pos, TileEntityInfoPanel.class).ifPresent(TileEntityInfoPanel::attemptConnection);
+        WCUtility.getTileEntity(world,pos, TileEntityInfoPanel.class).ifPresent(TileEntityInfoPanel::init);
     }
 
     @Override
@@ -49,8 +48,11 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
     }
 
     @Override
+
     public TileEntity createTile(World world, int meta) {
-        return new TileEntityInfoPanel();
+        TileEntityInfoPanel tileEntityInfoPanel = new TileEntityInfoPanel();
+        tileEntityInfoPanel.setWorld(world);
+        return tileEntityInfoPanel;
     }
 
     @Override
@@ -65,11 +67,16 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
     @Override
     public EnumFacing getFacing(World worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos).getBlock() == this ? (EnumFacing) worldIn.getBlockState(pos).getProperties().get(FACING) : EnumFacing.DOWN
+        return worldIn.getBlockState(pos).getBlock() == this ? (EnumFacing) worldIn.getBlockState(pos).getProperties().get(FACING) : EnumFacing.DOWN;
     }
 
     @Override
     public BlockPos getOrigin(World worldIn, BlockPos pos) {
         return pos;
+    }
+
+    @Override
+    public boolean isValid(World worldIn, BlockPos pos) {
+        return true;
     }
 }
