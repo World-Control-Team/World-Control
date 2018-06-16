@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
  */
 public class TileEntityInfoPanel extends TileEntity {
     public int color;
+    public boolean power;
     private ArrayList<IScreenElement> screenElements;
 
     public BlockPos origin;
@@ -24,13 +26,15 @@ public class TileEntityInfoPanel extends TileEntity {
     public EnumFacing facing;
 
     public TileEntityInfoPanel() {
-        this.color = 0;
+        this.color = 10;
+        this.power = true;
     }
 
     public void init() {
         this.facing = (EnumFacing) world.getBlockState(getPos()).getProperties().get(BlockInfoPanel.FACING);
 
         searchForNeighbours();
+        updateAllProviders(false);
     }
 
     public void reInit() {
@@ -151,4 +155,47 @@ public class TileEntityInfoPanel extends TileEntity {
         end = end.offset(down);
     }
 
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
+
+        if (origin == null) origin = getPos();
+        if (end == null) end = getPos();
+        if (facing == null) facing = EnumFacing.NORTH;
+
+        compound.setInteger("oX", origin.getX());
+        compound.setInteger("oY", origin.getY());
+        compound.setInteger("oZ", origin.getZ());
+
+        compound.setInteger("eX", end.getX());
+        compound.setInteger("eY", end.getY());
+        compound.setInteger("eZ", end.getZ());
+
+        compound.setInteger("facing", facing.getIndex());
+        compound.setBoolean("power", power);
+        compound.setInteger("color", color);
+
+        return compound;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        origin = new BlockPos(
+                compound.getInteger("oX"),
+                compound.getInteger("oY"),
+                compound.getInteger("oZ"));
+
+        end = new BlockPos(
+                compound.getInteger("eX"),
+                compound.getInteger("eY"),
+                compound.getInteger("eZ"));
+
+        facing = EnumFacing.getFront(compound.getInteger("facing"));
+        power = compound.getBoolean("power");
+        color = compound.getInteger("color");
+
+        //updateAllProviders(false);
+    }
 }

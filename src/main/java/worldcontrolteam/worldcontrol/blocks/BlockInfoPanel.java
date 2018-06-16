@@ -95,8 +95,17 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
             IExtendedBlockState estate = (IExtendedBlockState) state;
 
             InfoPanelState istate = new InfoPanelState();
-            istate.color = 0;
-            istate.power = true;  // todo: get these values
+            istate.color = 3;
+            istate.power = false;  // todo: get these values
+
+            BlockPos origin = getOrigin(world, pos);
+            if (origin != null) {
+                TileEntity te_origin = world.getTileEntity(origin);
+                if (te_origin instanceof TileEntityInfoPanel) {
+                    istate.color = ((TileEntityInfoPanel) te_origin).color;
+                    istate.power = ((TileEntityInfoPanel) te_origin).power;
+                }
+            }
 
             EnumFacing f = getFacing(world, pos);
 

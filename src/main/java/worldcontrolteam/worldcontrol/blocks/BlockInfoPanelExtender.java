@@ -32,11 +32,11 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
         ImmutableMap.Builder<EnumFacing, Pair<EnumFacing, EnumFacing>> builder = new ImmutableMap.Builder<>();
         // dir, down, left
         builder.put(EnumFacing.UP, new Pair<>(EnumFacing.SOUTH, EnumFacing.WEST));
-        builder.put(EnumFacing.DOWN, new Pair<>(EnumFacing.NORTH, EnumFacing.EAST));
+        builder.put(EnumFacing.DOWN, new Pair<>(EnumFacing.NORTH, EnumFacing.WEST));
         builder.put(EnumFacing.NORTH, new Pair<>(EnumFacing.DOWN, EnumFacing.EAST));
         builder.put(EnumFacing.SOUTH, new Pair<>(EnumFacing.DOWN, EnumFacing.WEST));
-        builder.put(EnumFacing.EAST, new Pair<>(EnumFacing.DOWN, EnumFacing.NORTH));
-        builder.put(EnumFacing.WEST, new Pair<>(EnumFacing.DOWN, EnumFacing.SOUTH));
+        builder.put(EnumFacing.EAST, new Pair<>(EnumFacing.DOWN, EnumFacing.SOUTH));
+        builder.put(EnumFacing.WEST, new Pair<>(EnumFacing.DOWN, EnumFacing.NORTH));
         facings = builder.build();
     }
 
@@ -70,6 +70,21 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
         optte.ifPresent(te_ -> {
             if (te_.origin != null) {
                 WCUtility.getTileEntity(world, te_.origin, TileEntityInfoPanel.class).ifPresent(TileEntityInfoPanel::reInit);
+            }
+            else {
+                for (EnumFacing f : EnumFacing.VALUES) {
+                    IBlockState b = world.getBlockState(pos.offset(f));
+                    if (b.getBlock() instanceof IScreenContainer) {
+                        BlockPos pos1 = ((IScreenContainer) b.getBlock()).getOrigin(world, pos.offset(f));
+                        if (pos1 != null) {
+                            TileEntity te = world.getTileEntity(pos1);
+                            if (te instanceof TileEntityInfoPanel) {
+                                ((TileEntityInfoPanel) te).reInit();
+                                return;
+                            }
+                        }
+                    }
+                }
             }
         });
     }
@@ -127,8 +142,17 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
             IExtendedBlockState estate = (IExtendedBlockState) state;
 
             BlockInfoPanel.InfoPanelState istate = new BlockInfoPanel.InfoPanelState();
-            istate.color = 0;
+            istate.color = 3;
             istate.power = true;  // todo: get these values
+
+            BlockPos origin = getOrigin(world, pos);
+            if (origin != null) {
+                TileEntity te_origin = world.getTileEntity(origin);
+                if (te_origin instanceof TileEntityInfoPanel) {
+                    istate.color = ((TileEntityInfoPanel) te_origin).color;
+                    istate.power = ((TileEntityInfoPanel) te_origin).power;
+                }
+            }
 
             EnumFacing f = getFacing(world, pos);
 
@@ -172,5 +196,7 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
         if (tile instanceof TileEntityInfoPanelExtender) {
             ((TileEntityInfoPanelExtender)tile).origin = posOrigin;
         }
+        IBlockState bs = worldIn.getBlockState(posBlock);
+        worldIn.notifyBlockUpdate(posBlock, bs, bs, 2);
     }
 }
