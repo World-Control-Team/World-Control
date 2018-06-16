@@ -2,7 +2,10 @@ package worldcontrolteam.worldcontrol.inventory;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nonnull;
 
 public class SlotFilterItemHandler extends SlotItemHandler {
 

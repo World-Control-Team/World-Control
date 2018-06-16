@@ -4,8 +4,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.TileEntityIC2RemoteReactorMonitor;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;
+import worldcontrolteam.worldcontrol.inventory.SlotFilterItemHandler;
+
+import java.util.List;
 
 public class ContainerIC2RemoteReactorMonitor extends Container {
 
@@ -20,13 +26,13 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
         this.remoteHeatMonitor = remoteThermo;
 
         //energy charger
-        addSlotToContainer(new SlotFilter(remoteThermo, 1, 13, 53));
+        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 1, 13, 53));
 
         //upgrades
-        addSlotToContainer(new SlotFilter(remoteThermo, 0, 190, 8));
-        addSlotToContainer(new SlotFilter(remoteThermo, 2, 190, 26));
-        addSlotToContainer(new SlotFilter(remoteThermo, 3, 190, 44));
-        addSlotToContainer(new SlotFilter(remoteThermo, 4, 190, 62));
+        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 0, 190, 8));
+        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 2, 190, 26));
+        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 3, 190, 44));
+        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 4, 190, 62));
 
         //inventory
         for (int i = 0; i < 3; i++) {
@@ -61,6 +67,6 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer var1) {
-        return remoteHeatMonitor.isUsableByPlayer(player);
+        return true;
     }
 }

@@ -1,8 +1,10 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2;
 
+import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,6 +33,8 @@ public class IC2Module extends ModuleBase {
     public static Item energyCard, energyKit;
     public static Block THERMO_MONITOR, REMOTE_THERMO_MONITOR;
     protected static Item reactorKit;
+
+    public static ItemStack energyUpgrade, transformerUpgrade, suBattery = ItemStack.EMPTY;
 
     @Override
     public void registryEvents() {
@@ -62,7 +66,9 @@ public class IC2Module extends ModuleBase {
 
     @Override
     public void postInit() {
-
+        energyUpgrade = IC2Items.getItem("upgrade", "energy_storage");
+        transformerUpgrade = IC2Items.getItem("upgrade", "transformer");
+        suBattery = IC2Items.getItem("single_use_battery");
     }
 
     @Override

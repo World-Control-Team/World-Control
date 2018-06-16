@@ -22,6 +22,7 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
     public BlockIC2RemoteReactorMonitor() {
         super(Material.IRON, "ic2_remote_reactor_monitor");
         this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND).withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
+        this.defaultCreativeTab();
     }
 
     @Override
@@ -41,9 +42,12 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        if (facing == state.getValue(FACING).getOpposite())
-            return 0;
-        return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
+        return WCUtility.getTileEntity(world, pos, TileEntityIC2RemoteReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
+    }
+
+    public boolean canProvidePower(IBlockState state)
+    {
+        return true;
     }
 
     @Override

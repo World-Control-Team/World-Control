@@ -36,8 +36,10 @@ public class ItemUpgrade extends WCBaseItem {
 
     @Override
     public void getSubItems(CreativeTabs creativeTab, NonNullList<ItemStack> itemList) {
-        itemList.add(new ItemStack(this, 1, DAMAGE_RANGE));
-        itemList.add(new ItemStack(this, 1, DAMAGE_COLOR));
+        if (this.isInCreativeTab(creativeTab)) {
+            itemList.add(new ItemStack(this, 1, DAMAGE_RANGE));
+            itemList.add(new ItemStack(this, 1, DAMAGE_COLOR));
+        }
     }
 
     @Override
