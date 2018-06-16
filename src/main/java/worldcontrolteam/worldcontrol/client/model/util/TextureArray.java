@@ -2,6 +2,7 @@ package worldcontrolteam.worldcontrol.client.model.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -109,6 +110,24 @@ public class TextureArray {
     public TextureArray setWestTexture(TextureAtlasSprite westTexture) {
         this.westTexture = westTexture;
         return this;
+    }
+
+    public TextureArray setTexture(EnumFacing f, TextureAtlasSprite tex) {
+        switch (f) {
+            case UP:
+                return setUpTexture(tex);
+            case DOWN:
+                return setDownTexture(tex);
+            case EAST:
+                return setEastTexture(tex);
+            case WEST:
+                return setWestTexture(tex);
+            case NORTH:
+                return setNorthTexture(tex);
+            case SOUTH:
+            default:
+                return setSouthTexture(tex);
+        }
     }
 
     @Override

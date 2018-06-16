@@ -2,6 +2,7 @@ package worldcontrolteam.worldcontrol.screen;
 
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 /**
@@ -11,9 +12,9 @@ import net.minecraft.world.World;
  * See LICENSE.txt for license information.
  */
 public interface IScreenContainer {
-    EnumFacing getFacing(World worldIn, BlockPos pos);
+    EnumFacing getFacing(IBlockAccess worldIn, BlockPos pos);
 
-    BlockPos getOrigin(World worldIn, BlockPos pos);
+    BlockPos getOrigin(IBlockAccess worldIn, BlockPos pos);
 
     default void setOrigin(World worldIn, BlockPos posBlock, BlockPos posOrigin) {
 

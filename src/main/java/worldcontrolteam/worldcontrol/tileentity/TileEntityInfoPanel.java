@@ -35,8 +35,8 @@ public class TileEntityInfoPanel extends TileEntity {
 
     public void reInit() {
         updateAllProviders(true);
-
-        init();
+        searchForNeighbours();
+        updateAllProviders(false);
     }
 
     private boolean isAreaValid(BlockPos o, BlockPos e) {
@@ -61,20 +61,23 @@ public class TileEntityInfoPanel extends TileEntity {
     }
     
     private void updateAllProviders(boolean nullify) {
-        for (int x = origin.getX(); x < end.getX(); x++) {
-            for (int y = origin.getY(); y < end.getY(); y++) {
-                for (int z = origin.getZ(); z < end.getZ(); z++) {
+        for (int x = origin.getX(); x <= end.getX(); x++) {
+            for (int y = origin.getY(); y <= end.getY(); y++) {
+                for (int z = origin.getZ(); z <= end.getZ(); z++) {
                     final BlockPos pos = new BlockPos(x, y, z);
-                    if (nullify) {
-                        ((IScreenContainer) (world.getBlockState(pos).getBlock())).setOrigin(world, pos, null);
-                    }
-                    else {
-                        ((IScreenContainer) (world.getBlockState(pos).getBlock())).setOrigin(world, pos, getPos());
+                    if (world.getBlockState(pos).getBlock() instanceof IScreenContainer) {
+                        if (nullify) {
+                            ((IScreenContainer) (world.getBlockState(pos).getBlock())).setOrigin(world, pos, null);
+                        }
+                        else {
+                            ((IScreenContainer) (world.getBlockState(pos).getBlock())).setOrigin(world, pos, getPos());
+                        }
                     }
                 }
             }
         }
     }
+
 
     private boolean inSamePlane(BlockPos c) {
         switch (facing) {
@@ -89,46 +92,13 @@ public class TileEntityInfoPanel extends TileEntity {
         }
     }
 
-    public boolean tryToAdd(BlockPos aPos) {
+    public void tryToAdd(BlockPos aPos) {
         if (!inSamePlane(aPos)) {
-            return false;
+            return;
         }
-        if (aPos.getX() < origin.getX() || aPos.getY() < origin.getY() || aPos.getZ() < origin.getZ()) {
-            BlockPos origin_ = new BlockPos(
-                    Math.min(origin.getX(), aPos.getX()),
-                    Math.min(origin.getY(), aPos.getY()),
-                    Math.min(origin.getZ(), aPos.getZ())
-            );
-            if (isAreaValid(
-                    origin_,
-                    end
-            )) {
-                origin = origin_;
-                updateAllProviders(false);
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            BlockPos end_ = new BlockPos(
-                    Math.max(end.getX(), aPos.getX()),
-                    Math.max(end.getY(), aPos.getY()),
-                    Math.max(end.getZ(), aPos.getZ())
-            );
-            if (isAreaValid(
-                    origin,
-                    end_
-            )) {
-                end = end_;
-                updateAllProviders(false);
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
+        updateAllProviders(true);
+        searchForNeighbours();
+        updateAllProviders(false);
     }
 
     private void searchForNeighbours() {
