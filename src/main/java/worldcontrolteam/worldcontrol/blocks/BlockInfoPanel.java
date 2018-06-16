@@ -8,15 +8,17 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import worldcontrolteam.worldcontrol.client.ClientUtil;
+import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
-public class BlockInfoPanel extends BlockBasicRotate {
+public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer {
     public static final PropertyBool CONNECTED_UP = PropertyBool.create("up");
     public static final PropertyBool CONNECTED_DOWN = PropertyBool.create("down");
     public static final PropertyBool CONNECTED_LEFT = PropertyBool.create("left");
@@ -59,5 +61,15 @@ public class BlockInfoPanel extends BlockBasicRotate {
     @Override
     public int guiID() {
         return 0;
+    }
+
+    @Override
+    public EnumFacing getFacing(World worldIn, BlockPos pos) {
+        return worldIn.getBlockState(pos).getBlock() == this ? (EnumFacing) worldIn.getBlockState(pos).getProperties().get(FACING) : EnumFacing.DOWN
+    }
+
+    @Override
+    public BlockPos getOrigin(World worldIn, BlockPos pos) {
+        return pos;
     }
 }

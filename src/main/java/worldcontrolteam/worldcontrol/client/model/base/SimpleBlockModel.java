@@ -34,10 +34,10 @@ import java.util.function.Function;
  * <p>
  * See LICENSE.txt for license information.
  */
-public abstract class SimpleBlockModel<T extends SimpleBlockModel.Baked> implements IModel {
-    private ImmutableList<ResourceLocation> textures;
+public abstract class SimpleBlockModel implements IModel {
+    protected List<ResourceLocation> textures;
 
-    public SimpleBlockModel(ImmutableList<ResourceLocation> textures) {
+    public SimpleBlockModel(List<ResourceLocation> textures) {
         this.textures = textures;
     }
 

@@ -11,6 +11,7 @@ import worldcontrolteam.worldcontrol.client.model.base.SimpleBlockModel;
 import worldcontrolteam.worldcontrol.client.model.util.TextureArray;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.function.Function;
 
 /**
@@ -20,39 +21,43 @@ import java.util.function.Function;
  * See LICENSE.txt for license information.
  */
 public class ModelInfoPanel extends SimpleBlockModel {
-    static private ImmutableList<ResourceLocation> textures_;
+    static private ArrayList<ResourceLocation> textures_ = new ArrayList<>();
 
     static {
-        ImmutableList.Builder<ResourceLocation> textureBuilder = new ImmutableList.Builder<>();
-
-        textureBuilder.add(new ResourceLocation("worldcontrol:blocks/infopanel/panel_side"));
-        textureBuilder.add(new ResourceLocation("worldcontrol:blocks/infopanel/panel_back"));
-
         for (int i = 0; i < 16; i++ ){
             for (int j = 0; j < 16; j++ ) {
-                textureBuilder.add(new ResourceLocation("worldcontrol:blocks/infopanel/on/" + String.valueOf(i) + "/" + String.valueOf(j)));
-                textureBuilder.add(new ResourceLocation("worldcontrol:blocks/infopanel/off/" + String.valueOf(i) + "/" + String.valueOf(j)));
+                textures_.add(new ResourceLocation("worldcontrol:blocks/infopanel/on/" + String.valueOf(i) + "/" + String.valueOf(j)));
+                textures_.add(new ResourceLocation("worldcontrol:blocks/infopanel/off/" + String.valueOf(i) + "/" + String.valueOf(j)));
             }
         }
-
-        textures_ = textureBuilder.build();
     }
-    public ModelInfoPanel() {
+
+    private final ResourceLocation side;
+    private final ResourceLocation back;
+
+    public ModelInfoPanel(ResourceLocation side, ResourceLocation back) {
         super(textures_);
+        textures.add(side);
+        textures.add(back);
+
+        this.side = side;
+        this.back = back;
     }
 
     @Override
     public IBakedModel bake(IModelState iModelState, VertexFormat vertexFormat, Function<ResourceLocation, TextureAtlasSprite> function) {
-        return new Baked(vertexFormat, this, function);
+        return new Baked(vertexFormat, this, function, side, back);
     }
 
     public static class Baked extends SimpleBlockModel.Baked {
 
-        private final ResourceLocation side = new ResourceLocation("worldcontrol:blocks/infopanel/panel_side");
-        private final ResourceLocation back = new ResourceLocation("worldcontrol:blocks/infopanel/panel_back");
+        private final ResourceLocation side;
+        private final ResourceLocation back;
 
-        public Baked(VertexFormat fmt, SimpleBlockModel parent, Function<ResourceLocation, TextureAtlasSprite> func) {
+        public Baked(VertexFormat fmt, SimpleBlockModel parent, Function<ResourceLocation, TextureAtlasSprite> func, ResourceLocation side, ResourceLocation back) {
             super(fmt, parent, func);
+            this.side = side;
+            this.back = back;
         }
 
         @Override

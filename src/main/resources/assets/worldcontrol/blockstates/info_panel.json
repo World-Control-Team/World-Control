@@ -4,7 +4,7 @@
     "model": "worldcontrol:info_panel!worldcontrol:info_panel"
   },
   "variants": {
-    "inventory": {"model": "worldcontrol:info_panel"},
+    "inventory": {"model": "worldcontrol:info_panel_item"},
     "facing": {
       "north": {"y": 180, "x": -90},
       "south": {"x": -90},
