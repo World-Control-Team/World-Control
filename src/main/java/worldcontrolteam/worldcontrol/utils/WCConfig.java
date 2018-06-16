@@ -12,4 +12,5 @@ public class WCConfig {
     public static int alarmRange = 64;
     public static int SMPmaxAlarmRange = 256;
     public static boolean useCustomSounds = true;
+    public static int remoteMonitorPowerUseIC2 = 1;
 }

@@ -1,58 +1,66 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
-import ic2.api.energy.tile.IEnergyEmitter;
-import ic2.api.energy.tile.IEnergySink;
-import ic2.api.item.IC2Items;
+import ic2.api.energy.prefab.BasicSink;
 import ic2.api.item.IElectricItem;
 import ic2.api.reactor.IReactor;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
-import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.IC2Module;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items.IC2ReactorCard;
-import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
 import worldcontrolteam.worldcontrol.items.ItemUpgrade;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
+import worldcontrolteam.worldcontrol.utils.WCConfig;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by dmf444 on 10/25/2017. Code originally written for World-Control.
  */
-public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeatMonitor implements IEnergySink, IInventory, ISlotItemFilter {
+public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeatMonitor implements IItemHandler, IItemHandlerModifiable, ISlotItemFilter {
 
-    public static final int BASE_STORAGE = 600;
+    private NonNullList<ItemStack> itemStack = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
     private static final double MIN_RANGE = 20;
     //TODO: Cap upgrade stacksize to 16 blocks
-    private static final double ADDITIONAL_RANGE = 2.1875f;
-    public final double STORAGE_INCREMENT = 10000;
-    private final int CARD_SLOT = 0;
-    private final int POWER_SLOT = 1;
-    private final int MIN_SLOT = 2;
-    private final int MAX_SLOT = 4;
-    private NonNullList<ItemStack> invContents = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
-    private boolean addedToENet = false;
-    private double energy;
-    //TODO: Re-add Storage Size Upgrades
-    private double maxStorage = 600;
+    private static final double ADDITIONAL_RANGE = 2.75f;
 
-    public TileEntityIC2RemoteReactorMonitor() {
+    private static final int BASE_STORAGE = 600;
+    private static final int STORAGE_PER_UPGRADE = 10000;
 
+    private BasicSink energySink;
+
+    public TileEntityIC2RemoteReactorMonitor(){
+        energySink = new BasicSink(this, BASE_STORAGE, 1);
+    }
+
+    @Override
+    public void onLoad() {
+        energySink.onLoad(); // notify the energy sink
+    }
+
+    @Override
+    public void invalidate() {
+        energySink.invalidate(); // notify the energy sink
+        super.invalidate(); // this is important for mc!
+    }
+
+    @Override
+    public void onChunkUnload() {
+        energySink.onChunkUnload(); // notify the energy sink
     }
 
     @Override
     public int getCurrentHeat() {
         BlockPos ref = this.getReferenceBlock();
-        if (ref != null) {
+        if(ref != null) {
             IReactor reactor = ReactorUtils.getReactorAt(world, ref);
             if (reactor != null) {
                 return reactor.getHeat();
@@ -62,18 +70,22 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
     }
 
     @Override
+    public boolean isOverHeated() {
+        if(energySink.useEnergy(WCConfig.remoteMonitorPowerUseIC2)){
+            return super.isOverHeated();
+        }
+        return false;
+    }
+
+    @Override
     public boolean isConnectionValid() {
-        if (invContents.get(CARD_SLOT) != ItemStack.EMPTY) {
-            if (invContents.get(CARD_SLOT).getItem() instanceof IC2ReactorCard) {
-                ItemStack card = invContents.get(CARD_SLOT);
+        if(itemStack.get(0) != ItemStack.EMPTY){
+            if(itemStack.get(0).getItem() instanceof IC2ReactorCard){
+                ItemStack card = itemStack.get(0);
                 if (card.hasTagCompound()) {
                     BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
                     double distance = this.getPos().getDistance(pos.getX(), pos.getY(), pos.getZ());
-
-                    //Get Range Upgrade Count
-                    int count = this.getItemCount(WCContent.UPGRADE);
-
-                    if (distance <= (count * ADDITIONAL_RANGE) + MIN_RANGE) {
+                    if(distance <= ((itemStack.get(1).getCount() - 1) * ADDITIONAL_RANGE) + MIN_RANGE) {
                         this.setReferenceBlock(pos);
                         return true;
                     }
@@ -83,187 +95,195 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
         return false;
     }
 
-
     @Override
-    public void update() {
-        if (!addedToENet && !getWorld().isRemote) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-            addedToENet = !addedToENet;
-        }
-        super.update();
+    public int getSlots() {
+        return this.itemStack.size();
     }
 
-    public void invalidate() {
-        onChunkUnload();
-        super.invalidate();
-    }
-
-    public void onChunkUnload() {
-        if (addedToENet && !getWorld().isRemote) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-            addedToENet = false;
-        }
-    }
-
+    @Nonnull
     @Override
-    public double getDemandedEnergy() {
-        return maxStorage - energy;
+    public ItemStack getStackInSlot(int slot) {
+        return this.itemStack.get(slot);
     }
 
+    @Nonnull
     @Override
-    public int getSinkTier() {
-        int count = this.getItemCount(IC2Items.getItem("upgrade", "transformer").getItem());
-        count = Math.min(count, 4) + 1;
-        return count;
-    }
+    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+        //Modified from {@link SidedInvWrapper#extractItem}
+        if (stack.isEmpty())
+            return ItemStack.EMPTY;
 
-    @Override
-    public double injectEnergy(EnumFacing enumFacing, double amount, double voltage) {
-        energy += amount;
-        double left = 0.0;
+        if (slot == -1)
+            return stack;
 
-        if (energy > maxStorage) {
-            left = energy - maxStorage;
-            energy = maxStorage;
-        }
-        setEnergy(energy);
-        return left;
-    }
+        ItemStack stackInSlot = this.getStackInSlot(slot);
 
-    public double getEnergy() {
-        return energy;
-    }
+        int m;
+        if (!stackInSlot.isEmpty())
+        {
+            if (stackInSlot.getCount() >= Math.min(stackInSlot.getMaxStackSize(), getSlotLimit(slot)))
+                return stack;
 
-    public void setEnergy(double value) {
-        energy = value;
-    }
+            if (!ItemHandlerHelper.canItemStacksStack(stack, stackInSlot))
+                return stack;
 
-    public double getMaxStorage() {
-        return maxStorage;
-    }
 
-    public void setMaxStorage(double maxStorage) {
-        this.maxStorage = maxStorage;
-    }
+            m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot)) - stackInSlot.getCount();
 
-    @Override
-    public boolean acceptsEnergyFrom(IEnergyEmitter iEnergyEmitter, EnumFacing enumFacing) {
-        return this.getWorld().getBlockState(this.getPos()).getValue(BlockBasicRotate.FACING) != enumFacing;
-    }
+            if (stack.getCount() <= m) {
+                if (!simulate) {
+                    ItemStack copy = stack.copy();
+                    copy.grow(stackInSlot.getCount());
+                    this.itemStack.set(slot, copy);
+                }
 
-    @Override
-    public boolean isItemValid(int slotIndex, ItemStack itemStack) {
-        switch (slotIndex) {
-            case POWER_SLOT:
-                return itemStack.getItem() instanceof IElectricItem && ((IElectricItem) itemStack.getItem()).canProvideEnergy(itemStack);
-            case CARD_SLOT:
-                return itemStack.getItem() instanceof IC2ReactorCard;
-            default:
-                return itemStack.getItem() == IC2Items.getItem("upgrade", "transformer").getItem() ||
-                        itemStack.getItem() == IC2Items.getItem("upgrade", "energy_storage").getItem() ||
-                        (itemStack.getItem() == WCContent.UPGRADE && itemStack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
-        }
-    }
+                return stack;
+            } else {
+                // copy the stack to not modify the original one
+                stack = stack.copy();
+                if (!simulate) {
+                    ItemStack copy = stack.splitStack(m);
+                    copy.grow(stackInSlot.getCount());
+                    this.itemStack.set(slot, copy);
+                    return stack;
+                } else {
+                    stack.shrink(m);
+                    return stack;
+                }
+            }
+        } else {
 
-    @Override
-    public int getSizeInventory() {
-        return this.invContents.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        for (ItemStack itemstack : this.invContents) {
-            if (!itemstack.isEmpty()) {
-                return false;
+            m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot));
+            if (m < stack.getCount()) {
+                // copy the stack to not modify the original one
+                stack = stack.copy();
+                if (!simulate) {
+                    this.itemStack.set(slot, stack.splitStack(m));
+                    return stack;
+                } else {
+                    stack.shrink(m);
+                    return stack;
+                }
+            } else {
+                if (!simulate)
+                    this.itemStack.set(slot,  stack);
+                return ItemStack.EMPTY;
             }
         }
-        return true;
     }
 
+    @Nonnull
     @Override
-    public ItemStack getStackInSlot(int index) {
-        return this.invContents.get(index);
-    }
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        //Modified from {@link SidedInvWrapper#extractItem}
+        if(amount == 0)
+            return ItemStack.EMPTY;
 
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return ItemStackHelper.getAndSplit(this.invContents, index, count);
-    }
+        ItemStack stack = getStackInSlot(slot);
+        if(stack.isEmpty()){
+            return ItemStack.EMPTY;
+        }
 
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(this.invContents, index);
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        ItemStack itemstack = this.invContents.get(index);
-        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
-        this.invContents.set(index, stack);
-
-        if (!flag)
+        if (simulate)
+        {
+            if (stack.getCount() < amount)
+            {
+                return stack.copy();
+            }
+            else
+            {
+                ItemStack copy = stack.copy();
+                copy.setCount(amount);
+                return copy;
+            }
+        }
+        else
+        {
+            int m = Math.min(stack.getCount(), amount);
+            ItemStack ret = this.decrStackSize(slot, m);
             this.markDirty();
+            return ret;
+        }
     }
 
     @Override
-    public int getInventoryStackLimit() {
+    public int getSlotLimit(int slot) {
         return 64;
     }
 
-    @Override
-    public boolean isUsableByPlayer(EntityPlayer player) {
-        return world.getTileEntity(getPos()) == this && player.getDistanceSq(getPos().getX() + 0.5D, getPos().getY() + 0.5D, getPos().getZ() + 0.5D) <= 64D;
-    }
-
-    @Override
-    public void openInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public void closeInventory(EntityPlayer player) {
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int index, ItemStack stack) {
-        return isItemValid(index, stack);
-    }
-
-    @Override
-    public int getField(int id) {
-        return 0;
-    }
-
-    @Override
-    public void setField(int id, int value) {
-    }
-
-    @Override
-    public int getFieldCount() {
-        return 0;
-    }
-
-    @Override
-    public void clear() {
-        this.invContents.clear();
-    }
-
-    @Override
-    public String getName() {
-        return "vaca";
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return false;
-    }
-
-    private int getItemCount(Item item) {
-        int count = 0;
-        for (int i = MIN_SLOT; i < MAX_SLOT; i++) {
-            if (!(invContents.get(i) == ItemStack.EMPTY) && invContents.get(i).getItem() == item) {
-                count += invContents.get(i).getCount();
+    public ItemStack decrStackSize(int slot, int amount) {
+        ItemStack stack = getStackInSlot(slot);
+        if (stack != ItemStack.EMPTY)
+            if (stack.getCount() > amount) {
+                stack = stack.splitStack(amount);
+                markDirty();
+            } else {
+                this.itemStack.set(slot, ItemStack.EMPTY);
             }
+        return stack;
+    }
+
+    public void setStackInSlot(int slot, @Nonnull ItemStack stack){
+        this.itemStack.set(slot, stack);
+        if (stack != ItemStack.EMPTY && stack.getCount() > this.getSlotLimit(slot)) {
+            stack.setCount(this.getSlotLimit(slot));
         }
-        return count;
+    }
+
+    public double getEnergy(){
+        return this.energySink.getEnergyStored();
+    }
+
+    public void setEnergy(int energyIn){
+        this.energySink.setEnergyStored(energyIn);
+    }
+
+    public double getMaxStorage(){
+        return this.energySink.getCapacity();
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
+        super.readFromNBT(nbttagcompound);
+        energySink.readFromNBT(nbttagcompound);
+        for(int i=0; i < itemStack.size(); i++){
+            NBTTagCompound tag = nbttagcompound.getCompoundTag("stack"+i);
+            ItemStack stack = new ItemStack(tag);
+            this.itemStack.set(i, stack);
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
+        nbttagcompound = super.writeToNBT(nbttagcompound);
+        energySink.writeToNBT(nbttagcompound);
+        for(int i=0; i < itemStack.size(); i++){
+            ItemStack stack = this.itemStack.get(i);
+            NBTTagCompound tag = stack.writeToNBT(new NBTTagCompound());
+            nbttagcompound.setTag("stack"+i, tag);
+        }
+        return nbttagcompound;
+    }
+
+    @Override
+    public boolean isItemValid(int slotIndex, ItemStack itemstack) {
+        switch (slotIndex) {
+            case 1:
+                if (Item.getIdFromItem(itemstack.getItem()) == Item.getIdFromItem(IC2Module.suBattery.getItem()))
+                    return true;
+                if (itemstack.getItem() instanceof IElectricItem) {
+                    IElectricItem item = (IElectricItem) itemstack.getItem();
+                    if (item.canProvideEnergy(itemstack) && item.getTier(itemstack) <= this.energySink.getSinkTier()) {
+                        return true;
+                    }
+                }
+                return false;
+            case 0:
+                return itemstack.getItem() instanceof IC2ReactorCard;// || itemstack.getItem() instanceof ItemCard55Reactor;
+            default:
+                return itemstack.isItemEqual(IC2Module.transformerUpgrade)
+                        || itemstack.isItemEqual(IC2Module.energyUpgrade)
+                        || (itemstack.getItem() instanceof ItemUpgrade && itemstack.getItemDamage() == ItemUpgrade.DAMAGE_RANGE);
+        }
     }
 }

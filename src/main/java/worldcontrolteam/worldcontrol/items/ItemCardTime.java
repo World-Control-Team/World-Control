@@ -25,7 +25,7 @@ public class ItemCardTime extends ItemBaseCard {
         String suffix = "";
 
         // if ((displaySettings & MODE_24H) == 0) {
-        suffix = hours < 12 ? WorldControl.PROXY.getSidedTranslator().translate("msg.worldcontrol.time_card.am") : WorldControl.PROXY.getSidedTranslator().translate("msg.worldcontrol.time_card.pm");
+        suffix = hours < 12 ? WorldControl.PROXY.getSidedTranslator().translate("time_card.am") : WorldControl.PROXY.getSidedTranslator().translate("time_card.pm");
         hours %= 12;
         if (hours == 0)
             hours += 12;

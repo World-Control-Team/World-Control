@@ -62,7 +62,7 @@ dependencies {
 	runtime "mezz.jei:jei_1.12.2:4.7.11.102"
 	//compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
 	compile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
-	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.81-ex112:dev'
+	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.85-ex112:dev'
 }
 processResources {
 	inputs.property "version", project.version

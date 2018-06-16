@@ -42,6 +42,7 @@ public class GuiIC2RemoteReactorHeatMonitor extends GuiContainer {
         drawTexturedModalRect(left, top, 0, 0, xSize, ySize);
 
         // Charge level progress bar
+
         int chargeWidth = (int) (76F * remoteReactorMonitor.getEnergy() / remoteReactorMonitor.getMaxStorage());
         if (chargeWidth > 76)
             chargeWidth = 76;
