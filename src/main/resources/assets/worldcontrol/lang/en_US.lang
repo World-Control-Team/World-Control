@@ -24,6 +24,8 @@ tile.worldcontrol.industrial_alarm.name=Industrial Alarm
 tile.worldcontrol.howler_alarm.name=Howler Alarm
 tile.worldcontrol.extremereactormonitor.name=Extreme Reactor Monitor
 tile.worldcontrol.ic2_reactor_monitor.name=IC2 Thermal Monitor
+tile.worldcontrol.info_panel.name=Basic Info Panel
+tile.worldcontrol.info_panel_extender.name=Basic Info Panel Extender
 
 fluid.mercury=Mercury
 

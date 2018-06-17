@@ -49,7 +49,6 @@ public abstract class SimpleBlockModel implements IModel {
     public abstract static class Baked implements IBakedModel {
         private final VertexFormat fmt;
         private Map<TextureArray, List<BakedQuad>> cache = new HashMap<>();
-        private Map<IBlockState, TextureArray> cache2 = new HashMap<>();
 
         protected Map<ResourceLocation, TextureAtlasSprite> sprites = new HashMap<>();
 
@@ -66,10 +65,7 @@ public abstract class SimpleBlockModel implements IModel {
         @Override
         public List<BakedQuad> getQuads(@Nullable IBlockState iBlockState, @Nullable EnumFacing enumFacing, long l) {
             return cache.computeIfAbsent(
-                    cache2.computeIfAbsent(
-                            iBlockState,
-                            this::getTextureArray
-                    ),
+                    this.getTextureArray(iBlockState),
                     textureArray -> ModelUtil.makeCuboid(fmt, 0, 0, 0, 1, 1, 1, null, textureArray, 0)
             );
         }

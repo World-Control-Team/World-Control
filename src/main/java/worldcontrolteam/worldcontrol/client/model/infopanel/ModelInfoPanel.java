@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol.client.model.infopanel;
 
 import com.google.common.collect.ImmutableList;
+import javafx.util.Pair;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -16,6 +17,8 @@ import worldcontrolteam.worldcontrol.client.model.util.TextureArray;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -54,6 +57,7 @@ public class ModelInfoPanel extends SimpleBlockModel {
     }
 
     public static class Baked extends SimpleBlockModel.Baked {
+        private Map<Pair<BlockInfoPanel.InfoPanelState, Integer>, TextureArray> cache = new HashMap<>();
 
         private final ResourceLocation side;
         private final ResourceLocation back;
@@ -84,6 +88,13 @@ public class ModelInfoPanel extends SimpleBlockModel {
 
         @Override
         public TextureArray getTextureArray(@Nullable IBlockState s) {
+            BlockInfoPanel.InfoPanelState state = new BlockInfoPanel.InfoPanelState();
+            EnumFacing f = (EnumFacing) (s != null ? s.getProperties().get(BlockBasicRotate.FACING) : EnumFacing.NORTH);
+            if (s instanceof IExtendedBlockState) {
+                state = (BlockInfoPanel.InfoPanelState) ((IExtendedBlockState) s).getUnlistedProperties().get(BlockInfoPanel.STATE).get();
+            }
+            Pair<BlockInfoPanel.InfoPanelState, Integer> key = new Pair<>(state, f.getIndex());
+            if (cache.containsKey(key)) return cache.get(key);
             TextureAtlasSprite sideSprite = this.sprites.get(side);
             TextureArray textureArray = new TextureArray().setDownTexture(sideSprite)
                     .setParticleTexture(sideSprite)
@@ -92,13 +103,9 @@ public class ModelInfoPanel extends SimpleBlockModel {
                     .setUpTexture(sideSprite)
                     .setWestTexture(sideSprite)
                     .setSouthTexture(sideSprite);
-            BlockInfoPanel.InfoPanelState state = new BlockInfoPanel.InfoPanelState();
-            EnumFacing f = (EnumFacing) (s != null ? s.getProperties().get(BlockBasicRotate.FACING) : EnumFacing.NORTH);
-            if (s instanceof IExtendedBlockState) {
-                state = (BlockInfoPanel.InfoPanelState) ((IExtendedBlockState) s).getUnlistedProperties().get(BlockInfoPanel.STATE).get();
-            }
             textureArray.setTexture(f, getConnectedFace(state));
             textureArray.setTexture(f.getOpposite(), this.sprites.get(back));
+            cache.put(key, textureArray);
             return textureArray;
         }
     }

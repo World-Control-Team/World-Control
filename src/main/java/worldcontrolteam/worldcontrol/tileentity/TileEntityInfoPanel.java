@@ -15,6 +15,8 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
@@ -29,6 +31,8 @@ public class TileEntityInfoPanel extends TileEntity {
 
     public EnumFacing facing;
 
+    private Map<BlockPos, Boolean> validCache = new HashMap<>();
+
     public TileEntityInfoPanel() {
         this.color = 10;
         this.power = true;
@@ -36,6 +40,8 @@ public class TileEntityInfoPanel extends TileEntity {
 
     public void init() {
         this.facing = (EnumFacing) world.getBlockState(getPos()).getProperties().get(BlockInfoPanel.FACING);
+        if (origin == null) origin = getPos();
+        if (end == null) end = getPos();
 
         searchForNeighbours();
         updateAllProviders(false);
@@ -52,19 +58,28 @@ public class TileEntityInfoPanel extends TileEntity {
             for (int y = o.getY(); y <= e.getY(); y++) {
                 for (int z = o.getZ(); z <= e.getZ(); z++) {
                     final BlockPos pos1 = new BlockPos(x, y, z);
+                    if (validCache.containsKey(pos1)) {
+                        if (!validCache.get(pos1)) return false;
+                        continue;
+                    }
                     if (!(world.getBlockState(pos1).getBlock() instanceof IScreenContainer)) {
+                        validCache.put(pos1, false);
                         return false;
                     }
                     IScreenContainer c = (IScreenContainer) world.getBlockState(pos1).getBlock();
                     if (!(c.getFacing(world, pos1) == facing)) {
+                        validCache.put(pos1, false);
                         return false;
                     }
                     if (!c.isValid(world, pos1)) {
+                        validCache.put(pos1, false);
                         return false;
                     }
                     if (c.getOrigin(world, pos1) != null && !WCUtility.compareBPos(c.getOrigin(world, pos1), getPos())) {
+                        validCache.put(pos1, false);
                         return false;
                     }
+                    validCache.put(pos1, true);
                 }
             }
         }
@@ -113,6 +128,7 @@ public class TileEntityInfoPanel extends TileEntity {
     }
 
     private void searchForNeighbours() {
+        validCache = new HashMap<>();
         EnumFacing left = EnumFacing.WEST; // negRelativeX
         EnumFacing down = EnumFacing.DOWN; // negRealtiveY
 
@@ -133,31 +149,44 @@ public class TileEntityInfoPanel extends TileEntity {
                 down = EnumFacing.DOWN;
                 break;
         }
-
-        origin = getPos();
-        end    = getPos();
-
-        while (isAreaValid(origin, end)) {
-            origin = origin.offset(left);
+        if (!isAreaValid(origin, end)) {
+            origin = getPos();
+            end = getPos();
         }
+        int n = 0;
+        do {
+            origin = origin.offset(left);
+            n += 1;
+        } while (isAreaValid(origin, end.offset(left, n)));
+
+
+        n = 0;
 
         origin = origin.offset(left.getOpposite());
 
-        while (isAreaValid(origin, end)) {
+        do {
             origin = origin.offset(down);
-        }
+            n += 1;
+        } while (isAreaValid(origin, end.offset(down, n)));
+
 
         origin = origin.offset(down.getOpposite());
+        n = 0;
 
-        while (isAreaValid(origin, end)) {
+        do {
             end = end.offset(left.getOpposite());
-        }
+            n += 1;
+        } while (isAreaValid(origin.offset(left.getOpposite(), n), end));
+
 
         end = end.offset(left);
+        n = 0;
 
-        while (isAreaValid(origin, end)) {
+        do {
             end = end.offset(down.getOpposite());
-        }
+            n += 1;
+        } while (isAreaValid(origin.offset(down.getOpposite(), n), end));
+
 
         end = end.offset(down);
     }

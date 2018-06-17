@@ -2,6 +2,7 @@ package worldcontrolteam.worldcontrol.blocks;
 
 import com.google.common.collect.ImmutableMap;
 import javafx.util.Pair;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -43,14 +44,21 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this)
-                    .append("up", up)
-                    .append("down", down)
-                    .append("left", left)
-                    .append("right", right)
-                    .append("power", power)
-                    .append("color", color)
-                    .build();
+            return "asdf";
+        }
+
+        @Override
+        public int hashCode() {
+            return (up ? 1 : 0) + (down ? 2 : 0) + (left ? 4 : 0) + (right ? 8 : 0) + (power ? 16 : 0) + color << 5;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof InfoPanelState) {
+                InfoPanelState that = (InfoPanelState) obj;
+                return that.power == this.power && that.up == this.up && this.down == that.down && this.left == that.left && this.right == that.right && this.color == that.color;
+            }
+            return false;
         }
     }
     public static final IUnlistedProperty<InfoPanelState> STATE = new IUnlistedProperty<InfoPanelState>() {
@@ -71,7 +79,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
         @Override
         public String valueToString(InfoPanelState infoPanelState) {
-            return infoPanelState.toString();
+            return "asdf";
         }
     };
 
@@ -86,7 +94,8 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
     }
 
     public boolean isConnectedTo(IBlockAccess world, BlockPos p, BlockPos me) {
-        return world.getBlockState(p).getBlock() instanceof IScreenContainer && WCUtility.compareBPos(((IScreenContainer)world.getBlockState(p).getBlock()).getOrigin(world, p),(me));
+        Block block = world.getBlockState(p).getBlock();
+        return block instanceof IScreenContainer && WCUtility.compareBPos(((IScreenContainer) block).getOrigin(world, p),(me));
     }
 
     @Override
@@ -98,7 +107,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
             istate.color = 3;
             istate.power = false;  // todo: get these values
 
-            BlockPos origin = getOrigin(world, pos);
+            BlockPos origin = pos;
             if (origin != null) {
                 TileEntity te_origin = world.getTileEntity(origin);
                 if (te_origin instanceof TileEntityInfoPanel) {

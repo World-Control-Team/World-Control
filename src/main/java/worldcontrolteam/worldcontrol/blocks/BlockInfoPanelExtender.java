@@ -22,6 +22,7 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanelExtender;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
+import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings("Duplicates")
@@ -55,7 +56,9 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
                 if (pos1 != null) {
                     TileEntity te = world.getTileEntity(pos1);
                     if (te instanceof TileEntityInfoPanel) {
-                        ((TileEntityInfoPanel) te).tryToAdd(pos);
+                        if (!world.isRemote) {
+                            ((TileEntityInfoPanel) te).tryToAdd(pos);
+                        }
                     }
                 }
             }
@@ -79,7 +82,9 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
                         if (pos1 != null) {
                             TileEntity te = world.getTileEntity(pos1);
                             if (te instanceof TileEntityInfoPanel) {
-                                ((TileEntityInfoPanel) te).reInit();
+                                if (!world.isRemote) {
+                                    ((TileEntityInfoPanel) te).reInit();
+                                }
                                 return;
                             }
                         }
@@ -111,7 +116,8 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
 
     @Override
     public EnumFacing getFacing(IBlockAccess worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos).getBlock() == this ? (EnumFacing) worldIn.getBlockState(pos).getProperties().get(FACING) : EnumFacing.DOWN;
+        Block block = worldIn.getBlockState(pos).getBlock();
+        return block == this ? (EnumFacing) worldIn.getBlockState(pos).getProperties().get(FACING) : EnumFacing.DOWN;
     }
 
     @Override
@@ -152,16 +158,17 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
                     istate.color = ((TileEntityInfoPanel) te_origin).color;
                     istate.power = ((TileEntityInfoPanel) te_origin).power;
                 }
+
+
+                EnumFacing f = getFacing(world, pos);
+
+                istate.down = isConnectedTo(world, pos.offset(facings.get(f).getKey()), pos);
+                istate.up = isConnectedTo(world, pos.offset(facings.get(f).getKey().getOpposite()), pos);
+                istate.left = isConnectedTo(world, pos.offset(facings.get(f).getValue()), pos);
+                istate.right = isConnectedTo(world, pos.offset(facings.get(f).getValue().getOpposite()), pos);
             }
-
-            EnumFacing f = getFacing(world, pos);
-
-            istate.down = isConnectedTo(world, pos.offset(facings.get(f).getKey()), pos);
-            istate.up = isConnectedTo(world, pos.offset(facings.get(f).getKey().getOpposite()), pos);
-            istate.left = isConnectedTo(world, pos.offset(facings.get(f).getValue()), pos);
-            istate.right = isConnectedTo(world, pos.offset(facings.get(f).getValue().getOpposite()), pos);
-
             estate = estate.withProperty(BlockInfoPanel.STATE, istate);
+
             return estate;
         }
         else {
