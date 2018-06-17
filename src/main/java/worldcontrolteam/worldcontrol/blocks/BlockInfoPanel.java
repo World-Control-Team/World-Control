@@ -1,7 +1,6 @@
 package worldcontrolteam.worldcontrol.blocks;
 
 import com.google.common.collect.ImmutableMap;
-import javafx.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -17,6 +16,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import worldcontrolteam.worldcontrol.client.ClientUtil;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
@@ -24,17 +24,17 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SuppressWarnings("Duplicates")
 public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer {
-    private static ImmutableMap<EnumFacing, Pair<EnumFacing, EnumFacing>> facings;
+    private static ImmutableMap<EnumFacing, ImmutablePair<EnumFacing, EnumFacing>> facings;
 
     static {
-        ImmutableMap.Builder<EnumFacing, Pair<EnumFacing, EnumFacing>> builder = new ImmutableMap.Builder<>();
+        ImmutableMap.Builder<EnumFacing, ImmutablePair<EnumFacing, EnumFacing>> builder = new ImmutableMap.Builder<>();
         // dir, down, left
-        builder.put(EnumFacing.UP, new Pair<>(EnumFacing.SOUTH, EnumFacing.WEST));
-        builder.put(EnumFacing.DOWN, new Pair<>(EnumFacing.NORTH, EnumFacing.WEST));
-        builder.put(EnumFacing.NORTH, new Pair<>(EnumFacing.DOWN, EnumFacing.EAST));
-        builder.put(EnumFacing.SOUTH, new Pair<>(EnumFacing.DOWN, EnumFacing.WEST));
-        builder.put(EnumFacing.EAST, new Pair<>(EnumFacing.DOWN, EnumFacing.SOUTH));
-        builder.put(EnumFacing.WEST, new Pair<>(EnumFacing.DOWN, EnumFacing.NORTH));
+        builder.put(EnumFacing.UP, new ImmutablePair<>(EnumFacing.SOUTH, EnumFacing.WEST));
+        builder.put(EnumFacing.DOWN, new ImmutablePair<>(EnumFacing.NORTH, EnumFacing.WEST));
+        builder.put(EnumFacing.NORTH, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.EAST));
+        builder.put(EnumFacing.SOUTH, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.WEST));
+        builder.put(EnumFacing.EAST, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.SOUTH));
+        builder.put(EnumFacing.WEST, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.NORTH));
         facings = builder.build();
     }
 
@@ -85,6 +85,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
     public BlockInfoPanel(Material material, String name, boolean advanced) {
         super(material, name);
+        defaultCreativeTab();
     }
 
     @Override

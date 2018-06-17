@@ -1,7 +1,7 @@
 package worldcontrolteam.worldcontrol.client.model.infopanel;
 
 import com.google.common.collect.ImmutableList;
-import javafx.util.Pair;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -10,6 +10,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.property.IExtendedBlockState;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.client.model.base.SimpleBlockModel;
@@ -57,7 +59,7 @@ public class ModelInfoPanel extends SimpleBlockModel {
     }
 
     public static class Baked extends SimpleBlockModel.Baked {
-        private Map<Pair<BlockInfoPanel.InfoPanelState, Integer>, TextureArray> cache = new HashMap<>();
+        private Map<ImmutablePair<BlockInfoPanel.InfoPanelState, Integer>, TextureArray> cache = new HashMap<>();
 
         private final ResourceLocation side;
         private final ResourceLocation back;
@@ -93,7 +95,7 @@ public class ModelInfoPanel extends SimpleBlockModel {
             if (s instanceof IExtendedBlockState) {
                 state = (BlockInfoPanel.InfoPanelState) ((IExtendedBlockState) s).getUnlistedProperties().get(BlockInfoPanel.STATE).get();
             }
-            Pair<BlockInfoPanel.InfoPanelState, Integer> key = new Pair<>(state, f.getIndex());
+            ImmutablePair<BlockInfoPanel.InfoPanelState, Integer> key = new ImmutablePair<>(state, f.getIndex());
             if (cache.containsKey(key)) return cache.get(key);
             TextureAtlasSprite sideSprite = this.sprites.get(side);
             TextureArray textureArray = new TextureArray().setDownTexture(sideSprite)
