@@ -133,7 +133,14 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
     }
 
     @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        WCUtility.getTileEntity(world, pos, TileEntityInfoPanel.class).ifPresent(te -> {
+            te.updateAllProviders(true);
+        });
+        super.breakBlock(world, pos, state);
+    }
 
+    @Override
     public TileEntity createTile(World world, int meta) {
         TileEntityInfoPanel tileEntityInfoPanel = new TileEntityInfoPanel();
         tileEntityInfoPanel.setWorld(world);

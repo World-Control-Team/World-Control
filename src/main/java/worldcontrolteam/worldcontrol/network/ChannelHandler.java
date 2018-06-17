@@ -3,10 +3,7 @@ package worldcontrolteam.worldcontrol.network;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import worldcontrolteam.worldcontrol.network.messages.PacketClientRemotePanel;
-import worldcontrolteam.worldcontrol.network.messages.PacketClientUpdateMonitor;
-import worldcontrolteam.worldcontrol.network.messages.PacketServerRemotePanel;
-import worldcontrolteam.worldcontrol.network.messages.PacketUpdateHowlerAlarm;
+import worldcontrolteam.worldcontrol.network.messages.*;
 
 public class ChannelHandler {
     public static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel("WorldControl");

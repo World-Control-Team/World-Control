@@ -2,6 +2,8 @@ package worldcontrolteam.worldcontrol.tileentity;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -9,7 +11,9 @@ import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.screen.IScreenElement;
+import worldcontrolteam.worldcontrol.utils.WCUtility;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
@@ -58,13 +62,16 @@ public class TileEntityInfoPanel extends TileEntity {
                     if (!c.isValid(world, pos1)) {
                         return false;
                     }
+                    if (c.getOrigin(world, pos1) != null && !WCUtility.compareBPos(c.getOrigin(world, pos1), getPos())) {
+                        return false;
+                    }
                 }
             }
         }
         return true;
     }
     
-    private void updateAllProviders(boolean nullify) {
+    public void updateAllProviders(boolean nullify) {
         for (int x = origin.getX(); x <= end.getX(); x++) {
             for (int y = origin.getY(); y <= end.getY(); y++) {
                 for (int z = origin.getZ(); z <= end.getZ(); z++) {
@@ -197,5 +204,63 @@ public class TileEntityInfoPanel extends TileEntity {
         color = compound.getInteger("color");
 
         //updateAllProviders(false);
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound compound = new NBTTagCompound();
+
+        compound.setInteger("oX", origin.getX());
+        compound.setInteger("oY", origin.getY());
+        compound.setInteger("oZ", origin.getZ());
+
+        compound.setInteger("eX", end.getX());
+        compound.setInteger("eY", end.getY());
+        compound.setInteger("eZ", end.getZ());
+
+        compound.setInteger("facing", facing.getIndex());
+        compound.setBoolean("power", power);
+        compound.setInteger("color", color);
+
+        return new SPacketUpdateTileEntity(getPos(), 3, compound);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+
+        compound.setInteger("oX", origin.getX());
+        compound.setInteger("oY", origin.getY());
+        compound.setInteger("oZ", origin.getZ());
+
+        compound.setInteger("eX", end.getX());
+        compound.setInteger("eY", end.getY());
+        compound.setInteger("eZ", end.getZ());
+
+        compound.setInteger("facing", facing.getIndex());
+        compound.setBoolean("power", power);
+        compound.setInteger("color", color);
+
+        return compound;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        NBTTagCompound compound = pkt.getNbtCompound();
+
+        origin = new BlockPos(
+                compound.getInteger("oX"),
+                compound.getInteger("oY"),
+                compound.getInteger("oZ"));
+
+        end = new BlockPos(
+                compound.getInteger("eX"),
+                compound.getInteger("eY"),
+                compound.getInteger("eZ"));
+
+        facing = EnumFacing.getFront(compound.getInteger("facing"));
+        power = compound.getBoolean("power");
+        color = compound.getInteger("color");
     }
 }

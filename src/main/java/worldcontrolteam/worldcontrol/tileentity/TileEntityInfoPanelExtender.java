@@ -97,4 +97,11 @@ public class TileEntityInfoPanelExtender extends TileEntity {
             compound.setInteger("oz", origin.getZ());
         }
     }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound compound = super.getUpdateTag();
+        addPosInfo(compound);
+        return compound;
+    }
 }
