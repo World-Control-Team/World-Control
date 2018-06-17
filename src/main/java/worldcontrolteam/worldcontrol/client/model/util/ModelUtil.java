@@ -1,5 +1,6 @@
-package worldcontrolteam.worldcontrol.client.model.base;
+package worldcontrolteam.worldcontrol.client.model.util;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -9,7 +10,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.common.model.TRSRTransformation;
-import worldcontrolteam.worldcontrol.client.model.part.BakedCuboid;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
@@ -77,10 +77,11 @@ public final class ModelUtil {
         return new TRSRTransformation(translation, rotation, scale, null);
     }
 
-    public static BakedCuboid makeCuboid(VertexFormat format, double x1, double y1, double z1, double x2, double y2, double z2, Vector4f[] uv, TextureArray textureArray, int tintIndex) {
+    public static ImmutableList<BakedQuad> makeCuboid(VertexFormat format, double x1, double y1, double z1, double x2, double y2, double z2, Vector4f[] uv, TextureArray textureArray, int tintIndex) {
         if (uv == null)
             uv = FULL_FACES;
-        return new BakedCuboid(
+        //noinspection ConstantConditions
+        return ImmutableList.of(
                 makeCubeFace(format, EnumFacing.NORTH, x1, y1, x1, x2, y2, z2, uv[0].x, uv[0].y, uv[0].z, uv[0].w, textureArray.getNorthTexture(), tintIndex),
                 makeCubeFace(format, EnumFacing.EAST, x1, y1, x1, x2, y2, z2, uv[1].x, uv[1].y, uv[1].z, uv[1].w, textureArray.getEastTexture(), tintIndex),
                 makeCubeFace(format, EnumFacing.SOUTH, x1, y1, x1, x2, y2, z2, uv[2].x, uv[2].y, uv[2].z, uv[2].w, textureArray.getSouthTexture(), tintIndex),

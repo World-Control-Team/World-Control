@@ -16,6 +16,7 @@ import worldcontrolteam.worldcontrol.blocks.BlockInfoPanelExtender;
 import worldcontrolteam.worldcontrol.items.*;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
+import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanelExtender;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,6 +76,7 @@ public class WCContent {
 
         GameRegistry.registerTileEntity(TileEntityHowlerAlarm.class, WorldControl.MODID + ":howleralarm");
         GameRegistry.registerTileEntity(TileEntityInfoPanel.class, WorldControl.MODID + ":infopanel");
+        GameRegistry.registerTileEntity(TileEntityInfoPanelExtender.class, WorldControl.MODID + ":infopanelext");
     }
 
     @SubscribeEvent

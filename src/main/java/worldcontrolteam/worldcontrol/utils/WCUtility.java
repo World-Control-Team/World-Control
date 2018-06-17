@@ -72,4 +72,11 @@ public class WCUtility {
 
         return color;
     }
+
+    public static boolean compareBPos(BlockPos a, BlockPos b) {
+        if (a == null || b == null) {
+            return a == b;
+        }
+        return a.getX() == b.getX() && a.getY() == b.getY() && a.getZ() == b.getZ();
+    }
 }
