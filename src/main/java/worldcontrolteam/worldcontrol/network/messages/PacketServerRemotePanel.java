@@ -8,7 +8,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
+import worldcontrolteam.worldcontrol.api.card.ICard;
+import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.items.ItemBaseCard;
 
@@ -46,7 +47,7 @@ public class PacketServerRemotePanel implements IMessage {
 
             if (stack != null && stack.getItem() instanceof ItemBaseCard) {
                 ItemBaseCard card = (ItemBaseCard) stack.getItem();
-                CardState state = card.update(ctx.getServerHandler().player.mcServer.worlds[0], stack);
+                CardState state = card.update(ctx.getServerHandler().player.world, stack);
                 // CardState state = ((IPanelDataSource)
                 // stack.getItem()).update(ContainerRemoteMonitor.panel, helper,
                 // 100);
@@ -54,7 +55,7 @@ public class PacketServerRemotePanel implements IMessage {
                     EntityPlayer player = ctx.getServerHandler().player;
                     InventoryItem itemInv = new InventoryItem(player.getHeldItemMainhand());
                     // NCLog.fatal(itemInv.getStackInSlot(0));
-                    if (itemInv.getStackInSlot(0).isEmpty() || !(itemInv.getStackInSlot(0).getItem() instanceof IProviderCard))
+                    if (itemInv.getStackInSlot(0).isEmpty() || !(itemInv.getStackInSlot(0).getItem() instanceof ICard))
                         return null;
                     if (stack.hasTagCompound()) {
                         // NCLog.fatal(helper.getUpdateSet().entrySet());

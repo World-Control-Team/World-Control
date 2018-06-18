@@ -1,14 +1,16 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
-import worldcontrolteam.worldcontrol.api.card.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.ICard;
+import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
 import worldcontrolteam.worldcontrol.network.ChannelHandler;
@@ -21,6 +23,8 @@ import java.util.List;
 public class GuiRemotePanel extends GuiContainer {
 
     private InventoryItem inv;
+    private ItemStack lastCard = null;
+    private IScreenElement isce;
     private EntityPlayer e;
 
     public GuiRemotePanel(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player) {
@@ -47,24 +51,36 @@ public class GuiRemotePanel extends GuiContainer {
         this.drawTexturedModalRect(x, y, 0, 0, 204, ySize);
     }
 
+    private void updateScreenElement(ItemStack itemInInventory) {
+        if (itemInInventory != lastCard) {
+            lastCard = itemInInventory;
+            isce = null;
+            if (itemInInventory.getItem() instanceof ICard) {
+                isce = ((ICard) itemInInventory.getItem()).getRenderer(itemInInventory);
+            }
+        }
+    }
+
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         List<StringWrapper> joinedData = new LinkedList<StringWrapper>();
         boolean anyCardFound = true;
         InventoryItem itemInv = new InventoryItem(e.getHeldItemMainhand());
 
-        if (!inv.getStackInSlot(0).isEmpty() && !itemInv.getStackInSlot(0).isEmpty() && itemInv.getStackInSlot(0).getItem() instanceof IProviderCard) {
-            IProviderCard card = (IProviderCard) inv.getStackInSlot(0).getItem();
+        if (!inv.getStackInSlot(0).isEmpty() && !itemInv.getStackInSlot(0).isEmpty() && itemInv.getStackInSlot(0).getItem() instanceof ICard) {
+            ICard card = (ICard) inv.getStackInSlot(0).getItem();
             // CardWrapperImpl helper = new
             // CardWrapperImpl(itemInv.getStackInSlot(0), 0);
-            joinedData.clear();
+            updateScreenElement(itemInv.getStackInSlot(0));
             ChannelHandler.network.sendToServer(new PacketServerRemotePanel(inv.getStackInSlot(0)));
-
-            if (itemInv.getStackInSlot(0).hasTagCompound())
-                joinedData = card.getStringData(new LinkedList<>(), 0, itemInv.getStackInSlot(0), true);
-            else joinedData = getRemoteCustomMSG();
-
-            drawCardStuff(anyCardFound, joinedData);
+            if (isce != null) {
+                //CardState cs = card.update(e.world, inv.getStackInSlot(0));
+                isce.onCardUpdate(e.world, itemInv.getStackInSlot(0));
+                drawCardStuff(true);
+            }
+            else {
+                // todo: add getRemoteCustomMSG back here
+            }
         }
     }
 
@@ -85,25 +101,23 @@ public class GuiRemotePanel extends GuiContainer {
         return result;
     }
 
-    private void drawCardStuff(Boolean anyCardFound, List<StringWrapper> joinedData) {
+    private void drawCardStuff(Boolean anyCardFound) {
         if (!anyCardFound) {
             WCUtility.error("This should never happen. If you see this report immediately to WC repo. Include GuiRemoteMonitorError-123 in the report!");
             return;
         }
 
-        int row = 0;
-        for (StringWrapper panelString : joinedData) {
-            if (panelString.textLeft != null)
-                fontRenderer.drawString(panelString.textLeft, 9, row * 10 + 20, 0x06aee4);
+        int x = (width - xSize) / 2;
+        int y = (height - ySize) / 2;
 
-            if (panelString.textCenter != null)
-                fontRenderer.drawString(panelString.textCenter, (168 - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10 + 20, 0x06aee4);
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(9, 0, 0);
 
-            if (panelString.textRight != null)
-                this.fontRenderer.drawString(panelString.textRight, 168 - fontRenderer.getStringWidth(panelString.textRight), (row - 1) * 10 + 20, 0x06aee4);
+        isce.draw(168, ySize); // technically should work... i hope
 
-            row++;
-        }
+        GlStateManager.popMatrix();
+
+        // todo: fixme plz
     }
 
     @Override

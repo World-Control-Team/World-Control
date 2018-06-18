@@ -1,4 +1,4 @@
-package worldcontrolteam.worldcontrol.api.card;
+package worldcontrolteam.worldcontrol.api.card.predefs;
 
 public class StringWrapper {
 

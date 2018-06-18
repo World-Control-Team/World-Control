@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
-import worldcontrolteam.worldcontrol.api.card.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
+import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 

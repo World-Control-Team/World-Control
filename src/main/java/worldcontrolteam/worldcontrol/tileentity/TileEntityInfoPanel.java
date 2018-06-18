@@ -1,16 +1,14 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
-import worldcontrolteam.worldcontrol.screen.IScreenElement;
+import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import javax.annotation.Nullable;

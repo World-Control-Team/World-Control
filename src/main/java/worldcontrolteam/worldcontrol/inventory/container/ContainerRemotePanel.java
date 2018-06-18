@@ -6,7 +6,8 @@ import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import worldcontrolteam.worldcontrol.api.card.IProviderCard;
+import worldcontrolteam.worldcontrol.api.card.ICard;
+import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
 import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;
@@ -66,7 +67,7 @@ public class ContainerRemotePanel extends Container {
                 if (!fixed)
                     return null;
                 slots.onSlotChange(itemstackR, stack);
-            } else if (slots.getStack().getItem() instanceof IProviderCard && !this.inventorySlots.get(0).getHasStack()) {
+            } else if (slots.getStack().getItem() instanceof ICard && !this.inventorySlots.get(0).getHasStack()) {
                 this.inventorySlots.get(0).putStack(itemstackR);
                 slots.decrStackSize(1);
                 slots.onSlotChange(itemstackR, stack);

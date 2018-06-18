@@ -1,11 +1,11 @@
-package worldcontrolteam.worldcontrol.client;
+package worldcontrolteam.worldcontrol.client.render;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 
-public class HeatMonitorTESR extends TileEntitySpecialRenderer<TileEntityBaseReactorHeatMonitor> {
+public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseReactorHeatMonitor> {
 
     @Override
     public void render(TileEntityBaseReactorHeatMonitor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
 import worldcontrolteam.worldcontrol.items.ItemBaseCard;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
@@ -64,7 +64,7 @@ public class IC2ReactorCard extends ItemBaseCard {
             list.add(line);
             // Melting
             line = new StringWrapper();
-            line.textLeft = WCUtility.translateFormatted("info_panel_melting", card.getTagCompound().getInteger("max_heat") * 85 / 100, showLabels);
+            line.textLeft = WCUtility.translateFormatted("info_panel_melting", card.getTagCompound().getInteger("max_heat") * 85 / 100);
             list.add(line);
             // Output
             line = new StringWrapper();
@@ -77,7 +77,7 @@ public class IC2ReactorCard extends ItemBaseCard {
             int seconds = timeLeft % 60;
             line = new StringWrapper();
             String time = String.format("%d:%02d:%02d", hours, minutes, seconds);
-            line.textLeft = WCUtility.translateFormatted("info_panel_time_remaining", time, showLabels);
+            line.textLeft = WCUtility.translateFormatted("info_panel_time_remaining", time);
             list.add(line);
             // On/Off
             int txtColor = 0;
