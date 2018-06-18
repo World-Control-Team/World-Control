@@ -27,7 +27,7 @@ public class WorldControl {
     public static final String NAME = "World Control";
     @Mod.Instance("worldcontrol")
     public static WorldControl INSTANCE;
-    @SidedProxy(clientSide = "worldcontrolteam.worldcontrol.client.ClientProxy", serverSide = "worldcontrolteam.worldcontrol.ServerProxy")
+    @SidedProxy(clientSide = "worldcontrolteam.worldcontrol.client.ClientProxy", serverSide = "worldcontrolteam.worldcontrol.server.ServerProxy")
     public static CommonProxy PROXY;
     public static WCCreativeTab TAB = new WCCreativeTab();
 
