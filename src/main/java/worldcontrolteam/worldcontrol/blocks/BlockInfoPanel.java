@@ -20,6 +20,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import worldcontrolteam.worldcontrol.client.ClientUtil;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
+import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 @SuppressWarnings("Duplicates")
@@ -106,7 +107,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
             InfoPanelState istate = new InfoPanelState();
             istate.color = 3;
-            istate.power = false;  // todo: get these values
+            istate.power = RedstoneHelper.checkPowered(world, pos);  // todo: switch this tile to using IRedstoneConsumer
 
             BlockPos origin = pos;
             if (origin != null) {

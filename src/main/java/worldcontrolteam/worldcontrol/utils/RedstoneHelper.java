@@ -6,6 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class RedstoneHelper {
@@ -25,6 +26,19 @@ public class RedstoneHelper {
                     || isPoweredWire(world, tileentity.getPos().add(0, 0, -1));
             ((IRedstoneConsumer) tileentity).setPowered(powered);
         }
+    }
+
+    public static boolean checkPowered(IBlockAccess worlds, BlockPos pos) {
+        if (worlds != null && worlds instanceof World) {
+            World world = (World) worlds;
+            boolean powered = world.isBlockPowered(pos)
+                || isPoweredWire(world, pos.add(1, 0, 0))
+                || isPoweredWire(world, pos.add(-1, 0, 0))
+                || isPoweredWire(world, pos.add(0, 0, 1))
+                || isPoweredWire(world, pos.add(0, 0, -1));
+            return powered;
+        }
+        return false;
     }
 
 

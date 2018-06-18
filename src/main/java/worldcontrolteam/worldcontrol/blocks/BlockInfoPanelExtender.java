@@ -149,8 +149,8 @@ public class BlockInfoPanelExtender extends BlockBasicRotate implements IScreenC
             IExtendedBlockState estate = (IExtendedBlockState) state;
 
             BlockInfoPanel.InfoPanelState istate = new BlockInfoPanel.InfoPanelState();
-            istate.color = 3;
-            istate.power = true;  // todo: get these values
+            istate.color = 10;
+            istate.power = false;  // todo: get these values
 
             BlockPos origin = getOrigin(world, pos);
             if (origin != null) {
