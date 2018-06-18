@@ -37,6 +37,16 @@ public interface IScreenElement {
     @SideOnly(Side.CLIENT)
     void draw(int sizeX, int sizeY);
 
+    /**
+     * Calculate the y-size for a given x-size.
+     * This is done so that we can automatically lay out things.
+     *
+     * @param sizeX size of the entire screen
+     * @return the desired y height to draw to
+     */
+    @SideOnly(Side.CLIENT)
+    double getSizeY(int sizeX);
+
     /*
         Called on card update. You can use this to do various things, such as update screen contents based on the card. You can also ignore
         the card entirely should you so desire.

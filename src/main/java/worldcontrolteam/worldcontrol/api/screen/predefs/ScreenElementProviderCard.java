@@ -2,9 +2,9 @@ package worldcontrolteam.worldcontrol.api.screen.predefs;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
 import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
@@ -37,6 +37,20 @@ public class ScreenElementProviderCard implements IScreenElement {
     public void draw(int sizeX, int sizeY) {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
+        int maxlen = 1;
+
+        for (StringWrapper sw : joinedData) {
+            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 0) +
+                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight) : 0) +
+                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter) : 0)) + 40;
+            maxlen = Math.max(maxlen, len);
+        }
+
+        double scaleFactor = (double)sizeX / (double)maxlen;
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(scaleFactor, scaleFactor, 0);
+        sizeX /= scaleFactor;
+
         int row = 0;
         for (StringWrapper panelString : joinedData) {
             if (panelString.textLeft != null)
@@ -50,5 +64,26 @@ public class ScreenElementProviderCard implements IScreenElement {
 
             if ((row++) * 10 + 20 > sizeY) return;
         }
+
+        GlStateManager.popMatrix();
+    }
+
+    @Override
+    public double getSizeY(int sizeX) {
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+
+        int maxlen = 1;
+
+        for (StringWrapper sw : joinedData) {
+            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 0) +
+                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight) : 0) +
+                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter) : 0)) + 10;
+            maxlen = Math.max(maxlen, len);
+        }
+
+        double scaleFactor = (double)sizeX / (double)maxlen;
+
+        int row = joinedData.size();
+        return (row * 10 + 20) * scaleFactor;
     }
 }

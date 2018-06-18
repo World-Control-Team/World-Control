@@ -1,12 +1,19 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import worldcontrolteam.worldcontrol.api.card.ICard;
 import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
+import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -19,13 +26,15 @@ import java.util.Map;
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
  */
-public class TileEntityInfoPanel extends TileEntity {
+public class TileEntityInfoPanel extends TileEntity implements IInventory, ITickable {
     public int color;
     public boolean power;
-    private ArrayList<IScreenElement> screenElements;
 
     public BlockPos origin;
     public BlockPos end;
+
+    public ItemStack card;
+    public IScreenElement ise;
 
     public EnumFacing facing;
 
@@ -34,6 +43,11 @@ public class TileEntityInfoPanel extends TileEntity {
     public TileEntityInfoPanel() {
         this.color = 10;
         this.power = true;
+
+        // debug debug debug todo: fixme: aaaaaaa
+
+        card = new ItemStack(WCContent.TIME_CARD, 1);
+        closeInventory(null);
     }
 
     public void init() {
@@ -187,6 +201,8 @@ public class TileEntityInfoPanel extends TileEntity {
 
 
         end = end.offset(down);
+        IBlockState bs = world.getBlockState(getPos());
+        world.notifyBlockUpdate(getPos(), bs, bs, 0);
     }
 
     @Override
@@ -289,5 +305,108 @@ public class TileEntityInfoPanel extends TileEntity {
         facing = EnumFacing.getFront(compound.getInteger("facing"));
         power = compound.getBoolean("power");
         color = compound.getInteger("color");
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return card == null;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int i) {
+        return card;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int i, int i1) {
+        if (card != null && i1 > 0) {
+            this.card = null;
+        }
+        return this.card;
+    }
+
+    @Override
+    public ItemStack removeStackFromSlot(int i) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int i, ItemStack itemStack) {
+        if (!isItemValidForSlot(0, itemStack)) return;
+        this.card = itemStack;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
+    public boolean isUsableByPlayer(EntityPlayer entityPlayer) {
+        return true;
+    }
+
+    @Override
+    public void openInventory(EntityPlayer entityPlayer) {
+
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer entityPlayer) {
+        if (this.card == null) {
+            ise = null;
+        }
+        else {
+            ise = ((ICard)this.card.getItem()).getRenderer(this.card);
+        }
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int i, ItemStack itemStack) {
+        return itemStack.getItem() instanceof ICard;
+    }
+
+    @Override
+    public int getField(int i) {
+        return 0;
+    }
+
+    @Override
+    public void setField(int i, int i1) {
+
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public void clear() {
+        card = null;
+    }
+
+    @Override
+    public String getName() {
+        return "Info Panel";
+    }
+
+    @Override
+    public boolean hasCustomName() {
+        return false;
+    }
+
+    @Override
+    public void update() {
+        if (this.card != null) {
+            ICard icard = (ICard) this.card.getItem();
+            icard.update(world, this.card);
+            ise.onCardUpdate(world, this.card);
+        }
     }
 }

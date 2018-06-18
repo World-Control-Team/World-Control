@@ -45,6 +45,8 @@ public class WCContent {
     public static Block INFO_PANEL_EXTENDER;
     @ObjectHolder("worldcontrol:info_panel_extender_advanced")
     public static Block INFO_PANEL_EXTENDER_ADVANCED;
+    @ObjectHolder("worldcontrol:time_card")
+    public static Item TIME_CARD;
 
     public static void addBlocks(Block... blocks) {
         Collections.addAll(BLOCKS, blocks);

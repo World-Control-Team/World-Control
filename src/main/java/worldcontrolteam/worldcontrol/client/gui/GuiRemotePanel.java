@@ -113,7 +113,7 @@ public class GuiRemotePanel extends GuiContainer {
         GlStateManager.pushMatrix();
         GlStateManager.translate(9, 0, 0);
 
-        isce.draw(168, ySize); // technically should work... i hope
+        isce.draw(158, ySize); // technically should work... i hope
 
         GlStateManager.popMatrix();
 
