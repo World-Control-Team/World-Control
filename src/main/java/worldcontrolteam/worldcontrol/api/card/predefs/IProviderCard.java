@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.api.card.predefs;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,4 +25,7 @@ public interface IProviderCard extends ICard {
     default IScreenElement getRenderer(ItemStack s) {
         return new ScreenElementProviderCard(this);
     }
+
+    @Override
+    default Gui getConfigGui(World w, ItemStack is) {return null;} // TODO: dmf add toggle gui here.
 }

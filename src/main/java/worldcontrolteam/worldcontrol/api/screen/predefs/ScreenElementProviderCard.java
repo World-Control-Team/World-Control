@@ -21,6 +21,7 @@ import java.util.List;
 public class ScreenElementProviderCard implements IScreenElement {
     private final IProviderCard card;
     private List<StringWrapper> joinedData;
+    boolean showingLabels = false;
 
     public ScreenElementProviderCard(IProviderCard card) {
         this.card = card;
@@ -30,7 +31,12 @@ public class ScreenElementProviderCard implements IScreenElement {
     @Override
     public void onCardUpdate(World world, ItemStack newItemStack) {
         this.joinedData.clear();
-        this.card.getStringData(this.joinedData, 0, newItemStack, true); //todo: ask someone what tha params are for. (deprecate me)
+        this.card.getStringData(this.joinedData, 0, newItemStack, showingLabels); //todo: ask someone what tha params are for. (deprecate me)
+    }
+
+    @Override
+    public void setContext(EnumScreenContext ctx, boolean showLabels) {
+        this.showingLabels = showLabels;
     }
 
     @Override

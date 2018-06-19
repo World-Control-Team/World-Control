@@ -20,6 +20,7 @@ import javax.vecmath.Matrix4f;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -33,7 +34,7 @@ public class ModelAdvancedInfoPanel implements IModel {
 
     @Override
     public Collection<ResourceLocation> getTextures() {
-        return null;
+        return textures;
     }
     static private ArrayList<ResourceLocation> textures_ = new ArrayList<>();
 
@@ -50,6 +51,7 @@ public class ModelAdvancedInfoPanel implements IModel {
     private final ResourceLocation back;
 
     public ModelAdvancedInfoPanel(ResourceLocation side, ResourceLocation back) {
+            textures = new ArrayList<>();
             textures.addAll(textures_);
             textures.add(side);
             textures.add(back);
@@ -64,6 +66,8 @@ public class ModelAdvancedInfoPanel implements IModel {
     }
 
     public static class Baked implements IBakedModel {
+
+        private Map<ResourceLocation, TextureAtlasSprite> textures;
 
         public Baked(VertexFormat vertexFormat, ModelAdvancedInfoPanel modelAdvancedInfoPanel, Function<ResourceLocation, TextureAtlasSprite> function, ResourceLocation side, ResourceLocation back) {
 

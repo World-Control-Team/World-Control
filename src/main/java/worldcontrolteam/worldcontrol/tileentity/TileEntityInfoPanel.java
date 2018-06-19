@@ -486,6 +486,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         this.itemStack.set(slot, stack);
         if(slot == 0){
             ise = ((ICard)getCard().getItem()).getRenderer(getCard());
+            ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, false /* todo: showlabels */);
         }
     }
 

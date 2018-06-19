@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.api.card;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
@@ -14,4 +15,6 @@ public interface ICard {
     CardState update(World world, ItemStack card);
 
     IScreenElement getRenderer(ItemStack stack);
+
+    Gui getConfigGui(World world, ItemStack card);
 }

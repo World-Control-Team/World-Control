@@ -9,10 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import worldcontrolteam.worldcontrol.WorldControl;
-import worldcontrolteam.worldcontrol.blocks.BlockHowlerAlarm;
-import worldcontrolteam.worldcontrol.blocks.BlockIndustrialAlarm;
-import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
-import worldcontrolteam.worldcontrol.blocks.BlockInfoPanelExtender;
+import worldcontrolteam.worldcontrol.blocks.*;
 import worldcontrolteam.worldcontrol.items.*;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
@@ -71,9 +68,8 @@ public class WCContent {
                 new BlockIndustrialAlarm(),
                 new BlockHowlerAlarm(),
                 new BlockInfoPanel(Material.IRON, "info_panel", false),
-                new BlockInfoPanel(Material.IRON, "info_panel_advanced", true),
                 new BlockInfoPanelExtender("info_panel_extender", false),
-                new BlockInfoPanelExtender("info_panel_extender_advanced", true)
+                new BlockAdvancedInfoPanel()
         );
 
         GameRegistry.registerTileEntity(TileEntityHowlerAlarm.class, WorldControl.MODID + ":howleralarm");
