@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import javax.annotation.Nonnull;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,10 +11,16 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 import worldcontrolteam.worldcontrol.api.card.ICard;
 import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.init.WCContent;
+import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
+import worldcontrolteam.worldcontrol.items.ItemUpgrade;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -26,17 +33,17 @@ import java.util.Map;
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
  */
-public class TileEntityInfoPanel extends TileEntity implements IInventory, ITickable {
+public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITickable, ISlotItemFilter, IItemHandlerModifiable {
     public int color;
     public boolean power;
 
     public BlockPos origin;
     public BlockPos end;
 
-    public ItemStack card;
     public IScreenElement ise;
 
     public EnumFacing facing;
+    private NonNullList<ItemStack> itemStack = NonNullList.withSize(3, ItemStack.EMPTY);
 
     private Map<BlockPos, Boolean> validCache = new HashMap<>();
 
@@ -46,7 +53,7 @@ public class TileEntityInfoPanel extends TileEntity implements IInventory, ITick
 
         // debug debug debug todo: fixme: aaaaaaa
 
-        card = new ItemStack(WCContent.TIME_CARD, 1);
+        this.setStackInSlot(0, new ItemStack(WCContent.TIME_CARD, 1));
         closeInventory(null);
     }
 
@@ -307,106 +314,173 @@ public class TileEntityInfoPanel extends TileEntity implements IInventory, ITick
         color = compound.getInteger("color");
     }
 
-    @Override
-    public int getSizeInventory() {
-        return 1;
-    }
 
     @Override
-    public boolean isEmpty() {
-        return card == null;
+    public int getSlots() {
+        return 1;
     }
 
     @Override
     public ItemStack getStackInSlot(int i) {
-        return card;
+        return this.itemStack.get(i);
     }
 
+    @Nonnull
     @Override
-    public ItemStack decrStackSize(int i, int i1) {
-        if (card != null && i1 > 0) {
-            this.card = null;
+    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+        //Modified from {@link SidedInvWrapper#extractItem}
+        if (stack.isEmpty())
+            return ItemStack.EMPTY;
+
+        if (slot == -1)
+            return stack;
+
+        ItemStack stackInSlot = this.getStackInSlot(slot);
+
+        int m;
+        if (!stackInSlot.isEmpty())
+        {
+            if (stackInSlot.getCount() >= Math.min(stackInSlot.getMaxStackSize(), getSlotLimit(slot)))
+                return stack;
+
+            if (!ItemHandlerHelper.canItemStacksStack(stack, stackInSlot))
+                return stack;
+
+
+            m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot)) - stackInSlot.getCount();
+
+            if (stack.getCount() <= m) {
+                if (!simulate) {
+                    ItemStack copy = stack.copy();
+                    copy.grow(stackInSlot.getCount());
+                    this.itemStack.set(slot, copy);
+                }
+
+                return stack;
+            } else {
+                // copy the stack to not modify the original one
+                stack = stack.copy();
+                if (!simulate) {
+                    ItemStack copy = stack.splitStack(m);
+                    copy.grow(stackInSlot.getCount());
+                    this.itemStack.set(slot, copy);
+                    return stack;
+                } else {
+                    stack.shrink(m);
+                    return stack;
+                }
+            }
+        } else {
+
+            m = Math.min(stack.getMaxStackSize(), getSlotLimit(slot));
+            if (m < stack.getCount()) {
+                // copy the stack to not modify the original one
+                stack = stack.copy();
+                if (!simulate) {
+                    this.itemStack.set(slot, stack.splitStack(m));
+                    return stack;
+                } else {
+                    stack.shrink(m);
+                    return stack;
+                }
+            } else {
+                if (!simulate)
+                    this.itemStack.set(slot,  stack);
+                return ItemStack.EMPTY;
+            }
         }
-        return this.card;
+    }
+
+    @Nonnull
+    @Override
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        //Modified from {@link SidedInvWrapper#extractItem}
+        if(amount == 0)
+            return ItemStack.EMPTY;
+
+        ItemStack stack = getStackInSlot(slot);
+        if(stack.isEmpty()){
+            return ItemStack.EMPTY;
+        }
+
+        if (simulate)
+        {
+            if (stack.getCount() < amount)
+            {
+                return stack.copy();
+            }
+            else
+            {
+                ItemStack copy = stack.copy();
+                copy.setCount(amount);
+                return copy;
+            }
+        }
+        else
+        {
+            int m = Math.min(stack.getCount(), amount);
+            ItemStack ret = this.decrStackSize(slot, m);
+            this.markDirty();
+            return ret;
+        }
+    }
+
+    public ItemStack decrStackSize(int slot, int amount) {
+        ItemStack stack = getStackInSlot(slot);
+        if (stack != ItemStack.EMPTY)
+            if (stack.getCount() > amount) {
+                stack = stack.splitStack(amount);
+                markDirty();
+            } else {
+                this.itemStack.set(slot, ItemStack.EMPTY);
+            }
+        return stack;
     }
 
     @Override
-    public ItemStack removeStackFromSlot(int i) {
-        return null;
+    public int getSlotLimit(int slot) {
+        return 64;
     }
 
-    @Override
-    public void setInventorySlotContents(int i, ItemStack itemStack) {
-        if (!isItemValidForSlot(0, itemStack)) return;
-        this.card = itemStack;
-    }
 
-    @Override
-    public int getInventoryStackLimit() {
-        return 1;
-    }
-
-    @Override
-    public boolean isUsableByPlayer(EntityPlayer entityPlayer) {
-        return true;
-    }
-
-    @Override
-    public void openInventory(EntityPlayer entityPlayer) {
-
-    }
-
-    @Override
     public void closeInventory(EntityPlayer entityPlayer) {
-        if (this.card == null) {
+        if (this.getStackInSlot(0) == ItemStack.EMPTY) {
             ise = null;
         }
         else {
-            ise = ((ICard)this.card.getItem()).getRenderer(this.card);
+            ise = ((ICard)getCard().getItem()).getRenderer(getCard());
         }
-    }
-
-    @Override
-    public boolean isItemValidForSlot(int i, ItemStack itemStack) {
-        return itemStack.getItem() instanceof ICard;
-    }
-
-    @Override
-    public int getField(int i) {
-        return 0;
-    }
-
-    @Override
-    public void setField(int i, int i1) {
-
-    }
-
-    @Override
-    public int getFieldCount() {
-        return 0;
-    }
-
-    @Override
-    public void clear() {
-        card = null;
-    }
-
-    @Override
-    public String getName() {
-        return "Info Panel";
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return false;
     }
 
     @Override
     public void update() {
-        if (this.card != null) {
-            ICard icard = (ICard) this.card.getItem();
-            icard.update(world, this.card);
-            ise.onCardUpdate(world, this.card);
+        if (getCard() != ItemStack.EMPTY) {
+            ICard icard = (ICard) getCard().getItem();
+            icard.update(world, getCard());
+            ise.onCardUpdate(world, getCard());
         }
+    }
+
+    private ItemStack getCard(){
+        return this.getStackInSlot(0);
+    }
+
+    @Override
+    public boolean isItemValid(int slotIndex, ItemStack itemStack) {
+        switch (slotIndex) {
+            case 0:
+                return itemStack.getItem() instanceof ICard;
+            case 1:
+                return itemStack.getItem() instanceof ItemUpgrade && itemStack.getMetadata() == ItemUpgrade.DAMAGE_RANGE;
+            default:
+                return itemStack.getItem() instanceof ItemUpgrade && itemStack.getMetadata() == ItemUpgrade.DAMAGE_COLOR;
+        }
+
+    }
+
+    @Override
+    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+        if (!isItemValid(slot, stack)) return;
+        this.itemStack.set(slot, stack);
     }
 }

@@ -20,6 +20,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import worldcontrolteam.worldcontrol.client.ClientUtil;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
+import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
@@ -160,12 +161,12 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
     @Override
     public boolean hasGUI() {
-        return false;
+        return true;
     }
 
     @Override
     public int guiID() {
-        return 0;
+        return GuiLib.INFO_PANEL;
     }
 
     @Override

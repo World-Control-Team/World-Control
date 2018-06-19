@@ -10,11 +10,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.client.gui.GuiHowlerAlarm;
 import worldcontrolteam.worldcontrol.client.gui.GuiIndustrialAlarm;
+import worldcontrolteam.worldcontrol.client.gui.GuiInfoPanel;
 import worldcontrolteam.worldcontrol.client.gui.GuiRemotePanel;
 import worldcontrolteam.worldcontrol.container.ContainerEmpty;
+import worldcontrolteam.worldcontrol.container.ContainerInfoPanel;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
+import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
@@ -29,6 +32,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerEmpty(tile);
         } else if (ID == GuiLib.HOWLER_ALARM) {
             return new ContainerEmpty(tile);
+        } else if (ID == GuiLib.INFO_PANEL) {
+            return new ContainerInfoPanel(player, (TileEntityInfoPanel) tile);
         }
         //ALWAY KEEP THIS AS LAST CALL
         return WorldControl.MODULES.guiHandlerServer(ID, player, world, x, y, z);
@@ -44,6 +49,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiIndustrialAlarm((TileEntityHowlerAlarm) tile);
         } else if (ID == GuiLib.HOWLER_ALARM) {
             return new GuiHowlerAlarm((TileEntityHowlerAlarm) tile);
+        } else if (ID == GuiLib.INFO_PANEL) {
+            return new GuiInfoPanel(new ContainerInfoPanel(player, (TileEntityInfoPanel) tile));
         }
         //ALWAY KEEP THIS AS LAST CALL
         return WorldControl.MODULES.guiHandlerClient(ID, player, world, x, y, z);
