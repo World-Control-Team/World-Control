@@ -33,7 +33,7 @@ public class ModelAdvancedInfoPanel implements IModel {
 
     @Override
     public Collection<ResourceLocation> getTextures() {
-
+        return null;
     }
     static private ArrayList<ResourceLocation> textures_ = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class ModelAdvancedInfoPanel implements IModel {
         return new Baked(vertexFormat, this, function, side, back);
     }
 
-    public static class Baked extends IBakedModel {
+    public static class Baked implements IBakedModel {
 
         public Baked(VertexFormat vertexFormat, ModelAdvancedInfoPanel modelAdvancedInfoPanel, Function<ResourceLocation, TextureAtlasSprite> function, ResourceLocation side, ResourceLocation back) {
 

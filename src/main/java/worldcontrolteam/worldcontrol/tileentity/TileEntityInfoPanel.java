@@ -455,7 +455,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
 
     @Override
     public void update() {
-        if (getCard() != ItemStack.EMPTY) {
+        if (getCard() != ItemStack.EMPTY && ise != null) {
             ICard icard = (ICard) getCard().getItem();
             icard.update(world, getCard());
             ise.onCardUpdate(world, getCard());
@@ -484,6 +484,9 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
     public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
         if (!isItemValid(slot, stack)) return;
         this.itemStack.set(slot, stack);
+        if(slot == 0){
+            ise = ((ICard)getCard().getItem()).getRenderer(getCard());
+        }
     }
 
     @Override
