@@ -107,7 +107,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
 
             InfoPanelState istate = new InfoPanelState();
             istate.color = 3;
-            istate.power = RedstoneHelper.checkPowered(world, pos);  // todo: switch this tile to using IRedstoneConsumer
+            istate.power = false;
 
             BlockPos origin = pos;
             if (origin != null) {

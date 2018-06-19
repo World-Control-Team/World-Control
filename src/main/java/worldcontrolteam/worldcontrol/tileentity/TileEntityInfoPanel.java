@@ -16,6 +16,7 @@ import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
+import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import javax.annotation.Nullable;
@@ -26,7 +27,7 @@ import java.util.Map;
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
  */
-public class TileEntityInfoPanel extends TileEntity implements IInventory, ITickable {
+public class TileEntityInfoPanel extends TileEntity implements IInventory, ITickable, RedstoneHelper.IRedstoneConsumer {
     public int color;
     public boolean power;
 
@@ -408,5 +409,16 @@ public class TileEntityInfoPanel extends TileEntity implements IInventory, ITick
             icard.update(world, this.card);
             ise.onCardUpdate(world, this.card);
         }
+        RedstoneHelper.checkPowered(world, this);
+    }
+
+    @Override
+    public boolean getPowered() {
+        return power;
+    }
+
+    @Override
+    public void setPowered(boolean value) {
+        this.power = value;
     }
 }
