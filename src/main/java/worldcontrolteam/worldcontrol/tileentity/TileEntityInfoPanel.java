@@ -318,7 +318,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
 
     @Override
     public int getSlots() {
-        return 1;
+        return this.itemStack.size();
     }
 
     @Override
