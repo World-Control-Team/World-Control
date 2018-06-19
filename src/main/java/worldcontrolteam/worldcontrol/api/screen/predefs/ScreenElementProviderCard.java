@@ -40,29 +40,33 @@ public class ScreenElementProviderCard implements IScreenElement {
         int maxlen = 1;
 
         for (StringWrapper sw : joinedData) {
-            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 0) +
-                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight) : 0) +
-                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter) : 0)) + 40;
+            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 8) +
+                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight)+4 : 8) +
+                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter)+4 : 8));
             maxlen = Math.max(maxlen, len);
         }
 
         double scaleFactor = (double)sizeX / (double)maxlen;
+        if (joinedData.size()*10*scaleFactor > sizeY) {
+            scaleFactor = (float)sizeY / (joinedData.size() * 10);
+        }
         GlStateManager.pushMatrix();
         GlStateManager.scale(scaleFactor, scaleFactor, 0);
         sizeX /= scaleFactor;
 
         int row = 0;
+
         for (StringWrapper panelString : joinedData) {
             if (panelString.textLeft != null)
-                fontRenderer.drawString(panelString.textLeft, 2, row * 10 + 20, 0x06aee4);
+                fontRenderer.drawString(panelString.textLeft, 2, row * 10, 0x06aee4);
 
             if (panelString.textCenter != null)
-                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10 + 20, 0x06aee4);
+                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10, 0x06aee4);
 
             if (panelString.textRight != null)
-                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row - 1) * 10 + 20, 0x06aee4);
+                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row) * 10, 0x06aee4);
 
-            if ((row++) * 10 + 20 > sizeY) return;
+            if ((row++) * 10 > sizeY) return;
         }
 
         GlStateManager.popMatrix();
@@ -75,9 +79,9 @@ public class ScreenElementProviderCard implements IScreenElement {
         int maxlen = 1;
 
         for (StringWrapper sw : joinedData) {
-            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 0) +
-                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight) : 0) +
-                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter) : 0)) + 10;
+            int len = ((sw.textLeft != null ? fontRenderer.getStringWidth(sw.textLeft) : 8) +
+                    (sw.textRight != null ? fontRenderer.getStringWidth(sw.textRight)+4 : 8) +
+                    (sw.textCenter != null ? fontRenderer.getStringWidth(sw.textCenter)+4 : 8));
             maxlen = Math.max(maxlen, len);
         }
 

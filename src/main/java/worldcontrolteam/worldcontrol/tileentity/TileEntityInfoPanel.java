@@ -23,6 +23,7 @@ import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
 import worldcontrolteam.worldcontrol.items.ItemUpgrade;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
+import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import javax.annotation.Nullable;
@@ -33,7 +34,7 @@ import java.util.Map;
 /**
  * Created by dmf444 on 8/15/2017. Code originally written for World-Control.
  */
-public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITickable, ISlotItemFilter, IItemHandlerModifiable {
+public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITickable, ISlotItemFilter, IItemHandlerModifiable, RedstoneHelper.IRedstoneConsumer  {
     public int color;
     public boolean power;
 
@@ -459,6 +460,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
             icard.update(world, getCard());
             ise.onCardUpdate(world, getCard());
         }
+        RedstoneHelper.checkPowered(world, this);
     }
 
     private ItemStack getCard(){
@@ -483,4 +485,15 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         if (!isItemValid(slot, stack)) return;
         this.itemStack.set(slot, stack);
     }
+
+    @Override
+    public boolean getPowered(){
+      return power;
+    }
+
+    @Override
+    public void setPowered(boolean value){
+      this.power = value;
+    }
+
 }
