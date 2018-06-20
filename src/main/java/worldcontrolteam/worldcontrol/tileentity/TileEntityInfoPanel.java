@@ -450,6 +450,8 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         }
         else {
             ise = ((ICard)getCard().getItem()).getRenderer(getCard());
+            ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, showLabels);
+
         }
     }
 
@@ -486,7 +488,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         this.itemStack.set(slot, stack);
         if(slot == 0){
             ise = ((ICard)getCard().getItem()).getRenderer(getCard());
-            ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, showLabels );
+            ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, showLabels);
         }
     }
 
@@ -498,6 +500,9 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
 
     public void updateShowLabels(boolean update){
         this.showLabels = update;
+        if (ise != null) {
+            ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, this.showLabels);
+        }
     }
 
     @Override
