@@ -56,7 +56,7 @@ public class IC2ReactorCard extends ItemBaseCard {
         if (card.hasTagCompound()) {
             // Heat
             line = new StringWrapper();
-            line.textLeft = WCUtility.translateFormatted("info_panel_heat", card.getTagCompound().getInteger("heat"));
+            line.textLeft = WCUtility.translateFormattedR("info_panel_heat", showLabels, card.getTagCompound().getInteger("heat"));
             list.add(line);
             // Max Heat
             line = new StringWrapper();

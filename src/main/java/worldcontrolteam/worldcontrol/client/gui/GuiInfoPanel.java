@@ -20,7 +20,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import worldcontrolteam.worldcontrol.client.gui.features.CompactButton;
+import worldcontrolteam.worldcontrol.client.gui.features.GuiInfoPanelShowLabels;
 import worldcontrolteam.worldcontrol.container.ContainerInfoPanel;
+import worldcontrolteam.worldcontrol.network.ChannelHandler;
+import worldcontrolteam.worldcontrol.network.messages.PacketUpdateShowLabels;
 
 
 @SideOnly(Side.CLIENT)
@@ -139,15 +142,16 @@ public class GuiInfoPanel extends GuiContainer {
 
   @SuppressWarnings("unchecked")
   protected void initControls() {
+    buttonList.clear();
+    buttonList.add(new GuiInfoPanelShowLabels(0, guiLeft + xSize - 25, guiTop + 42, container.panel));
     /*ItemStack card = this.getActiveCard();
     if (((card == null && prevCard == null) || (card != null && card.equals(prevCard))) && this.container.panel.getColored() == isColored)
       return;
     int h = fontRenderer.FONT_HEIGHT + 1;
-    buttonList.clear();
+
     prevCard = card;
     //isColored = container.panel.getColored();
-    buttonList.add(new GuiInfoPanelShowLabels(0, guiLeft + xSize - 25,
-        guiTop + 42, container.panel));
+
     int delta = 0;
     if (isColored) {
       buttonList.add(new CompactButton(112, guiLeft + xSize - 25, guiTop + 55, 18, 12, "T"));
@@ -187,7 +191,7 @@ public class GuiInfoPanel extends GuiContainer {
   public void initGui() {
     super.initGui();
     initControls();
-  };
+  }
 
   @Override
   protected void drawGuiContainerForegroundLayer(int par1, int par2) {
@@ -252,6 +256,13 @@ public class GuiInfoPanel extends GuiContainer {
   @Override
   protected void actionPerformed(GuiButton button) {
     //TODO
+    if(button.id == 0){
+      //This is the showLabels button
+      boolean update = !this.container.panel.shouldShowLabels();
+      this.container.panel.updateShowLabels(update);
+      ChannelHandler.network.sendToServer(new PacketUpdateShowLabels(update, this.container.panel.getPos()));
+    }
+
     /*if (button.id == 112) { // color upgrade
 
       GuiScreen colorGui = new GuiScreenColor(this, container.panel);

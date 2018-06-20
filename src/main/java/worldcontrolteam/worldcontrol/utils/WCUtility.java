@@ -52,7 +52,15 @@ public class WCUtility {
     }
 
     public static String translateFormatted(String key, Object... format) {
-        return Translator.getSidedTranslator().translate(key, format);
+        return translateFormattedR(key, true, format);
+    }
+
+    public static String translateFormattedR(String key, boolean showLabels, Object... format) {
+        if(showLabels) {
+            return Translator.getSidedTranslator().translate(key, format);
+        } else {
+            return String.format("%s", format);
+        }
     }
 
     public static <T extends TileEntity> Optional<T> getTileEntity(IBlockAccess world, BlockPos pos, Class<T> tileClass) {

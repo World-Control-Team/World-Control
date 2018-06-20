@@ -3,6 +3,8 @@ package worldcontrolteam.worldcontrol.api.card;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 
 /**
@@ -16,5 +18,6 @@ public interface ICard {
 
     IScreenElement getRenderer(ItemStack stack);
 
+    @SideOnly(Side.CLIENT)
     Gui getConfigGui(World world, ItemStack card);
 }

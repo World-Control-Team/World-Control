@@ -13,6 +13,7 @@ public class ChannelHandler {
         network.registerMessage(PacketClientRemotePanel.Handler.class, PacketClientRemotePanel.class, 1, Side.CLIENT);
         network.registerMessage(PacketUpdateHowlerAlarm.Handler.class, PacketUpdateHowlerAlarm.class, 2, Side.SERVER);
         network.registerMessage(PacketClientUpdateMonitor.Handler.class, PacketClientUpdateMonitor.class, 3, Side.SERVER);
+        network.registerMessage(PacketUpdateShowLabels.Handler.class, PacketUpdateShowLabels.class, 4, Side.SERVER);
     }
 
 }

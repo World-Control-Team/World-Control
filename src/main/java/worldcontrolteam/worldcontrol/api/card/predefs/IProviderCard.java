@@ -27,5 +27,6 @@ public interface IProviderCard extends ICard {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     default Gui getConfigGui(World w, ItemStack is) {return null;} // TODO: dmf add toggle gui here.
 }
