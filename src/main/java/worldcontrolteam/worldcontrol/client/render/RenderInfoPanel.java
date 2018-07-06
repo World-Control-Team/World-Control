@@ -16,7 +16,7 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
     @Override
     public void render(TileEntityInfoPanel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         if (te.ise == null) return;
-        if (!te.power) return;
+        if (!te.getPowered()) return;
         IScreenElement ise = te.ise;
 
         GlStateManager.pushMatrix();
