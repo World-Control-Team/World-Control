@@ -4,21 +4,7 @@
     "model": "worldcontrol:ic2_remote_reactor_monitor"
   },
   "variants": {
-    "rendertype": {
-      "ok": {
-        "textures": {
-          "up": "worldcontrol:blocks/reactorheatmonitor/face_green",
-          "particle" : "worldcontrol:blocks/reactorheatmonitor/face_green"
-        }
-      },
-      "hot": {
-        "textures": {
-          "up": "worldcontrol:blocks/reactorheatmonitor/face_red",
-          "particle" : "worldcontrol:blocks/reactorheatmonitor/face_red"
-        }
-      },
-      "none": {}
-    },
+    "inventory": {"model": "worldcontrol:ic2_remote_reactor_monitor"},
     "facing": {
       "north": {"y": 180, "x": -90},
       "south": {"x": -90},

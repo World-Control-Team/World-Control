@@ -3,6 +3,7 @@ package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 import ic2.api.energy.prefab.BasicSink;
 import ic2.api.item.IElectricItem;
 import ic2.api.reactor.IReactor;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -263,6 +264,15 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
             nbttagcompound.setTag("stack"+i, tag);
         }
         return nbttagcompound;
+    }
+
+    @Override
+    public Block getBlock() {
+        return IC2Module.REMOTE_THERMO_MONITOR;
+    }
+
+    public String getRenderType() {
+        return "full_block";
     }
 
     @Override

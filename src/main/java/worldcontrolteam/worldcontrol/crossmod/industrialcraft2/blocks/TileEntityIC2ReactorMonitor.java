@@ -2,10 +2,12 @@ package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
+import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
+import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.IC2Module;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 
@@ -32,5 +34,10 @@ public class TileEntityIC2ReactorMonitor extends TileEntityBaseReactorHeatMonito
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Block getBlock() {
+        return IC2Module.THERMO_MONITOR;
     }
 }
