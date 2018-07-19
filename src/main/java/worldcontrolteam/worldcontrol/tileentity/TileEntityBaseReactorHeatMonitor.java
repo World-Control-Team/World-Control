@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.tileentity;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -10,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implements ITickable {
 
-    boolean overheated;
+    boolean prevOverheated;
     private int threshhold = 500;
     private boolean outputInverse = false;
     private BlockPos referenceBlock;
@@ -22,8 +23,11 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
     @Override
     public void update() {
         //WCUtility.log(Level.FATAL, outputInverse);
-        world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
-        world.notifyBlockUpdate(getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.pos), 3);
+        boolean overheated = isOverHeated();
+        if(prevOverheated != overheated){
+            prevOverheated = overheated;
+            this.markForUpdate();
+        }
     }
 
     public int getThreshhold() {
@@ -36,6 +40,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
         if (updateT < 0)
             updateT = 0;
         this.threshhold = updateT;
+        this.markForUpdate();
     }
 
     public boolean getInversion() {
@@ -52,6 +57,7 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     public void setInverse(boolean updateInverse) {
         this.outputInverse = updateInverse;
+        this.markForUpdate();
     }
 
 
@@ -59,23 +65,34 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
 
     public abstract boolean isConnectionValid();
 
+    public String getRenderType() {
+        return "half_block";
+    }
+
     public boolean isOverHeated() {
+        boolean test = false;
         if (this.isConnectionValid()) {
             if (!outputInverse) {
                 if (this.getCurrentHeat() >= threshhold) {
-                    return true;
+                    test = true;
                 } else {
-                    return false;
+                    test = false;
                 }
             } else {
                 if (this.getCurrentHeat() <= threshhold) {
-                    return true;
+                    test = true;
                 } else {
-                    return false;
+                    test = false;
                 }
             }
         }
-        return false;
+        return test;
+    }
+
+    public void markForUpdate()
+    {
+        world.notifyNeighborsOfStateChange(getPos(), this.getBlock(), false);
+        world.notifyBlockUpdate(getPos(), this.getWorld().getBlockState(this.pos), this.getWorld().getBlockState(this.pos), 3);
     }
 
     public NBTTagCompound getUpdateTag() {
@@ -111,4 +128,6 @@ public abstract class TileEntityBaseReactorHeatMonitor extends TileEntity implem
         nbttagcompound.setInteger("threshold", this.threshhold);
         return nbttagcompound;
     }
+
+    public abstract Block getBlock();
 }

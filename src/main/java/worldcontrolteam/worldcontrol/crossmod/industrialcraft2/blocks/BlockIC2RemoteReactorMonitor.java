@@ -3,14 +3,24 @@ package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.blocks.BlockBasicRotate;
+import worldcontrolteam.worldcontrol.client.ClientUtil;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.utils.GuiLib;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
@@ -21,8 +31,21 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
 
     public BlockIC2RemoteReactorMonitor() {
         super(Material.IRON, "ic2_remote_reactor_monitor");
-        this.setDefaultState(this.getDefaultState().withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND).withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
+        this.setDefaultState(this.getDefaultState().withProperty(BlockBasicRotate.FACING, EnumFacing.UP));
         this.defaultCreativeTab();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerModels(ModelRegistryEvent event) {
+        final String resourcePath = getRegistryName().toString();
+        ClientUtil.setCustomStateMapper(this, state -> new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
+        NonNullList<ItemStack> subBlocks = NonNullList.create();
+        getSubBlocks(null, subBlocks);
+        for (ItemStack stack : subBlocks) {
+            IBlockState state = getDefaultState();
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), stack.getMetadata(), new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
+        }
     }
 
     @Override
@@ -62,14 +85,12 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, RENDER_TYPE);
+        return new BlockStateContainer(this, FACING);
     }
 
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-        TileEntity tile = world instanceof ChunkCache ? ((ChunkCache) world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-        if (((TileEntityBaseReactorHeatMonitor) tile).isConnectionValid()) {
-            return WCUtility.getTileEntity(world, pos, TileEntityIC2RemoteReactorMonitor.class).map(t -> t.isOverHeated() ? state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.OVER_HEAT) : state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NORMAL)).orElse(state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND));
-        }
-        return state.withProperty(RENDER_TYPE, BlockIC2ReactorMonitor.RenderType.NOT_FOUND);
+    public EnumBlockRenderType getRenderType(IBlockState state)
+    {
+        return EnumBlockRenderType.MODEL;
     }
+
 }
