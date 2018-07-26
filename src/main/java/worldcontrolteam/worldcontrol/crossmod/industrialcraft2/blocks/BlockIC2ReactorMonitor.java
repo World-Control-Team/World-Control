@@ -43,7 +43,7 @@ public class BlockIC2ReactorMonitor extends BlockIndustrialAlarm {
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        if (facing == state.getValue(FACING).getOpposite())
+        if (facing == state.getValue(FACING))
             return 0;
         return WCUtility.getTileEntity(world, pos, TileEntityIC2ReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }

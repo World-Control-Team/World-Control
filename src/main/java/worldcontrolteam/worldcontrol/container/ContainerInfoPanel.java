@@ -68,7 +68,9 @@ public class ContainerInfoPanel extends Container
         int initialCount = items.getCount();
         if (slotId < panel.getSlots()) {
           //moving from panel to inventory
-          mergeItemStack(items, panel.getSlots(), inventorySlots.size(), false);
+          if(!mergeItemStack(items, panel.getSlots(), inventorySlots.size(), false)){
+            return ItemStack.EMPTY;
+          }
           if (items.getCount() == 0) {
             slot.putStack(ItemStack.EMPTY);
           } else {
