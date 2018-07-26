@@ -21,4 +21,5 @@ public interface IScreenContainer {
     }
 
     boolean isValid(World worldIn, BlockPos pos);
+    default boolean isAdvanced() {return false;}
 }

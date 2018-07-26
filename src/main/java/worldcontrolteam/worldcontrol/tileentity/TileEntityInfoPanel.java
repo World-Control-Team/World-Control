@@ -99,6 +99,10 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
                         validCache.put(pos1, false);
                         return false;
                     }
+                    if (c.isAdvanced()) {
+                        validCache.put(pos1, false);
+                        return false;
+                    }
                     validCache.put(pos1, true);
                 }
             }
