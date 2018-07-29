@@ -73,6 +73,7 @@ public class ContainerInfoPanel extends Container
           }
           if (items.getCount() == 0) {
             slot.putStack(ItemStack.EMPTY);
+            slot.onSlotChanged();
           } else {
             slot.onSlotChanged();
             if(initialCount != items.getCount())

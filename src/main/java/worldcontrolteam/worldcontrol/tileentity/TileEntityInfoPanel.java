@@ -475,6 +475,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
 
     @Override
     public boolean isItemValid(int slotIndex, ItemStack itemStack) {
+        if(itemStack == ItemStack.EMPTY) return true;
         switch (slotIndex) {
             case 0:
                 return itemStack.getItem() instanceof ICard;
@@ -490,7 +491,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
     public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
         if (!isItemValid(slot, stack)) return;
         this.itemStack.set(slot, stack);
-        if(slot == 0){
+        if(stack != ItemStack.EMPTY && slot == 0){
             ise = ((ICard)getCard().getItem()).getRenderer(getCard());
             ise.setContext(IScreenElement.EnumScreenContext.SCREEN_BASIC, showLabels);
         }
