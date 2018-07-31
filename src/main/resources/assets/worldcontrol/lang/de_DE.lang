@@ -1,0 +1,102 @@
+msg.worldcontrol.creativetab=World Control
+
+item.worldcontrol.thermometer.name=Thermometer
+item.worldcontrol.time_card.name=Zeitkarte
+item.worldcontrol.remote_panel.name=Portable Informationstafel
+item.worldcontrol.ic2_reactor_card.name=EU Reaktorkarte
+item.worldcontrol.ic2_reactor_kit.name=EU Reaktor-Bausatz
+item.worldcontrol.ic2_energy_storage_kit.name=EU Energie-Bausatz
+item.worldcontrol.ic2_energy_storage_card.name=EU Energiekarte
+item.worldcontrol.tesla_power_kit.name=Tesla Energie-Bausatz
+item.worldcontrol.tesla_power_card.name=Tesla Energiekarte
+item.worldcontrol.forge_energy_kit.name=Forge Energie-Bausatz
+item.worldcontrol.forge_energy_card.name=Forge Energiekarte
+item.worldcontrol.fluid_kit.name=Flüssigkeit-Bausatz
+item.worldcontrol.fluid_card.name=Flüssigkeitkarte
+item.worldcontrol.er_card.name=Extreme Reactor-Karte
+item.worldcontrol.er_kit.name=Extreme Reactor-Bausatz
+item.worldcontrol.range_upgrade.name=Reichweiten-Erweiterung
+item.worldcontrol.color_upgrade.name=Farben-Erweiterung
+
+tile.worldcontrol.tesla_average_counter.name=Tesla Mittelwertzähler
+tile.worldcontrol.average_counter.name=Mittelwertzähler
+tile.worldcontrol.industrial_alarm.name=Industriealarm
+tile.worldcontrol.howler_alarm.name=Heulalarm
+tile.worldcontrol.extremereactormonitor.name=Extreme Reactor-Monitor
+tile.worldcontrol.ic2_reactor_monitor.name=IC2 Wärmemonitor
+tile.worldcontrol.info_panel.name=Basische Informationstafel
+tile.worldcontrol.info_panel_extender.name=Basische Informationstafel-Erweiterung
+
+fluid.mercury=Quecksilber
+
+#Thermometer
+msg.worldcontrol.thermometer.chat_info=Wärme: %s
+msg.worldcontrol.thermometer.switchTo=Modus gesetzt auf: %s
+msg.worldcontrol.thermometer.mode=Modus: %s
+msg.worldcontrol.thermometer.unset=Nicht festgelegt
+msg.worldcontrol.thermometer.mode.IC2=IndustrialCraft 2
+msg.worldcontrol.thermometer.mode.extremereactors=Extreme Reactors
+
+###################
+#Card Strings
+###################
+msg.worldcontrol.card.cords=X: %1$d Y: %2$d Z: %3$d
+msg.worldcontrol.card.no_cords=Fehlende Koordinaten
+
+msg.worldcontrol.time_card.time=Zeit: %s
+msg.worldcontrol.none=Keine
+msg.worldcontrol.average_counter_period=Zeitraum: %s Sek
+
+msg.worldcontrol.time_card.am=AM
+msg.worldcontrol.time_card.pm=PM
+
+#IC2 Reactor
+msg.worldcontrol.info_panel_on=An
+msg.worldcontrol.info_panel_off=Aus
+msg.worldcontrol.info_panel_heat=T: %s
+msg.worldcontrol.info_panel_max_heat=MaxWärme: %s
+msg.worldcontrol.info_panel_melting=Schmelzen: %s
+msg.worldcontrol.info_panel_output=Ausgabe: %s EU/t
+msg.worldcontrol.info_panel_time_remaining=Noch bleibend: %s
+
+#IC2 Energy Storage
+msg.worldcontrol.eu_energy=Energie: %s EU
+msg.worldcontrol.eu_free=Frei: %s EU
+msg.worldcontrol.eu_stored=Speicher: %s EU
+msg.worldcontrol.fill_ratio=Besetzt: %s%%
+
+#Fluids
+msg.worldcontrol.liquid_name=Name: %s
+msg.worldcontrol.liquid_amount=Menge: %s
+msg.worldcontrol.liquid_capacity=Kapazität: %s
+msg.worldcontrol.liquid_free=Frei: %s
+msg.worldcontrol.liquid_percentage=Besetzt: %s%%
+
+#Tesla Energy System
+msg.worldcontrol.tesla_energy=Energie: %s T
+msg.worldcontrol.tesla_free=Frei: %s T
+msg.worldcontrol.tesla_stored=Speicher: %s T
+msg.worldcontrol.tesla.average=Mittelwert: %s T
+
+#Forge Energy System
+msg.worldcontrol.forge_energy=Energie: %s FE
+msg.worldcontrol.forge_free=Frei: %s FE
+msg.worldcontrol.forge_stored=Speicher: %s FE
+
+#Extreme Reactors
+msg.worldcontrol.exreactors.temp=Kern-Temp.: %s C
+msg.worldcontrol.exreactors.energystored=Energie: %s RF
+msg.worldcontrol.exreactors.createdenergy=Energieausgabe: %s RF/t
+msg.worldcontrol.exreactors.percentage=Zwischenspeicher ist %s%% voll
+msg.worldcontrol.exreactors.steamoutput=Dampfausgabe: %s mB/t
+msg.worldcontrol.exreactors.coolanttank=Kühlmittel-Tank: %s x%smB
+msg.worldcontrol.exreactors.outputtank=Tank-Ausgabe: %s x%smB
+
+
+###################
+#Block Messages
+###################
+msg.worldcontrol.HowlerAlarmSoundRange=Ton-Reichweite: %s
+msg.worldcontrol.HowlerAlarmSound=Ton
+msg.worldcontrol.thermalmonitorgui.name=Wärmemonitor
+msg.worldcontrol.blockremoteheatmonitor.name=Fernbedienter Wärmemonitor
