@@ -45,10 +45,10 @@ repositories {
 
 
 minecraft {
-	version = "1.12.2-14.23.1.2607"
+	version = "1.12.2-14.23.5.2778"
 	runDir = "run"
 
-	mappings = "snapshot_20170919"
+	mappings = "snapshot_20171003"
 
 	replace "@VERSION@", project.version
 
@@ -58,11 +58,12 @@ minecraft {
 dependencies {
 	deobfCompile "MCMultiPart2:MCMultiPart:2.3.0"
 	//deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
-	deobfProvided "mezz.jei:jei_1.12.2:4.7.11.102:api"
-	runtime "mezz.jei:jei_1.12.2:4.7.11.102"
+	deobfProvided "mezz.jei:jei_${mc_version}:4.7.11.102:api"
+	runtime "mezz.jei:jei_${mc_version}:4.7.11.102"
 	//compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
-	compile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
-	deobfCompile 'net.industrial-craft:industrialcraft-2:2.8.85-ex112:dev'
+	compile "net.darkhax.tesla:Tesla-${mc_version}:1.0.63"
+	deobfProvided 'net.industrial-craft:industrialcraft-2:2.8.85-ex112:api'
+	runtime 'net.industrial-craft:industrialcraft-2:2.8.85-ex112:dev'
 }
 processResources {
 	inputs.property "version", project.version

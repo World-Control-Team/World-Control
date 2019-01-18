@@ -1,6 +1,6 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items;
 
-import ic2.core.block.wiring.TileEntityElectricBlock;
+import ic2.api.tile.IEnergyStorage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +21,6 @@ public class IC2EnergyStorageKit extends ItemBaseKit {
 
     @Override
     public boolean canReturnCard(ItemStack stack, World world, BlockPos pos) {
-        return world.getTileEntity(pos) instanceof TileEntityElectricBlock;
+        return world.getTileEntity(pos) instanceof IEnergyStorage;
     }
 }
