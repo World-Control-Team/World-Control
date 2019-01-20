@@ -16,14 +16,7 @@ public class ReactorUtils {
         if (world == null)
             return null;
         TileEntity tile = WCUtility.getTileEntity(world, pos).orElse(null);
-        if (tile == null){
-            return null;
-        } else if (tile instanceof IReactor) {
-            return (IReactor) tile;
-        }else {
-            return tile instanceof IReactorChamber ? ((IReactorChamber) tile).getReactorInstance() : null;
-        }
-
+        return tile == null ? null : tile instanceof IReactor ? (IReactor) tile : tile instanceof IReactorChamber ? ((IReactorChamber) tile).getReactorInstance() : null;
     }
 
     public static boolean isProducing(World world, BlockPos pos) {
@@ -31,14 +24,7 @@ public class ReactorUtils {
     }
 
     public static int getNuclearCellTimeLeft(ItemStack rStack) {
-        if (rStack.isEmpty()){
-            return 0;
-        } else if (rStack.getItem() instanceof IReactorComponent){
-            return rStack.getItem() instanceof ICustomDamageItem ? ((ICustomDamageItem) rStack.getItem()).getMaxCustomDamage(rStack) - ((ICustomDamageItem) rStack.getItem()).getCustomDamage(rStack) : rStack.getMaxDamage() - rStack.getItemDamage();
-        } else{
-            return 0;
-        }
-
+        return rStack.isEmpty() ? 0 : rStack.getItem() instanceof IReactorComponent ? rStack.getItem() instanceof ICustomDamageItem ? ((ICustomDamageItem) rStack.getItem()).getMaxCustomDamage(rStack) - ((ICustomDamageItem) rStack.getItem()).getCustomDamage(rStack) : rStack.getMaxDamage() - rStack.getItemDamage() : 0;
     }
 
 }
