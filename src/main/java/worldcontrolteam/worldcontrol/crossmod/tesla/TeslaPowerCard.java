@@ -7,7 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.items.ItemBaseCard;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;

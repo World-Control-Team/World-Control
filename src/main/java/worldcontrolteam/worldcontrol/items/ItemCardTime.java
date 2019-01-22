@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.WorldControl;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
 import java.util.List;

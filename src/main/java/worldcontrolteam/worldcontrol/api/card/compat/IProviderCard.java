@@ -1,11 +1,10 @@
-package worldcontrolteam.worldcontrol.api.card.predefs;
+package worldcontrolteam.worldcontrol.api.card.compat;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.ICard;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.api.screen.predefs.ScreenElementProviderCard;

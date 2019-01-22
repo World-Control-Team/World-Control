@@ -1,5 +1,6 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -9,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import worldcontrolteam.worldcontrol.api.card.ICard;
-import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.container.ContainerRemotePanel;
@@ -51,6 +52,12 @@ public class GuiRemotePanel extends GuiContainer {
         this.drawTexturedModalRect(x, y, 0, 0, 204, ySize);
     }
 
+    @Override
+    public void drawScreen(int mX, int mY, float pT) {
+        super.drawScreen(mX, mY, pT);
+        super.renderHoveredToolTip(mX, mY);
+    }
+
     private void updateScreenElement(ItemStack itemInInventory) {
         if (itemInInventory != lastCard) {
             lastCard = itemInInventory;
@@ -75,6 +82,7 @@ public class GuiRemotePanel extends GuiContainer {
             ChannelHandler.network.sendToServer(new PacketServerRemotePanel(inv.getStackInSlot(0)));
             if (isce != null) {
                 //CardState cs = card.update(e.world, inv.getStackInSlot(0));
+                // todo: figure out
                 isce.onCardUpdate(e.world, itemInv.getStackInSlot(0));
                 drawCardStuff(true);
             }
@@ -82,6 +90,9 @@ public class GuiRemotePanel extends GuiContainer {
                 // todo: add getRemoteCustomMSG back here
             }
         }
+
+
+
     }
 
     private List<StringWrapper> getRemoteCustomMSG() {
@@ -111,7 +122,7 @@ public class GuiRemotePanel extends GuiContainer {
         int y = (height - ySize) / 2;
 
         GlStateManager.pushMatrix();
-        GlStateManager.translate(9, 0, 0);
+        GlStateManager.translate(9, 9, 0);
 
         isce.draw(158, ySize); // technically should work... i hope
 
@@ -126,5 +137,6 @@ public class GuiRemotePanel extends GuiContainer {
 
         if (this.e.getHeldItemMainhand().isEmpty())
             this.mc.player.closeScreen();
+
     }
 }

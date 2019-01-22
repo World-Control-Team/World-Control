@@ -7,7 +7,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import worldcontrolteam.worldcontrol.api.card.ICard;
-import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
 import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;

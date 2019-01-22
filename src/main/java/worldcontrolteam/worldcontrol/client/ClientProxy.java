@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.CommonProxy;
-import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
+import worldcontrolteam.worldcontrol.api.card.compat.IProviderCard;
 import worldcontrolteam.worldcontrol.client.model.infopanel.ModelLoaderInfoPanel;
 import worldcontrolteam.worldcontrol.client.render.RenderHeatMonitor;
 import worldcontrolteam.worldcontrol.client.render.RenderInfoPanel;

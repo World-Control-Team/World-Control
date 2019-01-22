@@ -5,8 +5,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import worldcontrolteam.worldcontrol.api.card.predefs.IProviderCard;
-import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.compat.IProviderCard;
+import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.List;
  * <p>
  * See LICENSE.txt for license information.
  */
+@SuppressWarnings("Duplicates")
 public class ScreenElementProviderCard implements IScreenElement {
     private final IProviderCard card;
     private List<StringWrapper> joinedData;

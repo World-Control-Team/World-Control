@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.api.card.CardState;
-import worldcontrolteam.worldcontrol.api.card.predefs.StringWrapper;
+import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.utils.NBTUtils;
 import worldcontrolteam.worldcontrol.utils.WCUtility;
 
