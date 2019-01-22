@@ -85,7 +85,7 @@ task("uploadJars") {
 		apply plugin: 'maven'
 		uploadArchives {
 			repositories {
-				mavenDeployer {
+				mavenDeployer 	{
 					repository(url: "file://" + System.getenv("local_maven"))
 					pom {
 						groupId = project.group
@@ -113,6 +113,11 @@ task("uploadJars") {
 								developer {
 									id 'Xbony2'
 									name 'Xbony2'
+									roles { role 'developer' }
+								}
+								developer {
+									id 'mincrmatt12'
+									name 'mincrmatt12'
 									roles { role 'developer' }
 								}
 							}

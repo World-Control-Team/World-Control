@@ -34,3 +34,4 @@ wi
 *.iml
 World-Control.ipr
 World-Control.iws
+out/
