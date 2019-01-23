@@ -32,7 +32,7 @@ public class BlockInfoPanel extends BlockBasicRotate implements IScreenContainer
         ImmutableMap.Builder<EnumFacing, ImmutablePair<EnumFacing, EnumFacing>> builder = new ImmutableMap.Builder<>();
         // dir, down, left
         builder.put(EnumFacing.UP, new ImmutablePair<>(EnumFacing.SOUTH, EnumFacing.WEST));
-        builder.put(EnumFacing.DOWN, new ImmutablePair<>(EnumFacing.NORTH, EnumFacing.WEST));
+        builder.put(EnumFacing.DOWN, new ImmutablePair<>(EnumFacing.SOUTH, EnumFacing.EAST));
         builder.put(EnumFacing.NORTH, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.EAST));
         builder.put(EnumFacing.SOUTH, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.WEST));
         builder.put(EnumFacing.EAST, new ImmutablePair<>(EnumFacing.DOWN, EnumFacing.SOUTH));
