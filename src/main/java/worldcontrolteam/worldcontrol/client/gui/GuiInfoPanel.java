@@ -223,6 +223,12 @@ public class GuiInfoPanel extends GuiContainer {
   }
 
   @Override
+  public void drawScreen(int mX, int mY, float pT) {
+    super.drawScreen(mX, mY, pT);
+    renderHoveredToolTip(mX, mY);
+  }
+
+  @Override
   public void updateScreen() {
     super.updateScreen();
     if (textboxTitle != null)
