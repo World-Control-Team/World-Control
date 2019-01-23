@@ -30,7 +30,7 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
 
         switch (te.facing) {
             case NORTH:
-                GlStateManager.translate(x+.2, y+.1, z);
+                GlStateManager.translate(x+.2, y+.1, z-0.001);
                 GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
                 GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
                 GlStateManager.scale(-1, -1, 1);
@@ -54,7 +54,7 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
                 ise.draw((int)(sizeZ * 64), (int)(sizeY * 64));
                 break;
             case WEST:
-                GlStateManager.translate(x, y+.18, z+sizeZ+.05);
+                GlStateManager.translate(x-.001, y+.18, z+sizeZ+.05);
                 GlStateManager.rotate(90, 0, 1, 0);
                 GlStateManager.scale(sizeZ / ((float)sizeZ * 64), sizeY / ((float)sizeY * 64), 1);
                 GlStateManager.translate(sizeZ * 64, sizeY * 64, 0);
@@ -71,7 +71,7 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
                 ise.draw((int)(sizeX * 64), (int)(sizeZ * 64));
                 break;
             case DOWN:
-                GlStateManager.translate(x+.18, y, z+.18);
+                GlStateManager.translate(x+.18, y-.001, z+.18);
                 GlStateManager.rotate(-90, 1, 0, 0);
                 GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeZ / ((float)sizeZ * 64), 1);
                 GlStateManager.translate(sizeX*64, 0, 0);
