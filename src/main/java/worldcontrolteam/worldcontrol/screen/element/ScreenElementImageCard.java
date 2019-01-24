@@ -31,13 +31,20 @@ public class ScreenElementImageCard implements IScreenElement {
         Tessellator t = Tessellator.getInstance();
         BufferBuilder b = t.getBuffer();
 
+        double pX, pY;
+
+        // TODO: alignment
+
+        pX = (float)(sizeX / 2) - sizeX_ / 2;
+        pY = (float)(sizeY / 2) - sizeY_ / 2;
+
         GlStateManager.enableTexture2D();
         GlStateManager.bindTexture(lastImageInfo.texID);
         b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
-        b.pos(0, 0, 0).tex(0, 0).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
-        b.pos(0, sizeY_, 0).tex(0, lastImageInfo.v).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
-        b.pos(sizeX_, sizeY_, 0).tex(lastImageInfo.u, lastImageInfo.v).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
-        b.pos(sizeX_, 0, 0).tex(lastImageInfo.u, 0).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
+        b.pos(pX, pY, 0).tex(0, 0).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
+        b.pos(pX, pY + sizeY_, 0).tex(0, lastImageInfo.v).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
+        b.pos(pX + sizeX_, pY + sizeY_, 0).tex(lastImageInfo.u, lastImageInfo.v).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
+        b.pos(pX + sizeX_, pY, 0).tex(lastImageInfo.u, 0).color(1.0f, 1.0f, 1.0f, 1.0f).endVertex();
         t.draw();
     }
 
