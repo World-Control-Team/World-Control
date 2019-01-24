@@ -4,6 +4,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import worldcontrolteam.worldcontrol.CommonProxy;
 import worldcontrolteam.worldcontrol.init.Translator;
+import worldcontrolteam.worldcontrol.network.img.IImageGrabber;
 
 @SideOnly(Side.SERVER)
 public class ServerProxy extends CommonProxy {
@@ -13,6 +14,11 @@ public class ServerProxy extends CommonProxy {
     @Override
     public Translator getSidedTranslator() {
         return translator;
+    }
+
+    @Override
+    public IImageGrabber getImageGrabber() {
+        return null;
     }
 
 }

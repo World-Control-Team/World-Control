@@ -1,6 +1,5 @@
 package worldcontrolteam.worldcontrol.client.gui;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -27,6 +26,7 @@ public class GuiRemotePanel extends GuiContainer {
     private ItemStack lastCard = null;
     private IScreenElement isce;
     private EntityPlayer e;
+    private float pT = 0;
 
     public GuiRemotePanel(InventoryPlayer inv, ItemStack stack, InventoryItem inventoryItem, EntityPlayer player) {
         super(new ContainerRemotePanel(inv, stack, inventoryItem));
@@ -55,6 +55,7 @@ public class GuiRemotePanel extends GuiContainer {
     @Override
     public void drawScreen(int mX, int mY, float pT) {
         super.drawScreen(mX, mY, pT);
+        this.pT = pT;
         super.renderHoveredToolTip(mX, mY);
     }
 
@@ -124,7 +125,7 @@ public class GuiRemotePanel extends GuiContainer {
         GlStateManager.pushMatrix();
         GlStateManager.translate(9, 9, 0);
 
-        isce.draw(158, ySize); // technically should work... i hope
+        isce.draw(158, ySize, pT); // technically should work... i hope
 
         GlStateManager.popMatrix();
 

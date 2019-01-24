@@ -19,6 +19,5 @@ public enum CardState {
     /**
      * Card doesn't have required fields. Basically, NOT OK.
      */
-    INVALID_CARD;
-
+    INVALID_CARD
 }

@@ -44,6 +44,8 @@ public class WCContent {
     public static Block INFO_PANEL_EXTENDER_ADVANCED;
     @ObjectHolder("worldcontrol:time_card")
     public static Item TIME_CARD;
+    @ObjectHolder("worldcontrol:image_card")
+    public static Item IMAGE_CARD;
 
     public static void addBlocks(Block... blocks) {
         Collections.addAll(BLOCKS, blocks);
@@ -62,7 +64,8 @@ public class WCContent {
                 new ItemFluidKit(),
                 new ItemForgeEnergyCard(),
                 new ItemForgeEnergyKit(),
-                new ItemUpgrade()
+                new ItemUpgrade(),
+                new ItemImageCard()
         );
         addBlocks(
                 new BlockIndustrialAlarm(),

@@ -35,12 +35,12 @@ public interface IScreenElement {
      * When drawing to a remotePanel, the units are not the same.
      *
      * If user has moved the element around a screen, the matrix will be automatically updated. (screenSize also gets set correctly)
-     *
      * @param sizeX size of screen X axis
      * @param sizeY size of screen Y axis
+     * @param partialTicks current partialticks
      */
     @SideOnly(Side.CLIENT)
-    void draw(int sizeX, int sizeY);
+    void draw(int sizeX, int sizeY, float partialTicks);
 
     /**
      * Calculate the y-size for a given x-size.

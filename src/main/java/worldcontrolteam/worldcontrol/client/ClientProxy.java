@@ -22,6 +22,9 @@ import worldcontrolteam.worldcontrol.init.IModelRegistrar;
 import worldcontrolteam.worldcontrol.init.Translator;
 import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.InventoryItem;
+import worldcontrolteam.worldcontrol.network.img.IImageGrabber;
+import worldcontrolteam.worldcontrol.network.img.ImageGrabber;
+import worldcontrolteam.worldcontrol.screen.img.ScreenImageMarshaller;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityBaseReactorHeatMonitor;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityHowlerAlarm;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
@@ -31,10 +34,16 @@ import worldcontrolteam.worldcontrol.utils.WCUtility;
 public class ClientProxy extends CommonProxy {
 
     private static Translator translator = new Translator.ClientTranslator();
+    private ImageGrabber grabber;
 
     @Override
     public Translator getSidedTranslator() {
         return translator;
+    }
+
+    @Override
+    public IImageGrabber getImageGrabber() {
+        return grabber;
     }
 
     @Override
@@ -60,6 +69,9 @@ public class ClientProxy extends CommonProxy {
             return -1;
         }, WCContent.REMOTE_PANEL);
         Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) -> world != null && pos != null ? WCUtility.getTileEntity(world, pos, TileEntityHowlerAlarm.class).map(TileEntityHowlerAlarm::getColor).orElse(16777215) : 16777215, WCContent.HOWLER_ALARM);
+
+        grabber = new ImageGrabber();
+        ScreenImageMarshaller.INSTANCE.initGL();
     }
 
     @SubscribeEvent

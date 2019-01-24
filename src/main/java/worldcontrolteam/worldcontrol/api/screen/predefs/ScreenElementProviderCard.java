@@ -41,7 +41,7 @@ public class ScreenElementProviderCard implements IScreenElement {
     }
 
     @Override
-    public void draw(int sizeX, int sizeY) {
+    public void draw(int sizeX, int sizeY, float partialTicks) {
         FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
         int maxlen = 1;
