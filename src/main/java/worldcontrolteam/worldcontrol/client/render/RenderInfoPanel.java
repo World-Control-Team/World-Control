@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
 
@@ -34,6 +35,7 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
         int i1 = i % 65536;
         int j1 = i / 65536;
         OpenGlHelper.setLightmapTextureCoords (OpenGlHelper.lightmapTexUnit, (float) i1, (float) j1);
+        GlStateManager.disableLighting();
         GlStateManager.color(1.0F, 1.0F, 1.0F);
 
         switch (te.facing) {
