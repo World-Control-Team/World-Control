@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import worldcontrolteam.worldcontrol.api.card.ICard;
 import worldcontrolteam.worldcontrol.items.ItemBaseCard;
 import worldcontrolteam.worldcontrol.items.ItemRemotePanel;
 
@@ -118,12 +119,12 @@ public class InventoryItem implements IInventory, ISlotItemFilter {
 
     @Override
     public boolean isItemValid(int slotIndex, ItemStack itemStack) {
-        return !(itemStack.getItem() instanceof ItemRemotePanel) && itemStack.getItem() instanceof ItemBaseCard;
+        return !(itemStack.getItem() instanceof ItemRemotePanel) && itemStack.getItem() instanceof ICard;
     }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
-        return !(itemstack.getItem() instanceof ItemRemotePanel) && itemstack.getItem() instanceof ItemBaseCard;
+        return !(itemstack.getItem() instanceof ItemRemotePanel) && itemstack.getItem() instanceof ICard;
     }
 
     @Override

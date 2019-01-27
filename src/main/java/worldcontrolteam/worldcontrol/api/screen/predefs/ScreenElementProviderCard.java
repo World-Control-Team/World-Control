@@ -65,13 +65,13 @@ public class ScreenElementProviderCard implements IScreenElement {
 
         for (StringWrapper panelString : joinedData) {
             if (panelString.textLeft != null)
-                fontRenderer.drawString(panelString.textLeft, 2, row * 10, 0x06aee4);
+                fontRenderer.drawString(panelString.textLeft, 2, row * 10, panelString.colorLeft);
 
             if (panelString.textCenter != null)
-                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10, 0x06aee4);
+                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10, panelString.colorCenter);
 
             if (panelString.textRight != null)
-                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row) * 10, 0x06aee4);
+                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row) * 10, panelString.colorRight);
 
             if ((row++) * 10 > sizeY) return;
         }
