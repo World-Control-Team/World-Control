@@ -1,7 +1,8 @@
 package worldcontrolteam.worldcontrol.items;
 
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.ICard;
@@ -25,7 +26,7 @@ public class ItemImageCard extends WCBaseItem implements ICard {
     }
 
     @Override
-    public Gui getConfigGui(World world, ItemStack card) {
+    public GuiScreen getConfigGui(World world, BlockPos pos, int i, ItemStack card) {
         return null;
     }
 }

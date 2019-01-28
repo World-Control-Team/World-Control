@@ -37,7 +37,7 @@ public class GuiHandler implements IGuiHandler {
         }
         //ALWAY KEEP THIS AS LAST CALL
         return WorldControl.MODULES.guiHandlerServer(ID, player, world, x, y, z);
-    }
+        }
 
     @Override
     @SideOnly(Side.CLIENT)

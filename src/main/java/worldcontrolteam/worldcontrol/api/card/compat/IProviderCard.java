@@ -1,7 +1,9 @@
 package worldcontrolteam.worldcontrol.api.card.compat;
 
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,5 +29,5 @@ public interface IProviderCard extends ICard {
 
     @Override
     @SideOnly(Side.CLIENT)
-    default Gui getConfigGui(World w, ItemStack is) {return null;} // TODO: dmf add toggle gui here.
+    default GuiScreen getConfigGui(World w, BlockPos p, int cardID, ItemStack is) {return null;} // TODO: dmf add toggle gui here.
 }
