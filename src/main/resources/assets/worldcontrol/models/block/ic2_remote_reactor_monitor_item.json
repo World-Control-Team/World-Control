@@ -1,0 +1,31 @@
+{
+  "parent": "block/cube",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        135,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    }
+  },
+  "textures": {
+    "particle": "worldcontrol:blocks/infopanel/panel_side",
+    "down": "worldcontrol:blocks/remoteheatmonitor/side",
+    "up": "worldcontrol:blocks/remoteheatmonitor/side",
+    "north": "worldcontrol:blocks/remoteheatmonitor/face",
+    "east": "worldcontrol:blocks/remoteheatmonitor/side",
+    "south": "worldcontrol:blocks/remoteheatmonitor/back",
+    "west": "worldcontrol:blocks/remoteheatmonitor/side"
+  }
+}

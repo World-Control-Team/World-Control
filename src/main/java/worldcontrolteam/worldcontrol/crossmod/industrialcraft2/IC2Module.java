@@ -54,8 +54,6 @@ public class IC2Module extends ModuleBase {
 
         GameRegistry.registerTileEntity(TileEntityIC2ReactorMonitor.class, "IC2reactorMonitor");
         GameRegistry.registerTileEntity(TileEntityIC2RemoteReactorMonitor.class, "IC2remoteReactorMonitor");
-        //temp.
-        //GameRegistry.addRecipe(new ShapedOreRecipe(reactorKit, new Object[]{" c ", "cgc", " c ", 'g', "ingotGold", 'c', "circuitBasic"}));
 
     }
 

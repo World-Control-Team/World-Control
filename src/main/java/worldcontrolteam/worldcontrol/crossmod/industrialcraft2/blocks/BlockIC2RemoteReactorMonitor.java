@@ -1,6 +1,7 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -38,14 +39,7 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
-        final String resourcePath = getRegistryName().toString();
-        ClientUtil.setCustomStateMapper(this, state -> new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
-        NonNullList<ItemStack> subBlocks = NonNullList.create();
-        getSubBlocks(null, subBlocks);
-        for (ItemStack stack : subBlocks) {
-            IBlockState state = getDefaultState();
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), stack.getMetadata(), new ModelResourceLocation(resourcePath, ClientUtil.getPropertyString(state.getProperties())));
-        }
+        ClientUtil.registerToNormalWithoutMapper(this);
     }
 
     @Override
@@ -68,6 +62,7 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
         return WCUtility.getTileEntity(world, pos, TileEntityIC2RemoteReactorMonitor.class).map(t -> t.isOverHeated() ? 15 : 0).orElse(0);
     }
 
+    @Override
     public boolean canProvidePower(IBlockState state)
     {
         return true;
@@ -88,6 +83,7 @@ public class BlockIC2RemoteReactorMonitor extends BlockBasicRotate {
         return new BlockStateContainer(this, FACING);
     }
 
+    @Override
     public EnumBlockRenderType getRenderType(IBlockState state)
     {
         return EnumBlockRenderType.MODEL;

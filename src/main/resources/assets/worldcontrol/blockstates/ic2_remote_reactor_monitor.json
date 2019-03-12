@@ -4,12 +4,12 @@
     "model": "worldcontrol:ic2_remote_reactor_monitor"
   },
   "variants": {
-    "inventory": {"model": "worldcontrol:ic2_remote_reactor_monitor"},
+    "inventory": {"model": "worldcontrol:ic2_remote_reactor_monitor_item"},
     "facing": {
       "north": {"y": 180, "x": -90},
       "south": {"x": -90},
       "east": {"x": -90, "y": -90},
-      "west": {"x": -90, "y": 90},
+      "west": {"model": "worldcontrol:ic2_remote_reactor_monitor", "x": -90, "y": 90},
       "up": {},
       "down": {"x": 180}
     }

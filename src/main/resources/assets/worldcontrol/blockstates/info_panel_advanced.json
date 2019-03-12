@@ -1,6 +1,12 @@
 {
   "variants": {
-    "normal": {"model": "worldcontrol:info_panel_advanced"},
-    "inventory": {"model": "worldcontrol:info_panel_advanced"}
+    "normal": {"model": "worldcontrol:info_panel"},
+    "inventory": {"model": "worldcontrol:info_panel"},
+    "facing=north": {"model": "worldcontrol:info_panel", "y": 180, "x": -90},
+    "facing=south": {"model": "worldcontrol:info_panel", "x": -90},
+    "facing=east": {"model": "worldcontrol:info_panel", "x": -90, "y": -90},
+    "facing=west": {"model": "worldcontrol:info_panel", "x": -90, "y": 90},
+    "facing=up": {"model": "worldcontrol:info_panel"},
+    "facing=down": {"model": "worldcontrol:info_panel", "x": 180}
   }
 }

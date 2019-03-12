@@ -9,7 +9,7 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
 
     @Override
     public void render(TileEntityBaseReactorHeatMonitor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        if(te.getRenderType() == "half_block") {
+        if(te.getRenderType().equals("half_block")) {
             int threshold = te.getThreshhold();
             GlStateManager.pushMatrix();
 
