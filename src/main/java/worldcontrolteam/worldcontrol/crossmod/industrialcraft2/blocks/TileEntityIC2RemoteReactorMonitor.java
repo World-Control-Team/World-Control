@@ -66,8 +66,9 @@ public class TileEntityIC2RemoteReactorMonitor extends TileEntityBaseReactorHeat
             if (reactor != null) {
                 return reactor.getHeat();
             }
+            return -1;
         }
-        return -1;
+        return -2;
     }
 
     @Override
