@@ -3,6 +3,7 @@ package worldcontrolteam.worldcontrol.client.render;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
@@ -15,6 +16,60 @@ import worldcontrolteam.worldcontrol.tileentity.TileEntityInfoPanel;
  * See LICENSE.txt for license information.
  */
 public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPanel> {
+    public static void setupFaceTransforms(double x, double y, double z, EnumFacing facing) {
+        setupFaceTransforms(x, y, z, 1, 1, facing);
+    }
+
+    public static void setupFaceTransforms(double x, double y, double z, double sizeX, double sizeY, EnumFacing facing) {
+        switch (facing) {
+            case NORTH:
+                GlStateManager.translate(x+.2, y+.1, z-0.001);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
+                GlStateManager.scale(-1, -1, 1);
+                break;
+            case SOUTH:
+                GlStateManager.translate(x+sizeX+.05, y+.18, z+1.001);
+                GlStateManager.rotate(180, 0, 1, 0);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
+                GlStateManager.scale(-1, -1, 1);
+                break;
+            case EAST:
+                GlStateManager.translate(x+1.001, y+.18, z+.2);
+                GlStateManager.rotate(-90, 0, 1, 0);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
+                GlStateManager.scale(-1, -1, 1);
+                GlStateManager.translate(0.125, 0.125, 0);
+                break;
+            case WEST:
+                GlStateManager.translate(x-.001, y+.18, z+sizeX+.05);
+                GlStateManager.rotate(90, 0, 1, 0);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
+                GlStateManager.scale(-1, -1, 1);
+                GlStateManager.translate(0.125, 0.125, 0);
+                break;
+            case UP:
+                GlStateManager.translate(x+.18, y+1.001, z+.18);
+                GlStateManager.rotate(90, 1, 0, 0);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeX / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX*64, sizeY*64, 0);
+                GlStateManager.scale(-1, -1, 1);
+                break;
+            case DOWN:
+                GlStateManager.translate(x+.18, y-.001, z+.18);
+                GlStateManager.rotate(-90, 1, 0, 0);
+                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
+                GlStateManager.translate(sizeX*64, 0, 0);
+                GlStateManager.scale(-1, -1, 1);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void render(TileEntityInfoPanel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         if (te.ise == null) return;
@@ -40,54 +95,19 @@ public class RenderInfoPanel extends TileEntitySpecialRenderer<TileEntityInfoPan
 
         switch (te.facing) {
             case NORTH:
-                GlStateManager.translate(x+.2, y+.1, z-0.001);
-                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
-                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
-                GlStateManager.scale(-1, -1, 1);
-                ise.draw((int)(sizeX * 64), (int)(sizeY * 64), partialTicks);
-                break;
             case SOUTH:
-                GlStateManager.translate(x+sizeX+.05, y+.18, z+1.001);
-                GlStateManager.rotate(180, 0, 1, 0);
-                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeY / ((float)sizeY * 64), 1);
-                GlStateManager.translate(sizeX * 64, sizeY * 64, 0);
-                GlStateManager.scale(-1, -1, 1);
+                setupFaceTransforms(x, y, z, sizeX, sizeY, te.facing);
                 ise.draw((int)(sizeX * 64), (int)(sizeY * 64), partialTicks);
                 break;
             case EAST:
-                GlStateManager.translate(x+1.001, y+.18, z+.2);
-                GlStateManager.rotate(-90, 0, 1, 0);
-                GlStateManager.scale(sizeZ / ((float)sizeZ * 64), sizeY / ((float)sizeY * 64), 1);
-                GlStateManager.translate(sizeZ * 64, sizeY * 64, 0);
-                GlStateManager.scale(-1, -1, 1);
-                GlStateManager.translate(0.125, 0.125, 0);
-                ise.draw((int)(sizeZ * 64), (int)(sizeY * 64), partialTicks);
-                break;
             case WEST:
-                GlStateManager.translate(x-.001, y+.18, z+sizeZ+.05);
-                GlStateManager.rotate(90, 0, 1, 0);
-                GlStateManager.scale(sizeZ / ((float)sizeZ * 64), sizeY / ((float)sizeY * 64), 1);
-                GlStateManager.translate(sizeZ * 64, sizeY * 64, 0);
-                GlStateManager.scale(-1, -1, 1);
-                GlStateManager.translate(0.125, 0.125, 0);
+                setupFaceTransforms(x, y, z, sizeZ, sizeY, te.facing);
                 ise.draw((int)(sizeZ * 64), (int)(sizeY * 64), partialTicks);
                 break;
             case UP:
-                GlStateManager.translate(x+.18, y+1.001, z+.18);
-                GlStateManager.rotate(90, 1, 0, 0);
-                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeZ / ((float)sizeZ * 64), 1);
-                GlStateManager.translate(sizeX*64, sizeZ*64, 0);
-                GlStateManager.scale(-1, -1, 1);
-                ise.draw((int)(sizeX * 64), (int)(sizeZ * 64), partialTicks);
-                break;
             case DOWN:
-                GlStateManager.translate(x+.18, y-.001, z+.18);
-                GlStateManager.rotate(-90, 1, 0, 0);
-                GlStateManager.scale(sizeX / ((float)sizeX * 64), sizeZ / ((float)sizeZ * 64), 1);
-                GlStateManager.translate(sizeX*64, 0, 0);
-                GlStateManager.scale(-1, -1, 1);
+                setupFaceTransforms(x, y, z, sizeX, sizeZ, te.facing);
                 ise.draw((int)(sizeX * 64), (int)(sizeZ * 64), partialTicks);
-                break;
             default:
                 break;
         }
