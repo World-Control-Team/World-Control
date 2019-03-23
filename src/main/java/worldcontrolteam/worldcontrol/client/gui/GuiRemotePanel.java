@@ -125,6 +125,7 @@ public class GuiRemotePanel extends GuiContainer {
         GlStateManager.pushMatrix();
         GlStateManager.translate(9, 9, 0);
 
+        isce.setContext(IScreenElement.EnumScreenContext.REMOTE_PANEL, true);
         isce.draw(158, ySize, pT); // technically should work... i hope
 
         GlStateManager.popMatrix();
