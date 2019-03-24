@@ -1,6 +1,6 @@
 package worldcontrolteam.worldcontrol.crossmod.industrialcraft2.items;
 
-import ic2.core.block.wiring.TileEntityElectricBlock;
+import ic2.api.tile.IEnergyStorage;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
@@ -24,8 +24,8 @@ public class IC2EnergyStorageCard extends ItemBaseCard {
         CardState state = CardState.NO_TARGET;
         if (card.hasTagCompound()) {
             BlockPos pos = NBTUtils.getBlockPos(card.getTagCompound());
-            if (world.getTileEntity(pos) instanceof TileEntityElectricBlock) {
-                TileEntityElectricBlock energySource = (TileEntityElectricBlock) world.getTileEntity(pos);
+            if (world.getTileEntity(pos) instanceof IEnergyStorage) {
+                IEnergyStorage energySource = (IEnergyStorage) world.getTileEntity(pos);
                 card.getTagCompound().setInteger("max_storage", energySource.getCapacity());
                 card.getTagCompound().setInteger("capacity", energySource.getStored());
                 card.getTagCompound().setInteger("output", energySource.getOutput());
