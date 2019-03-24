@@ -14,6 +14,7 @@ public class ChannelHandler {
         network.registerMessage(PacketUpdateHowlerAlarm.Handler.class, PacketUpdateHowlerAlarm.class, 2, Side.SERVER);
         network.registerMessage(PacketClientUpdateMonitor.Handler.class, PacketClientUpdateMonitor.class, 3, Side.SERVER);
         network.registerMessage(PacketUpdateShowLabels.Handler.class, PacketUpdateShowLabels.class, 4, Side.SERVER);
+        network.registerMessage(PacketUpdateClientMonitorCard.Handler.class, PacketUpdateClientMonitorCard.class, 5, Side.CLIENT);
     }
 
 }

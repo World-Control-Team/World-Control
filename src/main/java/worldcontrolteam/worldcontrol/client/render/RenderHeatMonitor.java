@@ -107,7 +107,7 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
         BufferBuilder b = t.getBuffer();
 
         // Show thing
-        int amt = (int)(64 * MathHelper.clamp(baseReactorHeatMonitor.getThreshhold() / (double)baseReactorHeatMonitor.getCurrentHeat(), 0.0D, 1.0D));
+        int amt = (int)(64 * MathHelper.clamp(/*(double)baseReactorHeatMonitor.getCurrentHeat()*/ ((double)400 / (double)baseReactorHeatMonitor.getThreshhold()), 0.0D, 1.0D));
         double other_amt = (double)amt / 64;
 
         b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);

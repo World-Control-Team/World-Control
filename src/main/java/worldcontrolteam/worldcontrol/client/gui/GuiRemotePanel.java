@@ -71,19 +71,14 @@ public class GuiRemotePanel extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-        List<StringWrapper> joinedData = new LinkedList<StringWrapper>();
-        boolean anyCardFound = true;
         InventoryItem itemInv = new InventoryItem(e.getHeldItemMainhand());
 
         if (!inv.getStackInSlot(0).isEmpty() && !itemInv.getStackInSlot(0).isEmpty() && itemInv.getStackInSlot(0).getItem() instanceof ICard) {
-            ICard card = (ICard) inv.getStackInSlot(0).getItem();
-            // CardWrapperImpl helper = new
-            // CardWrapperImpl(itemInv.getStackInSlot(0), 0);
+
             updateScreenElement(itemInv.getStackInSlot(0));
             ChannelHandler.network.sendToServer(new PacketServerRemotePanel(inv.getStackInSlot(0)));
             if (isce != null) {
-                //CardState cs = card.update(e.world, inv.getStackInSlot(0));
-                // todo: figure out
+
                 isce.onCardUpdate(e.world, itemInv.getStackInSlot(0));
                 drawCardStuff(true);
             }

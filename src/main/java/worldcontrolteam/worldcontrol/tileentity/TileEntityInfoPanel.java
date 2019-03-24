@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -13,6 +14,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -21,6 +25,8 @@ import worldcontrolteam.worldcontrol.blocks.BlockInfoPanel;
 import worldcontrolteam.worldcontrol.init.WCContent;
 import worldcontrolteam.worldcontrol.inventory.ISlotItemFilter;
 import worldcontrolteam.worldcontrol.items.ItemUpgrade;
+import worldcontrolteam.worldcontrol.network.ChannelHandler;
+import worldcontrolteam.worldcontrol.network.messages.PacketUpdateClientMonitorCard;
 import worldcontrolteam.worldcontrol.screen.IScreenContainer;
 import worldcontrolteam.worldcontrol.api.screen.IScreenElement;
 import worldcontrolteam.worldcontrol.utils.RedstoneHelper;
@@ -52,10 +58,9 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         this.color = 10;
         this.power = true;
 
-        // debug debug debug todo: fixme: aaaaaaa
 
-        this.setStackInSlot(0, new ItemStack(WCContent.TIME_CARD, 1));
-        closeInventory(null);
+        //this.setStackInSlot(0, new ItemStack(WCContent.TIME_CARD, 1));
+        //closeInventory(null);
     }
 
     public void init() {
@@ -237,6 +242,8 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         compound.setBoolean("power", power);
         compound.setInteger("color", color);
 
+        ItemStackHelper.saveAllItems(compound, this.itemStack);
+
         return compound;
     }
 
@@ -259,6 +266,8 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         color = compound.getInteger("color");
 
         //updateAllProviders(false);
+        ItemStackHelper.loadAllItems(compound, this.itemStack);
+        closeInventory(null);
     }
 
     @Nullable
@@ -277,6 +286,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         compound.setInteger("facing", facing.getIndex());
         compound.setBoolean("power", power);
         compound.setInteger("color", color);
+        ItemStackHelper.saveAllItems(compound, this.itemStack);
 
         return new SPacketUpdateTileEntity(getPos(), 3, compound);
     }
@@ -296,6 +306,7 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         compound.setInteger("facing", facing.getIndex());
         compound.setBoolean("power", power);
         compound.setInteger("color", color);
+        ItemStackHelper.saveAllItems(compound, this.itemStack);
 
         return compound;
     }
@@ -317,6 +328,9 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
         facing = EnumFacing.getFront(compound.getInteger("facing"));
         power = compound.getBoolean("power");
         color = compound.getInteger("color");
+
+        ItemStackHelper.loadAllItems(compound, this.itemStack);
+        closeInventory(null);
     }
 
 
@@ -463,7 +477,10 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
     public void update() {
         if (getCard() != ItemStack.EMPTY && ise != null) {
             ICard icard = (ICard) getCard().getItem();
-            icard.update(world, getCard());
+            if(!getWorld().isRemote) {
+                icard.update(world, getCard());
+                ChannelHandler.network.sendToAllAround(new PacketUpdateClientMonitorCard(getPos(), getCard()), new NetworkRegistry.TargetPoint(getWorld().provider.getDimension(), getPos().getX(), getPos().getY(), getPos().getZ(), 50));
+            }
             ise.onCardUpdate(world, getCard());
         }
         RedstoneHelper.checkPowered(world, this);
@@ -471,6 +488,14 @@ public class TileEntityInfoPanel extends TileEntity implements IItemHandler, ITi
 
     private ItemStack getCard(){
         return this.getStackInSlot(0);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void setCardNBT(NBTTagCompound compound) {
+        if (getCard() != ItemStack.EMPTY) {
+            ItemStack card = getCard();
+            card.setTagCompound(compound);
+        }
     }
 
     @Override
