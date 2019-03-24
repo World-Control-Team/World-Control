@@ -13,4 +13,5 @@ public class WCConfig {
     public static int SMPmaxAlarmRange = 256;
     public static boolean useCustomSounds = true;
     public static int remoteMonitorPowerUseIC2 = 1;
+    public static int ticksBetweenHowlerSound = 2; //Do not go < 1!
 }

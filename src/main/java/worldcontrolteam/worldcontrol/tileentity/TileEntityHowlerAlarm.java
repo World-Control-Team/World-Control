@@ -39,7 +39,7 @@ public class TileEntityHowlerAlarm extends TileEntity implements ITickable, Reds
 
 
     public TileEntityHowlerAlarm() {
-        tickRate = 2;
+        tickRate = WCConfig.ticksBetweenHowlerSound;
         updateTicker = 0;
         soundName = DEFAULT_SOUND_NAME;
         range = WCConfig.alarmRange;
