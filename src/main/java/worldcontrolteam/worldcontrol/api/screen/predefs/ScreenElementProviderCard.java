@@ -23,6 +23,7 @@ public class ScreenElementProviderCard implements IScreenElement {
     private final IProviderCard card;
     private List<StringWrapper> joinedData;
     boolean showingLabels = false;
+    int colorOverride = -1;
 
     public ScreenElementProviderCard(IProviderCard card) {
         this.card = card;
@@ -38,6 +39,7 @@ public class ScreenElementProviderCard implements IScreenElement {
     @Override
     public void setContext(EnumScreenContext ctx, boolean showLabels) {
         this.showingLabels = showLabels;
+        if(ctx == EnumScreenContext.REMOTE_PANEL) this.colorOverride = 0x06aee4;
     }
 
     @Override
@@ -65,13 +67,13 @@ public class ScreenElementProviderCard implements IScreenElement {
 
         for (StringWrapper panelString : joinedData) {
             if (panelString.textLeft != null)
-                fontRenderer.drawString(panelString.textLeft, 2, row * 10, panelString.colorLeft);
+                fontRenderer.drawString(panelString.textLeft, 2, row * 10, this.colorOverride == -1 ? panelString.colorLeft : this.colorOverride);
 
             if (panelString.textCenter != null)
-                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10, panelString.colorCenter);
+                fontRenderer.drawString(panelString.textCenter, (sizeX - fontRenderer.getStringWidth(panelString.textCenter)) / 2, row * 10,  this.colorOverride == -1 ? panelString.colorCenter : this.colorOverride);
 
             if (panelString.textRight != null)
-                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row) * 10, panelString.colorRight);
+                fontRenderer.drawString(panelString.textRight, sizeX - fontRenderer.getStringWidth(panelString.textRight), (row) * 10,  this.colorOverride == -1 ? panelString.colorRight : this.colorOverride);
 
             if ((row++) * 10 > sizeY) return;
         }

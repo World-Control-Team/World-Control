@@ -126,10 +126,23 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         } else {
             if (world.getBlockState(pos.down()).getBlock() != Blocks.AIR) {
                 return this.getDefaultState().withProperty(FACING, EnumFacing.UP);
-            } else {
-                return null;
+            } else if(world.getBlockState(pos.up()).getBlock() != Blocks.AIR){
+                return this.getDefaultState().withProperty(FACING, EnumFacing.DOWN);
             }
         }
+        return null;
+    }
+
+    @Override
+    public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing facing) {
+        if (world.isSideSolid(pos.offset(facing.getOpposite()), facing.getOpposite())) {
+            return true;
+        } else {
+            if (world.getBlockState(pos.down()).getBlock() != Blocks.AIR || world.getBlockState(pos.up()).getBlock() != Blocks.AIR) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
