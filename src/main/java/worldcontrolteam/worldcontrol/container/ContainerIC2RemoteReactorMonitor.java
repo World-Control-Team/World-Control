@@ -7,6 +7,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.blocks.TileEntityIC2RemoteReactorMonitor;
 import worldcontrolteam.worldcontrol.inventory.SlotFilter;
 import worldcontrolteam.worldcontrol.inventory.SlotFilterItemHandler;
@@ -25,14 +27,16 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
         this.player = player;
         this.remoteHeatMonitor = remoteThermo;
 
+        IItemHandler inv = remoteThermo.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
         //energy charger
-        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 1, 13, 53));
+        addSlotToContainer(new SlotFilterItemHandler(inv, remoteThermo, 1, 13, 53));
 
         //upgrades
-        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 0, 190, 8));
-        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 2, 190, 26));
-        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 3, 190, 44));
-        addSlotToContainer(new SlotFilterItemHandler(remoteThermo, 4, 190, 62));
+        addSlotToContainer(new SlotFilterItemHandler(inv, remoteThermo, 0, 190, 8));
+        addSlotToContainer(new SlotFilterItemHandler(inv, remoteThermo, 2, 190, 26));
+        addSlotToContainer(new SlotFilterItemHandler(inv, remoteThermo, 3, 190, 44));
+        addSlotToContainer(new SlotFilterItemHandler(inv, remoteThermo, 4, 190, 62));
 
         //inventory
         for (int i = 0; i < 3; i++) {

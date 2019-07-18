@@ -25,13 +25,13 @@ public class ContainerInfoPanel extends Container
     this.panel = panel;
 
     //card
-    addSlotToContainer(new SlotFilterItemHandler(panel, 0, 8, 24+18));
+    addSlotToContainer(new SlotFilterItemHandler(panel, panel, 0, 8, 24+18));
 
     //range upgrade
-    addSlotToContainer(new SlotFilterItemHandler(panel, 1, 8, 24+18*2));
+    addSlotToContainer(new SlotFilterItemHandler(panel, panel,1, 8, 24+18*2));
 
     //color upgrade
-    addSlotToContainer(new SlotFilterItemHandler(panel, 2, 8, 24+18*3));
+    addSlotToContainer(new SlotFilterItemHandler(panel, panel, 2, 8, 24+18*3));
 
     //inventory
     for (int i = 0; i < 3; i++) {

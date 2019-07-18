@@ -22,7 +22,7 @@ public class ContainerAverageCounter extends Container {
         this.player = player;
 
         //transformer upgrades
-        addSlotToContainer(new SlotFilterItemHandler(averageCounter.inventory, 0, 8, 18));
+        addSlotToContainer(new SlotFilterItemHandler(averageCounter.inventory, averageCounter, 0, 8, 18));
 
         //inventory
         for (int i = 0; i < 3; i++)
