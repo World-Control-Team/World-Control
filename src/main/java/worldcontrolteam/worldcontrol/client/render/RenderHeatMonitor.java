@@ -35,10 +35,10 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
         GlStateManager.disableLighting();
 
         if(te.getRenderType().equals("half_block")) {
-            renderNumberOnBlock(te.getThreshhold(), getWorld().getBlockState(te.getPos()).getValue(BlockBasicRotate.FACING), 0, x, y, z);
+            renderNumberOnBlock(te.getThreshhold(), getWorld().getBlockState(te.getPos()).getValue(BlockBasicRotate.FACING), 0, 0, x, y, z);
         } else if(te.getRenderType().equals("full_block")){
             drawHeatMap(te, getWorld().getBlockState(te.getPos()).getValue(BlockBasicRotate.FACING), x, y, z);
-            renderNumberOnBlock(te.getThreshhold(), getWorld().getBlockState(te.getPos()).getValue(BlockBasicRotate.FACING), 0.58f, x, y, z);
+            renderNumberOnBlock(te.getThreshhold(), getWorld().getBlockState(te.getPos()).getValue(BlockBasicRotate.FACING), 0.58f, -0.25F, x, y, z);
         }
 
         GlStateManager.popAttrib();
@@ -46,7 +46,8 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
 
 
 
-    private void renderNumberOnBlock(int number, EnumFacing facing, float translationOffset, double x, double y, double z){
+    @SuppressWarnings("Duplicates")
+    private void renderNumberOnBlock(int number, EnumFacing facing, float translationOffset, float upOffset, double x, double y, double z){
         int threshold = number;
         GlStateManager.pushMatrix();
 
@@ -83,19 +84,20 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
                 break;
 
         }
-        GlStateManager.translate(0.5F, 0.4375F + translationOffset, 0.6875F);
+        GlStateManager.translate(0.5F, 0.4375F + translationOffset, 0.6875F + upOffset);
 
         GlStateManager.rotate(-90, 1, 0, 0);
         GlStateManager.scale(var12, -var12, var12);
         GlStateManager.doPolygonOffset(-10, -10);
         GlStateManager.enablePolygonOffset();
-        getFontRenderer().drawString(String.valueOf(threshold), -getFontRenderer().getStringWidth(String.valueOf(threshold)) / 2, -getFontRenderer().FONT_HEIGHT, 0xFF00FF);
+        getFontRenderer().drawString(String.valueOf(threshold), -getFontRenderer().getStringWidth(String.valueOf(threshold)) / 2, -getFontRenderer().FONT_HEIGHT, 0x000000);
         GlStateManager.disablePolygonOffset();
         GlStateManager.color(1F, 1F, 1F, 1F);
         GlStateManager.popMatrix();
     }
 
 
+    @SuppressWarnings("Duplicates")
     private void drawHeatMap(TileEntityBaseReactorHeatMonitor baseReactorHeatMonitor, EnumFacing facing, double x, double y, double z){
         // Setup transforms for block face -- copied straight out of the infopanel.
 
@@ -136,19 +138,19 @@ public class RenderHeatMonitor extends TileEntitySpecialRenderer<TileEntityBaseR
                 break;
         }
         GlStateManager.rotate(-90, 1, 0, 0);
-        GlStateManager.translate(0, -1, 0);
+        GlStateManager.translate(0, -1 - 0.025, 0+ 0.009);
 
         Tessellator t = Tessellator.getInstance();
         BufferBuilder b = t.getBuffer();
 
         // Show thing
-        double amt = MathHelper.clamp(baseReactorHeatMonitor.getThreshhold() / (double)baseReactorHeatMonitor.getCurrentHeat(), 0.5D, 1.0D);
+        double amt = MathHelper.clamp(baseReactorHeatMonitor.getThreshhold() / (double)baseReactorHeatMonitor.getCurrentHeat(), 0.0D, 1.0D);
 
         b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        b.pos(1 - amt, 0.15625, -0.01).tex(amt, 0).endVertex();
+        b.pos(1 - amt, 0.15625 + 0.05, -0.01).tex(amt, 0).endVertex();
         b.pos(1 - amt, 0.5, -0.01).tex(amt, 0.8).endVertex();
         b.pos(1, 0.5, -0.01).tex(0, 0.8).endVertex();
-        b.pos(1, 0.15625, -0.01).tex(0, 0).endVertex();
+        b.pos(1, 0.15625+ 0.05, -0.01).tex(0, 0).endVertex();
         t.draw();
 
         GlStateManager.popMatrix();
