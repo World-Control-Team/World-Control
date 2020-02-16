@@ -150,4 +150,16 @@ public class BlockIndustrialAlarm extends BlockBasicRotate {
         super.onBlockPlacedBy(world, pos, state, entity, stack);
         world.setBlockState(pos, state, 2);
     }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        if(!world.isRemote){
+            TileEntity tile = world.getTileEntity(pos);
+            if(tile instanceof TileEntityHowlerAlarm) {
+                TileEntityHowlerAlarm alarm = (TileEntityHowlerAlarm) tile;
+                alarm.forceSoundStop();
+            }
+        }
+        super.breakBlock(world, pos, state);
+    }
 }
