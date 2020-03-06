@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "yzy",
+    "yay"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:noteblock"
+    },
+    "y":
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    "z":
+    {
+      "item": "ic2:crafting",
+      "data": 1
+    },
+    "a":
+    {
+     "item": "minecraft:redstone"
+    }
+  },
+  "result":
+  {
+    "item": "worldcontrol:howler_alarm",
+    "count": 1
+  }
+}

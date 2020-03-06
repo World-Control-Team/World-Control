@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xyx",
+    "xzx",
+    "xax"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "ic2:glass",
+      "data": 0
+    },
+    "y":
+    {
+      "item": "minecraft:dye",
+      "data": 14
+    },
+    "z":
+    {
+      "item": "worldcontrol:howler_alarm"
+    },
+    "a":
+    {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result":
+  {
+    "item": "worldcontrol:industrial_alarm",
+    "count": 1
+  }
+}
