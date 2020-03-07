@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "  x",
+    " y ",
+    "z  "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "ic2:frequency_transmitter"
+    },
+    "y":
+    {
+      "item": "ic2:meter"
+    },
+    "z":
+    {
+      "item": "minecraft:paper"
+    }
+  },
+  "result":
+  {
+    "item": "worldcontrol:ic2_energy_storage_kit",
+    "count": 1
+  }
+}
