@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "yzy",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:glass_pane"
+    },
+    "y":
+    {
+      "item": "minecraft:planks"
+    },
+    "z":
+    {
+      "item": "minecraft:dye",
+      "data": 10
+    }
+  },
+  "result":
+  {
+    "item": "worldcontrol:info_panel_extender",
+    "count": 1
+  }
+}

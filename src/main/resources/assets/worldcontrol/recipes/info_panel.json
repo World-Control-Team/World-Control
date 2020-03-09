@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "yzy",
+    "aba"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "minecraft:glass_pane"
+    },
+    "y":
+    {
+      "item": "minecraft:dye",
+      "data": 10
+    },
+    "z":
+    {
+      "item": "ic2:crafting",
+      "data": 1
+    },
+    "a":
+    {
+      "item": "minecraft:dye",
+      "data": 0
+    },
+    "b":
+    {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result":
+  {
+    "item": "worldcontrol:info_panel",
+    "count": 1
+  }
+}
