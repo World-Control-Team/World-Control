@@ -5,6 +5,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import worldcontrolteam.worldcontrol.api.card.CardState;
 import worldcontrolteam.worldcontrol.api.card.compat.StringWrapper;
 import worldcontrolteam.worldcontrol.crossmod.industrialcraft2.ReactorUtils;
@@ -33,8 +35,15 @@ public class IC2ReactorCard extends ItemBaseCard {
                 // TODO: REIMPLEMENT STEAM REACTORS?
                 boolean isSteam = false;
                 // CARD.setBoolean("isSteam", isSteam);
-                IInventory inventory = (IInventory) reactor;
-                int slotCount = inventory.getSizeInventory();
+
+                IItemHandler inventory;
+                if(reactor instanceof IInventory){
+                    inventory = new InvWrapper((IInventory) reactor);
+                } else {
+                    inventory = (IItemHandler) reactor;
+                }
+
+                int slotCount = inventory.getSlots();
                 int timeLeft = 0;
                 for (int i = 0; i < slotCount; i++) {
                     ItemStack rStack = inventory.getStackInSlot(i);

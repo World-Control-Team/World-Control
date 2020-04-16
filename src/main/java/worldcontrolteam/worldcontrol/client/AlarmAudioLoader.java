@@ -2,10 +2,14 @@ package worldcontrolteam.worldcontrol.client;
 
 
 import com.google.gson.stream.JsonWriter;
+import java.util.function.Predicate;
 import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import net.minecraftforge.client.resource.IResourceType;
+import net.minecraftforge.client.resource.ISelectiveResourceReloadListener;
+import net.minecraftforge.client.resource.VanillaResourceType;
 import worldcontrolteam.worldcontrol.utils.WCConfig;
 
 import java.io.File;
@@ -44,20 +48,20 @@ public class AlarmAudioLoader {
         parse.close();
     }
 
-    public static class TextureSetting implements IResourceManagerReloadListener {
+    public static class TextureSetting implements ISelectiveResourceReloadListener {
 
         public TextureSetting() {
         }
 
 
         @Override
-        public void onResourceManagerReload(IResourceManager resourceManager) {
-            if (resourceManager instanceof SimpleReloadableResourceManager) {
-                SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager) resourceManager;
-                FolderResourcePack pack = new FolderResourcePack(WCalarms);
-                simplemanager.reloadResourcePack(pack);
-
-
+        public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
+            if(resourcePredicate.test(VanillaResourceType.SOUNDS)){
+                if (resourceManager instanceof SimpleReloadableResourceManager) {
+                    SimpleReloadableResourceManager simplemanager = (SimpleReloadableResourceManager) resourceManager;
+                    FolderResourcePack pack = new FolderResourcePack(WCalarms);
+                    simplemanager.reloadResourcePack(pack);
+                }
             }
         }
     }
