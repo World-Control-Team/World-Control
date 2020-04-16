@@ -73,4 +73,9 @@ public class ContainerIC2RemoteReactorMonitor extends Container {
     public boolean canInteractWith(EntityPlayer var1) {
         return true;
     }
+
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer p, int slotId) {
+        return ItemStack.EMPTY;
+    }
 }
